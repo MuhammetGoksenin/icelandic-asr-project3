@@ -10,7 +10,7 @@ from pathlib import Path
 import soundfile as sf
 from transformers import __version__ as transformers_version
 
-from audit import SPLITS, sha256
+from audit import SPLITS, audit_path, sha256
 from prepare import read_jsonl
 from preprocess import WHISPER_MODEL, WHISPER_REVISION, whisper_components
 from verify import GENERATED, check_manifests, check_model_inputs, check_selected_audio, require
@@ -37,6 +37,12 @@ def review_records(splits):
 def verify_package(package, report_path):
     audio_root = package / "audio"
     output = package / "output"
+    assets = package / "assets" / "whisper"
+    missing = [name for name in ("audio/train", "audio/dev", "audio/test", "assets/whisper")
+               if not (package / name).is_dir()]
+    if missing or not (assets / "sha256.json").is_file():
+        raise ValueError("Use --package-root with the extracted handoff containing "
+                         "audio/{train,dev,test}, output/, and assets/whisper/sha256.json.")
     splits = {split: list(read_jsonl(output / f"{split}.jsonl")) for split in SPLITS}
     baseline = json.loads((output / "verification.json").read_text(encoding="utf-8"))
     require(baseline["status"] == "passed", "Source verification did not pass")
@@ -48,7 +54,7 @@ def verify_package(package, report_path):
     selected_paths = {row["audio_path"] for rows in splits.values() for row in rows}
     package_paths = {path.relative_to(audio_root).as_posix() for path in audio_root.rglob("*") if path.is_file()}
     require(selected_paths == package_paths, "Packaged audio paths differ from manifest selection")
-    audit = read_jsonl(output / "audio_audit.jsonl")
+    audit = read_jsonl(audit_path(output))
     next(audit)  # The first line holds release provenance.
     expected_md5s = {}
     for row in audit:
@@ -71,7 +77,6 @@ def verify_package(package, report_path):
     require(all(review_counts[split] == summary["splits"][split]["selected_flagged_clips"] for split in ("dev", "test")),
             "Evaluation review counts differ from quality report")
 
-    assets = package / "assets" / "whisper"
     asset_hashes = json.loads((assets / "sha256.json").read_text(encoding="utf-8"))
     for name, expected in asset_hashes.items():
         require(Path(name).name == name and sha256((assets / name).read_bytes()) == expected,
@@ -96,12 +101,17 @@ def verify_package(package, report_path):
         "human_listening": "pending",
     }
     if report_path:
-        report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     print("Portable handoff verification passed.", flush=True)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Verify this extracted handoff without the full Samrómur release")
+    parser.add_argument("--package-root", type=Path, default=Path(__file__).resolve().parent,
+                        help="Directory extracted from the matching handoff ZIP")
     parser.add_argument("--report", type=Path, help="Optionally write a JSON record of this run")
     args = parser.parse_args()
-    verify_package(Path(__file__).resolve().parent, args.report)
+    try:
+        verify_package(args.package_root.resolve(), args.report)
+    except (FileNotFoundError, ValueError) as exc:
+        parser.exit(1, f"Handoff verification failed: {exc}\n")

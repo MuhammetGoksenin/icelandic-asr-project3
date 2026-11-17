@@ -1,0 +1,61 @@
+split	id	audio_path	category	trigger	exclusion_reasons	review_flags	duration_sec	peak_dbfs	rms_dbfs	quiet_fraction	quiet_leading_sec	quiet_trailing_sec	full_scale_fraction	listening_status
+test	0025341	test/002154/002154-0025341.flac	selected_possible_clipping	full_scale_fraction >= 0.001		possible_clipping	7.820625	0.0	-7.1443	0.012787	0.1	0	0.001095	pending
+test	0025347	test/002154/002154-0025347.flac	selected_possible_clipping	full_scale_fraction >= 0.001		possible_clipping	4.523375	0.0	-8.2406	0.017686	0.08	0	0.001105	pending
+train	0037445	train/004725/004725-0037445.flac	selected_possible_clipping	full_scale_fraction >= 0.001		possible_clipping	8.3478125	0.0	-13.777	0.004792	0.04	0	0.00122	pending
+train	0038190	train/004734/004734-0038190.flac	selected_possible_clipping	full_scale_fraction >= 0.001		possible_clipping	5.6358125	0.0	-12.2594	0.003549	0.02	0	0.003238	pending
+train	0039209	train/004911/004911-0039209.flac	selected_possible_clipping	full_scale_fraction >= 0.001		possible_clipping	5.4613125	0.0	-17.2532	0.359128	0.26	1.081312	0.001442	pending
+train	0048081	train/006087/006087-0048081.flac	selected_possible_clipping	full_scale_fraction >= 0.001		possible_clipping	3.57425	0.0	-17.7071	0.41806	0.04	1.23425	0.001137	pending
+train	0049034	train/006218/006218-0049034.flac	selected_possible_clipping	full_scale_fraction >= 0.001		possible_clipping	4.6506875	0.0	-25.2235	0.41514	0.02	0.270688	0.00129	pending
+test	0022381	test/002973/002973-0022381.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.48	-38.0322	-56.7739	0.908046	0.8	1.62	0.0	pending
+test	0026517	test/003465/003465-0026517.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		10.26325	-34.6883	-58.8147	0.964923	2.06	7.16325	0.0	pending
+dev	0025708	dev/003383/003383-0025708.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.5413125	-36.0057	-56.6447	0.943524	1.28	1.061313	0.0	pending
+dev	0029786	dev/003851/003851-0029786.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		5.632	-37.948	-56.5831	0.957386	1.18	3.092	0.0	pending
+dev	0029787	dev/003851/003851-0029787.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		5.504	-38.3771	-57.783	0.97093	1.3	1.644	0.0	pending
+dev	0033919	dev/004453/004453-0033919.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		7.92	-35.9224	-60.345	0.989899	2.56	3.22	0.0	pending
+dev	0175599	dev/009434/009434-0175599.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		2.34	-46.0652	-64.782	1.0	2.34	2.34	0.0	pending
+dev	0230384	dev/010022/010022-0230384.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		2.64	-35.9556	-55.2522	0.893939	0.52	1.36	0.0	pending
+dev	0230385	dev/010022/010022-0230385.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		5.1	-36.5406	-56.3743	0.917647	0.98	1.54	0.0	pending
+dev	0230420	dev/010023/010023-0230420.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.84	-35.5651	-57.2626	0.947917	0.22	2.24	0.0	pending
+train	0008401	train/001192/001192-0008401.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.06	-31.9589	-56.0323	0.930693	1.08	1.96	0.0	pending
+train	0040551	train/005102/005102-0040551.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.3706875	-33.1383	-55.0173	0.905064	0.52	1.590688	0.0	pending
+train	0053843	train/006482/006482-0053843.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.157375	-37.5993	-57.2201	0.955659	1.22	1.597375	0.0	pending
+train	0053844	train/006482/006482-0053844.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.3706875	-40.2332	-59.4496	0.970332	1.06	2.210688	0.0	pending
+train	0053845	train/006482/006482-0053845.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.9546875	-38.9685	-57.5006	0.965491	1.3	2.494687	0.0	pending
+train	0053846	train/006482/006482-0053846.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		4.096	-36.5584	-57.8734	0.956055	1.04	2.376	0.0	pending
+train	0053847	train/006482/006482-0053847.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.84	-36.1576	-58.0171	0.9375	0.98	2.16	0.0	pending
+train	0059486	train/006487/006487-0059486.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		6.677375	-39.2071	-59.587	0.985024	4.16	2.277375	0.0	pending
+train	0059487	train/006487/006487-0059487.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		3.968	-40.9716	-61.0271	0.984879	1.38	2.368	0.0	pending
+train	0059488	train/006487/006487-0059488.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		5.717375	-41.5857	-61.9933	0.993004	3.14	2.537375	0.0	pending
+train	0059489	train/006487/006487-0059489.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		5.9946875	-41.1514	-58.8178	0.969973	1.64	2.854687	0.0	pending
+train	0059490	train/006487/006487-0059490.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		10.901375	-39.8862	-60.2402	0.990827	1.8	3.961375	0.0	pending
+train	0059491	train/006487/006487-0059491.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		6.421375	-40.7956	-59.317	0.993771	3.04	3.341375	0.0	pending
+train	0059492	train/006487/006487-0059492.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		6.997375	-40.7666	-59.132	0.982851	1.64	2.617375	0.0	pending
+train	0059493	train/006852/006852-0059493.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		8.917375	-38.4433	-59.138	0.975329	2.18	4.037375	0.0	pending
+train	0059495	train/006852/006852-0059495.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		7.6586875	-39.7564	-59.3117	0.98172	4.08	2.998687	0.0	pending
+train	0059497	train/006852/006852-0059497.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		7.68	-40.018	-58.2945	0.96875	1.52	2.58	0.0	pending
+train	0059498	train/006852/006852-0059498.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		4.8	-38.0322	-57.9876	0.979167	1.56	2.8	0.0	pending
+train	0059499	train/006852/006852-0059499.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		5.0986875	-41.304	-58.6457	0.972542	1.64	2.078688	0.0	pending
+train	0059500	train/006852/006852-0059500.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		4.117375	-40.0981	-59.8827	0.98057	1.14	2.177375	0.0	pending
+train	0059501	train/006852/006852-0059501.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.229375	-37.0917	-55.915	0.910103	0.96	2.189375	0.0	pending
+train	0059502	train/006852/006852-0059502.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.477375	-37.8234	-59.5493	0.971243	1.46	1.797375	0.0	pending
+train	0059503	train/006852/006852-0059503.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		4.9706875	-38.2461	-56.2178	0.919528	1.84	2.570688	0.0	pending
+train	0059504	train/006852/006852-0059504.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		5.4826875	-39.1589	-59.0798	0.981761	1.74	2.702688	0.0	pending
+train	0059505	train/006852/006852-0059505.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		5.8026875	-39.087	-58.3377	0.97932	1.46	3.822687	0.0	pending
+train	0059507	train/006852/006852-0059507.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.613375	-38.0533	-57.6104	0.969758	1.68	1.493375	0.0	pending
+train	0059508	train/006852/006852-0059508.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		5.632	-40.4538	-60.1725	0.985795	1.14	4.132	0.0	pending
+train	0059509	train/006852/006852-0059509.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.677375	-36.4345	-58.017	0.973043	1.34	3.837375	0.0	pending
+train	0059510	train/006852/006852-0059510.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.016	-39.0157	-57.7423	0.946809	1.54	2.376	0.0	pending
+train	0059511	train/006852/006852-0059511.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		8.8746875	-39.1829	-56.897	0.948167	1.64	2.034687	0.0	pending
+train	0059512	train/006852/006852-0059512.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		5.205375	-36.0057	-58.2212	0.961578	1.18	2.265375	0.0	pending
+train	0059513	train/006852/006852-0059513.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		7.509375	-41.1817	-58.9497	0.97603	1.36	1.769375	0.0	pending
+train	0059516	train/006852/006852-0059516.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.4986875	-37.8027	-60.8878	0.965701	1.5	1.638688	0.0	pending
+train	0059517	train/006852/006852-0059517.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		4.608	-38.8284	-59.8937	0.982639	2.96	1.548	0.0	pending
+train	0059519	train/006852/006852-0059519.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		4.821375	-37.2641	-57.3773	0.958518	1.92	2.201375	0.0	pending
+train	0059520	train/006852/006852-0059520.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		4.245375	-37.187	-57.094	0.919913	1.94	1.925375	0.0	pending
+train	0059521	train/006852/006852-0059521.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.2506875	-39.6031	-58.9339	0.971203	2.08	1.130688	0.0	pending
+train	0076273	train/007661/007661-0076273.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		3.712	-41.714	-60.8919	1.0	3.712	3.712	0.0	pending
+train	0076274	train/007661/007661-0076274.flac	excluded_near_silence	rms_dbfs <= -55 | quiet_fraction >= 0.98	near_silence		3.2426875	-42.043	-61.6685	0.993832	0.78	2.442687	0.0	pending
+train	0076275	train/007661/007661-0076275.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		6.3573125	-36.8118	-56.2546	0.930788	0.78	1.937312	0.0	pending
+train	0078375	train/007797/007797-0078375.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.48	-34.3775	-56.1953	0.890805	0.78	1.92	0.0	pending
+train	0083159	train/008005/008005-0083159.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.4133125	-36.3819	-58.9354	0.964844	0.06	3.193313	0.0	pending
+train	0230360	train/010021/010021-0230360.flac	excluded_near_silence	rms_dbfs <= -55	near_silence		3.0	-33.8135	-55.2942	0.906667	0.42	1.72	0.0	pending

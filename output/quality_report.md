@@ -78,11 +78,12 @@ The [JSON summary](quality_summary.json) gives both the number of shared keys an
 | `mostly_quiet` | 141 | 26 | 18 |
 | `possible_clipping` | 5 | 0 | 2 |
 
-An utterance can have multiple reasons or flags. See [exclusions.tsv](exclusions.tsv) for withheld paths and [listening_queue.tsv](listening_queue.tsv) for reviewable paths and controls.
+The exclusions cover **150 unique paths**. An utterance can have multiple reasons or flags. See [exclusions.tsv](exclusions.tsv) for withheld paths and [listening_queue.tsv](listening_queue.tsv) for reviewable paths and controls.
 
 ## Human listening
 
 Signal rules used 20 ms windows below -50 dBFS to measure quiet time. They can flag quiet speech, pauses, noise or full-scale samples without establishing what was spoken. Human listening remains pending for intelligibility, prompt agreement, background voices or noise, audible clipping, cut-off speech, and questionable silence decisions.
-Review the selected flagged evaluation clips first, then selected flagged train clips and the unflagged controls. Keep the same validated dev and test IDs for both model pipelines.
+The [focused review queue](focused_review.tsv) lists 53 near-silence exclusions and 7 selected possible-clipping flags with measurements. Thresholds are screening decisions. Low-volume speech may still be usable, and full-scale samples may be inaudible.
+Review the selected flagged evaluation clips first, then selected flagged train clips and the unflagged controls. Keep the same frozen dev and test IDs for both model pipelines.
 
 Source and license are documented in the [project README](../README.md).

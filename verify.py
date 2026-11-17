@@ -16,14 +16,14 @@ import numpy as np
 import soundfile as sf
 from transformers import Wav2Vec2FeatureExtractor, __version__ as transformers_version
 
-from audit import SPLITS, pcm_hash, read_metadata, sha256
+from audit import SPLITS, audit_path, pcm_hash, read_metadata, sha256
 from prepare import RATE, TARGET_HOURS, build, normalize_text, read_jsonl, seeded_order
 from preprocess import (WHISPER_MODEL, WHISPER_REVISION, ctc_tokenizer, load_example, resolve_audio,
                         wav2vec2_example, whisper_components, whisper_example)
 
 GENERATED = ("train.jsonl", "dev.jsonl", "test.jsonl", "evaluation_references.jsonl",
              "evaluation_references.tsv", "ctc_vocab.json", "exclusions.tsv", "listening_queue.tsv",
-             "prompt_overlap.tsv", "quality_summary.json", "quality_report.md")
+             "focused_review.tsv", "prompt_overlap.tsv", "quality_summary.json", "quality_report.md")
 
 
 def require(condition, message):
@@ -152,7 +152,7 @@ def verify(root, output, offline):
 
     with TemporaryDirectory(prefix="samromur-verify-", dir=output.parent) as temporary:
         replay = Path(temporary)
-        source_audit = output / "audio_audit.jsonl"
+        source_audit = audit_path(output)
         replay_audit = replay / source_audit.name
         try:
             os.link(source_audit, replay_audit)
@@ -182,7 +182,9 @@ def verify(root, output, offline):
         "reproduced_artifacts_sha256": digests,
         "human_listening": "pending",
     }
-    (output / "verification.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    (output / "verification.json").write_text(
+        json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     print("Verification passed.", flush=True)
 
 

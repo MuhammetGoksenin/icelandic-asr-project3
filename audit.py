@@ -20,6 +20,14 @@ AUDIO_EXTENSIONS = {".flac", ".wav", ".mp3", ".ogg", ".opus", ".m4a", ".aac", ".
 QUIET_DBFS = -50
 
 
+def audit_path(output):
+    for name in ("audio_audit.jsonl", "audio_audit.jsonl.gz"):
+        path = output / name
+        if path.is_file():
+            return path
+    raise FileNotFoundError(f"No audio audit in {output}. Run audit.py or copy audio_audit.jsonl.gz there.")
+
+
 def json_line(record):
     return json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n"
 

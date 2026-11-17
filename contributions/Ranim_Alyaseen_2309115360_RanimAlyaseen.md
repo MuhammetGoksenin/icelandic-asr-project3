@@ -1,0 +1,10 @@
+# Ranim Alyaseen
+
+- Student ID **2309115360**
+- GitHub **RanimAlyaseen**
+
+My project contribution covers dataset preprocessing for the shared Samrómur 21.05 Icelandic ASR comparison. I prepared the corpus audit, seed-2105 split selection, fixed evaluation references, train-only character vocabulary, and audio and text preprocessing for Whisper and wav2vec 2.0. The split manifests preserve the official partitions and Icelandic text.
+
+My preprocessing work also includes reproducibility fixes for UTF-8 LF artifacts and the compressed audit, independent correctness tests, generated quality and exclusion reports, and handoff and storage documentation. The [release verification](../output/verification.json) and [handoff verification](../output/handoff_verification.json) record the automated checks. The [focused review queue](../output/focused_review.tsv) collects questionable recordings for follow-up.
+
+Human listening, Icelandic transcript verification, and delivery of raw and cleaned audio within the repository are pending. Model training and benchmark results are outside this contribution. Each teammate documents and commits their own work.

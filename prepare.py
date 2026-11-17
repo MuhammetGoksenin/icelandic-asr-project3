@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gzip
 import hashlib
 import json
+import math
 import unicodedata
 from collections import Counter, defaultdict
 from itertools import combinations
@@ -11,7 +13,7 @@ from pathlib import Path
 
 import numpy as np
 
-from audit import AUDIT_VERSION, QUIET_DBFS, SPLITS, json_line, read_metadata, sha256
+from audit import AUDIT_VERSION, QUIET_DBFS, SPLITS, audit_path, json_line, read_metadata, sha256
 
 SEED = 2105
 TARGET_HOURS = {"train": 15, "dev": 2, "test": 3}
@@ -38,7 +40,8 @@ def seeded_order(item, seed):
 
 
 def read_jsonl(path):
-    with path.open(encoding="utf-8") as stream:
+    open_file = gzip.open if path.suffix == ".gz" else open
+    with open_file(path, "rt", encoding="utf-8", newline="") as stream:
         for line in stream:
             yield json.loads(line)
 
@@ -84,8 +87,14 @@ def flags_for(audio, row):
         blocked.append("unexpected_audio_format")
     if not MIN_SECONDS <= duration <= MAX_SECONDS:
         blocked.append("outside_0.5_to_30_seconds")
-    if row and (row["sample_rate"] != str(rate) or abs(float(row["duration"]) - duration) > 0.05):
-        flags.append("audio_metadata_disagreement")
+    if row is not None:
+        try:
+            reported_duration = float(row["duration"])
+        except ValueError:
+            reported_duration = math.nan
+        if (row["sample_rate"] != str(rate) or not math.isfinite(reported_duration)
+                or abs(reported_duration - duration) > 0.05):
+            flags.append("audio_metadata_disagreement")
     if duration == 0 or audio["peak_dbfs"] is None:
         blocked.append("digital_silence")
     elif audio["rms_dbfs"] <= -55 or audio["quiet_fraction"] >= 0.98:
@@ -241,6 +250,41 @@ def manifest_record(item):
     }
 
 
+def write_focused_review(path, items):
+    identity = ("split", "id", "audio_path")
+    metrics = ("peak_dbfs", "rms_dbfs", "quiet_fraction", "quiet_leading_sec", "quiet_trailing_sec", "full_scale_fraction")
+    records = []
+    for item in items:
+        audio = item["audio"]
+        if item["selected"] and "possible_clipping" in item["flags"]:
+            trigger = "full_scale_fraction >= 0.001"
+            category = "selected_possible_clipping"
+        elif "near_silence" in item["blocked"]:
+            tests = []
+            if audio["rms_dbfs"] <= -55:
+                tests.append("rms_dbfs <= -55")
+            if audio["quiet_fraction"] >= 0.98:
+                tests.append("quiet_fraction >= 0.98")
+            trigger = " | ".join(tests)
+            category = "excluded_near_silence"
+        else:
+            continue
+        records.append({
+            **{field: item[field] for field in identity},
+            "category": category,
+            "trigger": trigger,
+            "exclusion_reasons": "|".join(item["blocked"]),
+            "review_flags": "|".join(item["flags"]),
+            "duration_sec": audio["frames"] / audio["sample_rate"],
+            **{key: audio[key] for key in metrics},
+            "listening_status": "pending",
+        })
+    records.sort(key=lambda row: (row["category"] != "selected_possible_clipping",
+                                  PRIORITY.index(row["split"]), row["audio_path"]))
+    write_tsv(path, (*identity, "category", "trigger", "exclusion_reasons", "review_flags", "duration_sec",
+                     *metrics, "listening_status"), records)
+
+
 def aggregate_duplicates(values):
     groups = Counter(value for value in values if value)
     return {
@@ -299,6 +343,9 @@ def summarize(groups, selected, header, seed):
 
 
 def write_report(path, summary):
+    excluded = sum(split["excluded_paths"] for split in summary["splits"].values())
+    near_silence = sum(split["exclusions"].get("near_silence", 0) for split in summary["splits"].values())
+    clipping = sum(split["selected_flags"].get("possible_clipping", 0) for split in summary["splits"].values())
     lines = [
         "# Samrómur 21.05 quality report", "",
         f"Selection seed **{summary['seed']}**. The shipped README and UTF-8 metadata were read.",
@@ -373,15 +420,19 @@ def write_report(path, summary):
         if not reasons:
             lines.append("| None | 0 | 0 | 0 |")
     lines += [
-        "", "An utterance can have multiple reasons or flags. See [exclusions.tsv](exclusions.tsv) for "
+        "", f"The exclusions cover **{excluded} unique paths**. An utterance can have multiple reasons or flags. "
+        "See [exclusions.tsv](exclusions.tsv) for "
         "withheld paths and [listening_queue.tsv](listening_queue.tsv) for reviewable paths and controls.",
         "", "## Human listening", "",
         f"Signal rules used 20 ms windows below {QUIET_DBFS} dBFS to measure quiet time. "
         "They can flag quiet speech, pauses, noise or full-scale samples without establishing what was spoken. "
         "Human listening remains pending for intelligibility, prompt agreement, background voices or noise, "
         "audible clipping, cut-off speech, and questionable silence decisions.",
+        f"The [focused review queue](focused_review.tsv) lists {near_silence} near-silence exclusions and "
+        f"{clipping} selected possible-clipping flags with measurements. Thresholds are screening decisions. "
+        "Low-volume speech may still be usable, and full-scale samples may be inaudible.",
         "Review the selected flagged evaluation clips first, then selected flagged train clips and the "
-        "unflagged controls. Keep the same validated dev and test IDs for both model pipelines.",
+        "unflagged controls. Keep the same frozen dev and test IDs for both model pipelines.",
         "", "Source and license are documented in the [project README](../README.md).",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
@@ -392,7 +443,7 @@ def build(root, output, seed):
         raise ValueError("Use an output directory separate from the corpus directory")
     metadata_bytes = (root / "metadata.tsv").read_bytes()
     metadata = read_metadata(metadata_bytes)
-    records = read_jsonl(output / "audio_audit.jsonl")
+    records = read_jsonl(audit_path(output))
     header = next(records)
     if (header["audit_version"] != AUDIT_VERSION or header["metadata_sha256"] != sha256(metadata_bytes)
             or header["readme_sha256"] != sha256((root / "README").read_bytes())
@@ -422,6 +473,7 @@ def build(root, output, seed):
          "related_audio_path": item.get("related_audio_path", ""), "review_flags": "|".join(item["flags"])}
         for item in items if item["blocked"]
     ))
+    write_focused_review(output / "focused_review.tsv", items)
     controls = {split: {item["audio_path"] for item in
                         sorted((x for x in selected[split] if not x["flags"]),
                                key=lambda item: seeded_order(item, seed + 1))[:20]} for split in SPLITS}
@@ -441,7 +493,9 @@ def build(root, output, seed):
     write_tsv(output / "listening_queue.tsv", (*identity, "selected", "review_reasons", "text", *review_metrics), review)
     characters = sorted(set("".join(item["reference"] for item in selected["train"])) - {" "})
     vocab = {token: index for index, token in enumerate(["[PAD]", "[UNK]", "|", *characters])}
-    (output / "ctc_vocab.json").write_text(json.dumps(vocab, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output / "ctc_vocab.json").write_text(
+        json.dumps(vocab, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     for split in ("dev", "test"):
         unknown = Counter(char for item in selected[split] for char in item["reference"] if char != " " and char not in vocab)
         summary["splits"][split]["ctc_oov_characters"] = dict(sorted(unknown.items()))
