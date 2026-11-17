@@ -235,18 +235,24 @@ __marimo__/
 *.m4a
 *.zip
 *.partial
+*.tmp
+*.temp
+*.swp
+*~
 /output/audio_audit.jsonl
 
-# Downloaded models, checkpoints, and credentials
+# Downloaded model artifacts and credentials
 /.huggingface/
-/models/
-/checkpoints/
 *.safetensors
 *.ckpt
 *.pt
 *.pth
 *.onnx
+*.gguf
+*.keras
 pytorch_model*.bin
+tf_model*.h5
+flax_model*.msgpack
 .env.*
 !.env.example
 credentials*.json

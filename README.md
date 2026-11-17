@@ -1,6 +1,6 @@
 # Samrómur 21.05 Icelandic ASR dataset preparation
 
-**Status.** The selected IDs and references are frozen. Human listening and in-repository delivery of raw and cleaned audio remain pending. The [data inventory and storage plan](DATA_STORAGE.md) describes what is available for each workflow.
+**Status.** Use **samromur-21.05-20h-v1**, the frozen seed-2105 selection established at commit 55f5a68. Its selected IDs and references are unchanged. This checkout includes the three original source documents and can replay the selection from the committed audit. Human listening and in-repository delivery of raw and cleaned audio remain pending. [Data inventory and storage plan](DATA_STORAGE.md)
 
 This repository contains the shared 20-hour Samrómur selection for Whisper and wav2vec 2.0. Seed **2105** selected clips within the official train, dev, and test partitions. The dataset is Icelandic audio-to-text ASR.
 
@@ -41,6 +41,8 @@ On macOS or Linux with Python 3.14, use `python3.14 -m venv .venv`, `.venv/bin/p
 | [requirements.txt](requirements.txt) and [requirements-windows-py314.lock.txt](requirements-windows-py314.lock.txt) | Pinned dependencies and tested Windows environment |
 | [tests/](tests/) | Independent tests with known inputs and expected outputs |
 | [output/](output/) | Frozen manifests and references, vocabulary, audit, review queues, and verification records |
+| [data/raw/samromur_21.05/](data/raw/samromur_21.05/) | Exact upstream README, metadata.tsv, and md5s.txt. The full raw release also requires its FLACs. |
+| [review/](review/) | Manual listening decisions kept outside the generated outputs |
 | [contributions/](contributions/) | Individual work records authored and committed by team members |
 
 ## Load and preprocess a clip
@@ -79,13 +81,25 @@ Use the shared [evaluation references (TSV)](output/evaluation_references.tsv) o
 
 ## Human listening remains pending
 
-Start with the **541 flagged evaluation clips**, comprising **315 test** and **226 dev** clips. Open the [flagged dev/test review checklist](output/flagged_dev_test_review.tsv), import `id` as text, and divide the rows among the four teammates. The `audio_path` column is relative to the extracted handoff. For a full-release audio root, drop the leading `audio/` component.
+Record decisions for the **53 near-silence exclusions and seven retained possible-clipping cases** in the [60-recording manual review log](review/focused_manual_review.tsv). The [generated measurements](output/focused_review.tsv) remain available as evidence. Preprocessing writes the generated outputs separately. Keep leading zeros when importing IDs.
 
-1. **Basic audio quality.** Any teammate can listen for audible speech, long gaps, noise, other voices, clipping, and abrupt cutoffs. Record `pass`, `issue`, or `uncertain` under `audio_quality_status`, with a timestamped note where useful.
-2. **Transcript agreement.** A reviewer who understands Icelandic should compare the recording with `text_raw` and check for missing, extra, or misread words. Record `match`, `mismatch`, or `uncertain` under `transcript_status`, with the phrase or timestamp. Leave the transcript status `pending` until that review takes place.
-3. **Shared evaluation.** Record recommended exclusions or corrections by split and ID. Keep the current evaluation IDs and references fixed for both models.
+1. **Find and play the FLAC.** Append the row's **audio_path** to the root of the full local Samrómur release, the folder containing **train/**, **dev/**, and **test/**. The extracted LF handoff's **audio/** directory also works for the seven retained cases. Use the full release for the 53 excluded cases.
+2. **Record audio quality.** Any teammate can listen for audible speech, gaps, competing voices, clipping, noise, and abrupt cutoffs. Enter your name or initials as reviewer and record **usable**, **issue**, or **uncertain**. Add a timestamp and what you heard where useful. A low RMS score can occur in intelligible speech.
+3. **Check transcript agreement.** A reviewer who understands Icelandic can find the original prompt in the [release metadata](data/raw/samromur_21.05/metadata.tsv) under the same ID in the **sentence** column. Record **match**, **mismatch**, or **uncertain**, and note the phrase or timestamp. Keep each unreviewed decision **pending**.
+4. **Recommend an action.** Note whether to retain the clip, keep it excluded, or propose a change. Keep v1 frozen. A verified membership or transcript correction needs a documented reason and a new dataset version before its use in benchmark comparisons.
 
-After the flagged dev/test clips, use the [full listening queue](output/listening_queue.tsv) for flagged train clips and unflagged controls. The [exclusion log](output/exclusions.tsv) records clips withheld during preparation.
+For example, run this from the repository root in PowerShell and replace the release path and ID for each clip.
+
+~~~powershell
+$release = 'C:\path\to\samromur_21.05'
+$id = '0025341'
+$row = Import-Csv -LiteralPath './review/focused_manual_review.tsv' -Delimiter ([char]9) |
+    Where-Object { $_.id -eq $id }
+if (-not $row) { throw "Review ID not found: $id" }
+Invoke-Item -LiteralPath (Join-Path $release $row.audio_path)
+~~~
+
+The [541-clip evaluation checklist](output/flagged_dev_test_review.tsv) covers 315 test and 226 dev recordings. Its paths start with **audio/** so they resolve from the handoff root. For the original release root, drop that prefix. The [full listening queue](output/listening_queue.tsv) also covers flagged train clips and unflagged controls.
 
 The [focused review queue](output/focused_review.tsv) documents **53 near-silence exclusions and seven selected possible-clipping flags**. All 53 met the RMS threshold, and 15 also met the quiet-fraction threshold. The seven selected clips have 0.1095% to 0.3238% full-scale samples. Quiet speech may still be intelligible and full-scale samples may be inaudible. Use the release paths to listen and record proposed changes by ID.
 
@@ -100,7 +114,28 @@ The exclusion log contains **150 unique utterances**, with 127 train, 18 dev, an
 - Withhold exact PCM groups with conflicting scoring text. For matching labels, retain one eligible copy in test/dev/train priority order, breaking ties by seeded order. The same split priority screens later selections against selected session IDs, raw prompts, and scoring references. The IDs establish session separation. A person could have recorded in several sessions.
 - The sampler sorts by SHA-256 of **seed/audio_path** and takes the prefix closest to each duration target from its official partition. This revision preserves the existing IDs and references. Any later membership or reference change needs a dataset version and a documented reason before model comparisons use it.
 
-## Reproduce and inspect the audit
+## Replay the frozen artifacts from a fresh checkout
+
+The [upstream README](data/raw/samromur_21.05/README), [metadata.tsv](data/raw/samromur_21.05/metadata.tsv), and [md5s.txt](data/raw/samromur_21.05/md5s.txt) are committed byte for byte. The release MD5 list confirms the README and metadata. All three SHA-256 hashes match the committed audit header.
+
+After cloning and installing dependencies as shown above, run these commands from the repository root.
+
+~~~powershell
+& $venvPy -X utf8 -m unittest discover -s tests -v
+& $venvPy -X utf8 verify.py --replay-only --root data/raw/samromur_21.05 --output output
+~~~
+
+Replay uses the committed gzip audit and the three release documents. It compares regenerated manifests, references, vocabulary, and quality reports byte for byte in a temporary folder. It leaves the existing real-audio verification record intact. The decoded audio measurements come from the stored audit.
+
+To keep a copy of the rebuilt artifacts, use a new output directory.
+
+~~~powershell
+New-Item -ItemType Directory -Force reproduced/replay
+Copy-Item output/audio_audit.jsonl.gz reproduced/replay/
+& $venvPy -X utf8 prepare.py --root data/raw/samromur_21.05 --output reproduced/replay --seed 2105
+~~~
+
+## Re-audit the original audio
 
 Use a clean extraction of the release. The [data inventory](DATA_STORAGE.md) documents extra copies found outside the official paths in the local extraction.
 
@@ -119,25 +154,21 @@ $release = 'C:\path\to\samromur_21.05'
 - [Per-recording audio audit (gzip-compressed JSONL)](output/audio_audit.jsonl.gz). Python's `gzip.open` reads the full audit directly.
 - [Preparation verification](output/verification.json) and [portable handoff verification](output/handoff_verification.json)
 
-To replay selection using the committed audit, copy the gzip into a new output folder. The release root must supply the exact **README**, **metadata.tsv**, and **md5s.txt**. The verification command additionally needs the selected audio and pinned Whisper preprocessing assets.
+Re-decoding the entire release needs all 100,000 local FLACs. Running **verify.py** without **--replay-only** also opens the selected audio and checks features with the pinned Whisper assets. Both **prepare.py** and **verify.py** accept a plain or gzip audit, with a plain audit taking precedence. Generated artifacts use UTF-8 with LF line endings. Pass **--offline** to **verify.py** once the pinned assets are already local.
+
+Run the handoff verifier against the inner folder extracted from the LF ZIP. It needs the packaged **audio/** split directories, **output/**, and **assets/whisper/** with its checksum file.
 
 ~~~powershell
-New-Item -ItemType Directory -Force reproduced/replay
-Copy-Item output/audio_audit.jsonl.gz reproduced/replay/
-& $venvPy -X utf8 prepare.py --root $release --output reproduced/replay --seed 2105
-& $venvPy -X utf8 verify.py --root $release --output reproduced/replay
-~~~
-
-Both scripts accept **audio_audit.jsonl** or **audio_audit.jsonl.gz**. A plain audit in the same directory takes precedence. Generated artifacts use UTF-8 with LF line endings. Verification reports record the platform used. Pass **--offline** to **verify.py** once the pinned assets are already local.
-
-Run the independent fixture tests from the repository root. Run the handoff verifier against the inner folder extracted from the LF ZIP. It needs the packaged **audio/** split directories, **output/**, and **assets/whisper/** with its checksum file.
-
-~~~powershell
-& $venvPy -X utf8 -m unittest discover -s tests -v
 & $venvPy -X utf8 verify_handoff.py --package-root 'C:\path\to\Samromur_ASR_Handoff'
 ~~~
 
-The fixture tests and gzip replay passed on Windows with Python 3.14.10. A fresh audit of all 100,000 official paths matched the committed decompressed audit. Real-data verification checked every selected clip and label and ran both feature extractors on 30 clips. Handoff verification used a fresh extraction and local Whisper assets. Linux and macOS were outside these runs.
+Earlier Windows verification re-decoded all 100,000 official paths and matched the committed decompressed audit. It checked all selected clips and labels and ran both feature extractors on 30 clips. The earlier handoff check used a fresh extraction and local Whisper assets. The fresh-checkout replay above is a separate check of regeneration from stored audit results.
+
+## Course requirements pending confirmation
+
+- The professor's accepted data-storage arrangement, including Git LFS, and the required raw-data scope.
+- The exact mandatory Project 3 baseline list.
+- Whether approximately 15 hours of training data meets the project minimum.
 
 ## Source and attribution
 

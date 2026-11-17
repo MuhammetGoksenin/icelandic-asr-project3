@@ -2,3 +2,8 @@
 output/** -text whitespace=cr-at-eol
 # Empty trailing TSV fields are part of the data.
 output/*.tsv whitespace=cr-at-eol,-blank-at-eol
+
+# Preserve the upstream bytes used by the release and audit checksums.
+data/raw/samromur_21.05/README -text -whitespace
+data/raw/samromur_21.05/metadata.tsv -text -whitespace
+data/raw/samromur_21.05/md5s.txt -text -whitespace

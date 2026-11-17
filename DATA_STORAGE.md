@@ -1,6 +1,6 @@
 # Raw and cleaned data delivery
 
-The professor requires both raw and cleaned data in the repository. The current GitHub checkout contains code, frozen manifests and references, and a compressed audit. Repository-contained audio delivery remains pending. The separately distributed handoff supports local team use.
+The professor requires both raw and cleaned data in the repository. The checkout contains code, frozen manifests and references, a compressed audit, and the [three original release documents](data/raw/samromur_21.05/). Both the raw and cleaned sets still need repository-contained audio delivery. The separately distributed handoff supports local team use.
 
 ## What the pipeline uses
 
@@ -27,16 +27,15 @@ The cleaned dataset selects and labels existing FLACs. The frozen manifests unde
 
 | Inputs available | What can be reproduced |
 |---|---|
-| Checkout and installed dependencies | Run the synthetic tests and inspect IDs, references, audit measurements, and reports |
-| Checkout, committed audit, and original three release documents | Replay the full-corpus seed-2105 selection and generate its text artifacts |
+| Checkout and installed dependencies | Run the synthetic tests and replay the full-corpus seed-2105 selection from the committed gzip audit and the three included release documents |
 | Checkout and full release | Re-decode the corpus, recreate the audit and selection, and verify the selected audio against the release. Feature checks additionally require the pinned Whisper configuration and tokenizer. |
 | Extracted LF handoff | Verify every packaged FLAC and both preprocessing paths using the bundled assets. The full release is required to listen to excluded clips and rebuild the audit from audio. |
 
-An independent full-release audit needs all 100,000 FLACs under their official split paths and the three exact release documents. A smaller raw scope requires a documented input snapshot, a new audit and selection version, and a revised reproducibility claim.
+An independent full-release audit needs all 100,000 FLACs under their official split paths and the three exact release documents. The documents and stored audit support replay of the selection. A smaller raw scope requires a documented input snapshot, a new audit and selection version, and a revised reproducibility claim. [Replay and re-audit commands](README.md#replay-the-frozen-artifacts-from-a-fresh-checkout)
 
 ## Storage recommendation before an upload
 
-Ask the professor whether **Git LFS objects fetched from this repository** meet the requirement. If accepted and the account has enough included capacity, track a versioned raw release under **data/raw/** in checksummed archive shards. Add separate selected-audio shards under **data/cleaned/** with the frozen manifests. Keep the three raw companion files in ordinary Git. Shards of about 1 GiB or less allow a clean checkout to fetch just the cleaned data for preprocessing or both datasets for grading and reproduction. Commit a shard-to-path index and checksums, then test a fresh clone and LFS fetch before calling data delivery complete. [GitHub LFS checkout behavior and limits](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)
+The professor's answer on **Git LFS objects fetched from this repository** and the accepted raw-data scope is pending. If accepted and the account has enough included capacity, track a versioned raw release under **data/raw/** in checksummed archive shards. Add separate selected-audio shards under **data/cleaned/** with the frozen manifests. The three companion files are already in ordinary Git. Shards of about 1 GiB or less allow a clean checkout to fetch just the cleaned data for preprocessing or both datasets for grading and reproduction. Commit a shard-to-path index and checksums, then test a fresh clone and LFS fetch before calling data delivery complete. [GitHub LFS checkout behavior and limits](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)
 
 - **Ordinary Git.** Each FLAC fits under the 100 MiB blob limit, but the full release would add roughly 7.38 GiB before a separate cleaned snapshot. GitHub strongly recommends repositories under 5 GB and caps individual pushes at 2 GiB. Splitting pushes would still leave each full clone with a multi-gigabyte Git history. [Large-file guidance](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github) · [Push limit](https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit)
 - **Git LFS.** A full raw snapshot plus a separate selected-audio copy totals about **8.39 GiB** before archive overhead. GitHub documents **10 GiB each** of included storage and monthly download bandwidth on individual Free and Pro plans. Four complete downloads would use about **33.6 GiB**. Four cleaned-only downloads would use about **4.03 GiB**. Adding one full raw download brings that to about **11.41 GiB**. Verify the owner's available allowance and expected grading downloads before choosing this route. [Git LFS billing](https://docs.github.com/en/billing/concepts/product-billing/git-lfs)

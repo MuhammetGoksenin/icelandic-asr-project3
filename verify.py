@@ -14,7 +14,6 @@ from tempfile import TemporaryDirectory
 
 import numpy as np
 import soundfile as sf
-from transformers import Wav2Vec2FeatureExtractor, __version__ as transformers_version
 
 from audit import SPLITS, audit_path, pcm_hash, read_metadata, sha256
 from prepare import RATE, TARGET_HOURS, build, normalize_text, read_jsonl, seeded_order
@@ -96,6 +95,8 @@ def check_selected_audio(root, splits, file_md5s=None):
 
 
 def check_model_inputs(root, splits, output, seed, whisper_extractor, whisper_tokenizer):
+    from transformers import Wav2Vec2FeatureExtractor
+
     wav2vec_extractor = Wav2Vec2FeatureExtractor(sampling_rate=RATE, do_normalize=True, return_attention_mask=True)
     wav2vec_tokenizer = ctc_tokenizer(output / "ctc_vocab.json")
     vocab = json.loads((output / "ctc_vocab.json").read_text(encoding="utf-8"))
@@ -144,7 +145,7 @@ def check_model_inputs(root, splits, output, seed, whisper_extractor, whisper_to
     return feature_checks
 
 
-def verify(root, output, offline):
+def verify(root, output, offline, *, replay_only=False):
     summary = json.loads((output / "quality_summary.json").read_text(encoding="utf-8"))
     metadata = read_metadata((root / "metadata.tsv").read_bytes())
     splits = {split: list(read_jsonl(output / f"{split}.jsonl")) for split in SPLITS}
@@ -164,6 +165,13 @@ def verify(root, output, offline):
             data = (output / name).read_bytes()
             require(data == (replay / name).read_bytes(), f"Reproduction differs byte for byte for {name}")
             digests[name] = sha256(data)
+
+    if replay_only:
+        print(f"Audit replay matched all {len(digests)} artifacts byte for byte. "
+              f"Checked {reference_count:,} shared evaluation references.", flush=True)
+        return
+
+    from transformers import __version__ as transformers_version
 
     check_selected_audio(root, splits)
     components = whisper_components(local_files_only=offline)
@@ -193,5 +201,7 @@ if __name__ == "__main__":
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=Path("output"))
     parser.add_argument("--offline", action="store_true", help="Read cached Whisper assets without network access")
+    parser.add_argument("--replay-only", action="store_true",
+                        help="Compare regenerated artifacts using the audit and release documents only")
     args = parser.parse_args()
-    verify(args.root, args.output, args.offline)
+    verify(args.root, args.output, args.offline, replay_only=args.replay_only)
