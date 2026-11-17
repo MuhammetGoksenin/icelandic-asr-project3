@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "python": "3.14.10",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "libsndfile": "1.2.2",
+  "transformers": "5.23.0",
+  "whisper_assets": {
+    "checkpoint": "openai/whisper-tiny",
+    "revision": "169d4a4341b33bc18d8881c4b69c2e104e1cc0af"
+  },
+  "selected_pcm_paths_verified": {
+    "train": 10488,
+    "dev": 1314,
+    "test": 1884
+  },
+  "labels_verified": {
+    "train": 10488,
+    "dev": 1314,
+    "test": 1884
+  },
+  "shared_reference_rows_verified": 3198,
+  "feature_smoke_test_ids": {
+    "train": [
+      "0182224",
+      "0026385",
+      "0035103",
+      "0057596",
+      "0059933",
+      "0098077",
+      "0002371",
+      "0061448",
+      "0106173",
+      "0088294"
+    ],
+    "dev": [
+      "0173573",
+      "0072105",
+      "0103350",
+      "0007550",
+      "0070149",
+      "0010529",
+      "0148846",
+      "0053116",
+      "0021222",
+      "0028930"
+    ],
+    "test": [
+      "0176573",
+      "0072492",
+      "0025347",
+      "0240318",
+      "0026397",
+      "0026199",
+      "0020012",
+      "0009167",
+      "0023216",
+      "0011552"
+    ]
+  },
+  "reproduced_artifacts_sha256": {
+    "train.jsonl": "d36a1adccdb10682b30a6fd8b2f7e20f8c86babb4b1d20a007af79179c4436ed",
+    "dev.jsonl": "f0e7675cd31497788250728bba966d1d884ad5f929b3488724b2fef2110f9bf4",
+    "test.jsonl": "f5e346f545a5d7f4298f1838bc63b978a4d7ab9d063ddc97897fa065223d0481",
+    "evaluation_references.jsonl": "f6cd0c67fc246ee58b6833961389ff102b17d595ca30ef04106d83244bfbbd9c",
+    "evaluation_references.tsv": "1fa27d978dc40966309e1e1ad2d2b01aef02f1f8fb47e8a7f320c3c867db1a16",
+    "ctc_vocab.json": "5e32c2d146cf7a617a46d7f4bd3ad4609465476aabea223562677ff98521919c",
+    "exclusions.tsv": "b57f1fa71a15390aacf8e72b5ee094e66f1c63671fea7f0fd7b9b87d488859f4",
+    "listening_queue.tsv": "92e71e14916134df7350a187de389f035b556d112e8a73abf3739f2723cd58e3",
+    "prompt_overlap.tsv": "827a4a19b784f0d29270e295e36f129b7977954997f8c355d422240c1fdae10d",
+    "quality_summary.json": "841ef852de24474c49a4105af6b04225980d7ba7fbf9e655938360a202caf6d3",
+    "quality_report.md": "c62d71aaaed23d51a2f2257a7b1d0b48ffc0677f9742e85ac5a5e9fe2cb61153"
+  },
+  "human_listening": "pending"
+}

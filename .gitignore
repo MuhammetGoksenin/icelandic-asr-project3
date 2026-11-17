@@ -221,3 +221,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local ASR data and handoff archives
+/audio/
+/samromur_21.05/
+/Samromur_ASR_Handoff/
+/reproduced/
+*.flac
+*.wav
+*.mp3
+*.ogg
+*.opus
+*.m4a
+*.zip
+*.partial
+/output/audio_audit.jsonl
+
+# Downloaded models, checkpoints, and credentials
+/.huggingface/
+/models/
+/checkpoints/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+pytorch_model*.bin
+.env.*
+!.env.example
+credentials*.json
+*.pem
+*.key

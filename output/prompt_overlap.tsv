@@ -1,0 +1,3 @@
+pair	split	id	audio_path	selected	reference	text_raw	text_source_normalized
+train/test	train	0027210	train/000800/000800-0027210.flac	False	samkvæmt lögunum er fullt nafn einstaklings eiginnafn eða nöfn millinafn og kenninafn	Samkvæmt lögunum er fullt nafn einstaklings eiginnafn eða-nöfn, millinafn og kenninafn.	samkvæmt lögunum er fullt nafn einstaklings eiginnafn eða nöfn millinafn og kenninafn
+train/test	test	0027732	test/003616/003616-0027732.flac	False	samkvæmt lögunum er fullt nafn einstaklings eiginnafn eða nöfn millinafn og kenninafn	Samkvæmt lögunum er fullt nafn einstaklings eiginnafn eða -nöfn, millinafn og kenninafn.	samkvæmt lögunum er fullt nafn einstaklings eiginnafn eða  nöfn millinafn og kenninafn

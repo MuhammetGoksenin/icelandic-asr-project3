@@ -1,0 +1,542 @@
+split	id	audio_path	flags	text_raw	text_scoring	audio_quality_status	audio_quality_reviewer	audio_quality_notes	transcript_status	transcript_reviewer	transcript_notes
+test	0000347	audio/test/000057/000057-0000347.flac	long_quiet_edge	Krefjist Seðlabankinn hárra vaxta í þessum viðskiptum.	krefjist seðlabankinn hárra vaxta í þessum viðskiptum	pending			pending		
+test	0005595	audio/test/000788/000788-0005595.flac	long_quiet_edge	Það hefur lengi verið almannarómur að hross.	það hefur lengi verið almannarómur að hross	pending			pending		
+test	0061930	audio/test/006993/006993-0061930.flac	low_rms|long_quiet_edge	Þessum bíl ók Erla á Vatnsstíg, þar sem Guðjón tók við stjórninni.	þessum bíl ók erla á vatnsstíg þar sem guðjón tók við stjórninni	pending			pending		
+test	0026859	audio/test/003504/003504-0026859.flac	long_quiet_edge	Fram að þeim tíma hafði snjódýpt mælst mest á Hornbjargsvita.	fram að þeim tíma hafði snjódýpt mælst mest á hornbjargsvita	pending			pending		
+test	0072061	audio/test/007462/007462-0072061.flac	long_quiet_edge	Það er eins gott að konungurinn er hvergi nálægur, sagði Theodóra við Skúla.	það er eins gott að konungurinn er hvergi nálægur sagði theodóra við skúla	pending			pending		
+test	0014483	audio/test/001964/001964-0014483.flac	long_quiet_edge	Að sögn hans var þetta upphaf andstöðu Asíumanna við Evrópumenn.	að sögn hans var þetta upphaf andstöðu asíumanna við evrópumenn	pending			pending		
+test	0024421	audio/test/003241/003241-0024421.flac	long_quiet_edge	Jóhanna, læstu útidyrahurðinni.	jóhanna læstu útidyrahurðinni	pending			pending		
+test	0061936	audio/test/006993/006993-0061936.flac	long_quiet_edge	Líf snýr sér við og skellihlær.	líf snýr sér við og skellihlær	pending			pending		
+test	0030918	audio/test/004025/004025-0030918.flac	mostly_quiet|long_quiet_edge	Hvaðan kemur saltið?	hvaðan kemur saltið	pending			pending		
+test	0026397	audio/test/003447/003447-0026397.flac	long_quiet_edge	Þetta var algjör hneysa.	þetta var algjör hneysa	pending			pending		
+test	0015186	audio/test/002056/002056-0015186.flac	long_quiet_edge	Þann hlut vilda ek til skilja.	þann hlut vilda ek til skilja	pending			pending		
+test	0001123	audio/test/000164/000164-0001123.flac	long_quiet_edge	Mjólk og mjólkurafurðir eru langmikilvægustu kalkgjafarnir.	mjólk og mjólkurafurðir eru langmikilvægustu kalkgjafarnir	pending			pending		
+test	0013324	audio/test/001794/001794-0013324.flac	low_rms	Kona Kolbeins var Gyðríður Þorvarðardóttir og var faðir hennar föðurbróðir Guðmundar biskups.	kona kolbeins var gyðríður þorvarðardóttir og var faðir hennar föðurbróðir guðmundar biskups	pending			pending		
+test	0003322	audio/test/000476/000476-0003322.flac	long_quiet_edge	Hvernig útskýri ég tíðniróf og tíðni á mannamáli?	hvernig útskýri ég tíðniróf og tíðni á mannamáli	pending			pending		
+test	0071731	audio/test/007435/007435-0071731.flac	long_quiet_edge	Ég held að það hafi samt komið henni á óvart.	ég held að það hafi samt komið henni á óvart	pending			pending		
+test	0007720	audio/test/001095/001095-0007720.flac	long_quiet_edge	Valdimar fékk Jótland, Knútur Sjáland og Sveinn fékk Skán.	valdimar fékk jótland knútur sjáland og sveinn fékk skán	pending			pending		
+test	0200088	audio/test/009668/009668-0200088.flac	low_rms	Kaffi fimm sinnum á dag.	kaffi fimm sinnum á dag	pending			pending		
+test	0016313	audio/test/002216/002216-0016313.flac	long_quiet_edge	Hverjir voru guðir Egypta til forna?	hverjir voru guðir egypta til forna	pending			pending		
+test	0012510	audio/test/001706/001706-0012510.flac	long_quiet_edge	Bronkítis lýsir sér sem þurr hósti, andnauð, þreyta og hiti.	bronkítis lýsir sér sem þurr hósti andnauð þreyta og hiti	pending			pending		
+test	0026335	audio/test/003441/003441-0026335.flac	low_rms	Ferðaþjónusta skiptir miklu máli fyrir efnahag landsins.	ferðaþjónusta skiptir miklu máli fyrir efnahag landsins	pending			pending		
+test	0000679	audio/test/000099/000099-0000679.flac	long_quiet_edge	Ágúst H Bjarnason- blog.is.	ágúst h bjarnason blogis	pending			pending		
+test	0002479	audio/test/000358/000358-0002479.flac	low_rms|long_quiet_edge	Greinargerð á heimasíðu Veðurstofu Íslands.	greinargerð á heimasíðu veðurstofu íslands	pending			pending		
+test	0007337	audio/test/001035/001035-0007337.flac	low_rms	Oft fór dýraslátrun saman með skylmingum.	oft fór dýraslátrun saman með skylmingum	pending			pending		
+test	0025137	audio/test/003311/003311-0025137.flac	long_quiet_edge	Óðinn með hrafnana Hugin og Munin og úlfana Gera og Freka.	óðinn með hrafnana hugin og munin og úlfana gera og freka	pending			pending		
+test	0122745	audio/test/008849/008849-0122745.flac	long_quiet_edge	Hann komst allt.	hann komst allt	pending			pending		
+test	0028066	audio/test/003650/003650-0028066.flac	long_quiet_edge	Hitler og Stalín eru oft kallaðir ófreskjur eða skrímsli.	hitler og stalín eru oft kallaðir ófreskjur eða skrímsli	pending			pending		
+test	0028155	audio/test/003662/003662-0028155.flac	long_quiet_edge	Þeir sýndu heimamönnum kurteisi í fyrstu.	þeir sýndu heimamönnum kurteisi í fyrstu	pending			pending		
+test	0031035	audio/test/004044/004044-0031035.flac	long_quiet_edge	Upplýsingatækni felur til dæmis í sér tölvunotkun.	upplýsingatækni felur til dæmis í sér tölvunotkun	pending			pending		
+test	0068504	audio/test/007280/007280-0068504.flac	long_quiet_edge	Þá gat ég ekki fengið aðra símasnúru nema sjö metra langa.	þá gat ég ekki fengið aðra símasnúru nema sjö metra langa	pending			pending		
+test	0071735	audio/test/007435/007435-0071735.flac	long_quiet_edge	Hélt að Þórhalla væri tilbúin, hélt þetta væri það sem hún vildi.	hélt að þórhalla væri tilbúin hélt þetta væri það sem hún vildi	pending			pending		
+test	0007619	audio/test/001073/001073-0007619.flac	long_quiet_edge	Hvað er bandormur í fjárlögum?	hvað er bandormur í fjárlögum	pending			pending		
+test	0012219	audio/test/001658/001658-0012219.flac	long_quiet_edge	Ef svo er, er þá hægt að eiga þá svona eins og gæludýr?	ef svo er er þá hægt að eiga þá svona eins og gæludýr	pending			pending		
+test	0023398	audio/test/003120/003120-0023398.flac	low_rms	Það stendur við Hvítá á móts við Hraungerðishrepp og Skeið.	það stendur við hvítá á móts við hraungerðishrepp og skeið	pending			pending		
+test	0002035	audio/test/000311/000311-0002035.flac	long_quiet_edge	Aflimaði armurinn dregur þá athygli afræningja frá kolkrabbanum og hann getur forðað sér.	aflimaði armurinn dregur þá athygli afræningja frá kolkrabbanum og hann getur forðað sér	pending			pending		
+test	0019773	audio/test/002632/002632-0019773.flac	low_rms	Haraldur Foster, þekktur sem Hal Foster var kanadískur myndasöguhöfundur.	haraldur foster þekktur sem hal foster var kanadískur myndasöguhöfundur	pending			pending		
+test	0071734	audio/test/007435/007435-0071734.flac	long_quiet_edge	Hvað amar að?	hvað amar að	pending			pending		
+test	0030384	audio/test/003949/003949-0030384.flac	long_quiet_edge	Auk þess bættist þetta gagnlega orðtak við mörg tungumál.	auk þess bættist þetta gagnlega orðtak við mörg tungumál	pending			pending		
+test	0014538	audio/test/001975/001975-0014538.flac	long_quiet_edge	Viðjar, hvað er að frétta í dag?	viðjar hvað er að frétta í dag	pending			pending		
+test	0007804	audio/test/001104/001104-0007804.flac	long_quiet_edge	Árin nítján hundrað og tólf til nítján hundrað og fimmtán var hún aðstoðarmaður hans.	árin nítján hundrað og tólf til nítján hundrað og fimmtán var hún aðstoðarmaður hans	pending			pending		
+test	0019766	audio/test/002631/002631-0019766.flac	low_rms	Eins og aðrar spendýramæður hafa hvalamæður spena.	eins og aðrar spendýramæður hafa hvalamæður spena	pending			pending		
+test	0029010	audio/test/003765/003765-0029010.flac	low_rms	Ef forsendurnar eru ósannar, eða stækar alhæfingar, getur niðurstaðan orðið röng.	ef forsendurnar eru ósannar eða stækar alhæfingar getur niðurstaðan orðið röng	pending			pending		
+test	0068525	audio/test/007280/007280-0068525.flac	long_quiet_edge	Ég skal tefja fyrir þeim, sagði Vestur- Íslendingurinn.	ég skal tefja fyrir þeim sagði vestur íslendingurinn	pending			pending		
+test	0018574	audio/test/002484/002484-0018574.flac	long_quiet_edge	Hann „dreifst iij sinnum til Grænlands með siglingamönnum og sagði frá mörgu þaðan“.	hann dreifst iij sinnum til grænlands með siglingamönnum og sagði frá mörgu þaðan	pending			pending		
+test	0022928	audio/test/003042/003042-0022928.flac	long_quiet_edge	Almennt gildir að meðferðinni er beint gegn undirliggjandi ástandi.	almennt gildir að meðferðinni er beint gegn undirliggjandi ástandi	pending			pending		
+test	0014638	audio/test/001985/001985-0014638.flac	long_quiet_edge	Hurðarbak í Hvalfjarðarsveit, áður Hvalfjarðarstrandarhreppur.	hurðarbak í hvalfjarðarsveit áður hvalfjarðarstrandarhreppur	pending			pending		
+test	0009358	audio/test/001303/001303-0009358.flac	long_quiet_edge	Göngugata er gata þar sem bílaumferð er bönnuð.	göngugata er gata þar sem bílaumferð er bönnuð	pending			pending		
+test	0020658	audio/test/002743/002743-0020658.flac	long_quiet_edge	Þá segjum við að rökhendan sé rétt.	þá segjum við að rökhendan sé rétt	pending			pending		
+test	0231360	audio/test/010028/010028-0231360.flac	low_rms	Frakkar leyfðu keisara landsins að sitja áfram en að mestu leyti án valda.	frakkar leyfðu keisara landsins að sitja áfram en að mestu leyti án valda	pending			pending		
+test	0068516	audio/test/007280/007280-0068516.flac	long_quiet_edge	Eða veit ég það?	eða veit ég það	pending			pending		
+test	0068501	audio/test/007280/007280-0068501.flac	long_quiet_edge	Þá segir hún: „Þykir þér svolítið vænt um mig“?	þá segir hún þykir þér svolítið vænt um mig	pending			pending		
+test	0021694	audio/test/002877/002877-0021694.flac	long_quiet_edge	Flestar fuglategundir eru í Suður-Ameríku.	flestar fuglategundir eru í suður ameríku	pending			pending		
+test	0240319	audio/test/010184/010184-0240319.flac	low_rms	Gróp, Taðhólstún, Brekkubæjarrimi, Vatnsfit	gróp taðhólstún brekkubæjarrimi vatnsfit	pending			pending		
+test	0148004	audio/test/009016/009016-0148004.flac	low_rms|long_quiet_edge	Eins og í lífinu sjálfu.	eins og í lífinu sjálfu	pending			pending		
+test	0027852	audio/test/003634/003634-0027852.flac	long_quiet_edge	Auk þess öðluðust ríkin Makedónía.	auk þess öðluðust ríkin makedónía	pending			pending		
+test	0016435	audio/test/002242/002242-0016435.flac	low_rms	Aðalvandamálið við þessa aðferð er að ekki nást mjög stórar slembitölur.	aðalvandamálið við þessa aðferð er að ekki nást mjög stórar slembitölur	pending			pending		
+test	0102978	audio/test/008602/008602-0102978.flac	long_quiet_edge	Og ekki meira um það!	og ekki meira um það	pending			pending		
+test	0072060	audio/test/007462/007462-0072060.flac	mostly_quiet|long_quiet_edge	En ég vildi samt nefna það.	en ég vildi samt nefna það	pending			pending		
+test	0007520	audio/test/001054/001054-0007520.flac	long_quiet_edge	Fremur lágreist jarðvegsstífla teygir sig eftir hraunflákunum á suðurbakka árinnar.	fremur lágreist jarðvegsstífla teygir sig eftir hraunflákunum á suðurbakka árinnar	pending			pending		
+test	0023016	audio/test/003055/003055-0023016.flac	long_quiet_edge	Hvar ertu að gera hérna maður?	hvar ertu að gera hérna maður	pending			pending		
+test	0030113	audio/test/003903/003903-0030113.flac	low_rms|long_quiet_edge	Oft ráða tískubylgjur för.	oft ráða tískubylgjur för	pending			pending		
+test	0123947	audio/test/008787/008787-0123947.flac	long_quiet_edge	Hlutabréfaverð hækkaði vestanhafs	hlutabréfaverð hækkaði vestanhafs	pending			pending		
+test	0009273	audio/test/001294/001294-0009273.flac	long_quiet_edge	Í aðalatriðum gildir það sama hér og þegar geimfararnir stigu á tunglið.	í aðalatriðum gildir það sama hér og þegar geimfararnir stigu á tunglið	pending			pending		
+test	0031723	audio/test/004158/004158-0031723.flac	low_rms	Oft eru metin vera ófrjó og leiðinleg.	oft eru metin vera ófrjó og leiðinleg	pending			pending		
+test	0072309	audio/test/007442/007442-0072309.flac	low_rms	Þau voru þrjú systkinin.	þau voru þrjú systkinin	pending			pending		
+test	0031287	audio/test/004084/004084-0031287.flac	long_quiet_edge	Kemur þar ýmislegt til.	kemur þar ýmislegt til	pending			pending		
+test	0025347	audio/test/002154/002154-0025347.flac	possible_clipping	Við gerum ráð fyrir að Papar.	við gerum ráð fyrir að papar	pending			pending		
+test	0015159	audio/test/002056/002056-0015159.flac	long_quiet_edge	Vísindamenn vita ekki hvernig lífið kviknaði á jörðinni.	vísindamenn vita ekki hvernig lífið kviknaði á jörðinni	pending			pending		
+test	0016432	audio/test/002240/002240-0016432.flac	low_rms	Diskarnir eru líka ólíkir hvað varðar form, grip, sveigjanleika og endingu.	diskarnir eru líka ólíkir hvað varðar form grip sveigjanleika og endingu	pending			pending		
+test	0022075	audio/test/002929/002929-0022075.flac	long_quiet_edge	Blágóma reyndist því vænsti fiskur til matar, mjög lík hlýranum á bragðið.	blágóma reyndist því vænsti fiskur til matar mjög lík hlýranum á bragðið	pending			pending		
+test	0001030	audio/test/000156/000156-0001030.flac	long_quiet_edge	Enn eina tegund hraunhella ber að nefna, hraunhóla sem holir eru innan.	enn eina tegund hraunhella ber að nefna hraunhóla sem holir eru innan	pending			pending		
+test	0220625	audio/test/009882/009882-0220625.flac	long_quiet_edge	Þekkti fleiri andlit fyrir norðan	þekkti fleiri andlit fyrir norðan	pending			pending		
+test	0240508	audio/test/010189/010189-0240508.flac	mostly_quiet	Beirút	beirút	pending			pending		
+test	0102994	audio/test/008602/008602-0102994.flac	long_quiet_edge	Þetta er alltaf gamla góða klisjan, það kemur alltaf maður í manns stað.	þetta er alltaf gamla góða klisjan það kemur alltaf maður í manns stað	pending			pending		
+test	0015150	audio/test/002056/002056-0015150.flac	long_quiet_edge	Vindálag hafði sitt að segja um að geimferjan fórst.	vindálag hafði sitt að segja um að geimferjan fórst	pending			pending		
+test	0064854	audio/test/007107/007107-0064854.flac	long_quiet_edge	Hún heitir Þórhalla og er elst allra sem búa hér.	hún heitir þórhalla og er elst allra sem búa hér	pending			pending		
+test	0008398	audio/test/001190/001190-0008398.flac	long_quiet_edge	Þessi hola getur ferðast frjáls um kristallsgrindina.	þessi hola getur ferðast frjáls um kristallsgrindina	pending			pending		
+test	0007336	audio/test/001035/001035-0007336.flac	low_rms|mostly_quiet|long_quiet_edge	Þar var engin.	þar var engin	pending			pending		
+test	0004536	audio/test/000646/000646-0004536.flac	long_quiet_edge	Þetta mannvirki sem kalla mætti fyrsta Kínamúrinn er ekki lengur til.	þetta mannvirki sem kalla mætti fyrsta kínamúrinn er ekki lengur til	pending			pending		
+test	0007651	audio/test/001081/001081-0007651.flac	low_rms	Amma segir að þið vitið allt.	amma segir að þið vitið allt	pending			pending		
+test	0018117	audio/test/002428/002428-0018117.flac	long_quiet_edge	Spirituality and religion in epilepsy.	spirituality and religion in epilepsy	pending			pending		
+test	0007466	audio/test/001047/001047-0007466.flac	long_quiet_edge	Hefur áhrif á fiseindir, hlaðnar létteindir og kvarka.	hefur áhrif á fiseindir hlaðnar létteindir og kvarka	pending			pending		
+test	0027591	audio/test/003597/003597-0027591.flac	long_quiet_edge	Spartakus var að því er virðist bæði dugmikill og mannúðlegur.	spartakus var að því er virðist bæði dugmikill og mannúðlegur	pending			pending		
+test	0067712	audio/test/007256/007256-0067712.flac	low_rms|mostly_quiet	Það er fullreynt.	það er fullreynt	pending			pending		
+test	0025850	audio/test/003397/003397-0025850.flac	long_quiet_edge	Hún hefur áberandi þverrendur á skildinum sem gefur henni auðkennandi útlit.	hún hefur áberandi þverrendur á skildinum sem gefur henni auðkennandi útlit	pending			pending		
+test	0022069	audio/test/002929/002929-0022069.flac	long_quiet_edge	Frekara lesefni og myndir Er eitthvert sannleikskorn í grísku goðsögunum?	frekara lesefni og myndir er eitthvert sannleikskorn í grísku goðsögunum	pending			pending		
+test	0249772	audio/test/010355/010355-0249772.flac	long_quiet_edge	Sá kafli hefst þannig:	sá kafli hefst þannig	pending			pending		
+test	0008073	audio/test/001147/001147-0008073.flac	long_quiet_edge	Dæmi um þetta á Íslandi er síldarævintýrið.	dæmi um þetta á íslandi er síldarævintýrið	pending			pending		
+test	0151190	audio/test/009133/009133-0151190.flac	mostly_quiet|long_quiet_edge	Tóti reis upp við dogg.	tóti reis upp við dogg	pending			pending		
+test	0249774	audio/test/010355/010355-0249774.flac	long_quiet_edge	Adel, hver er dagsetningin í dag?	adel hver er dagsetningin í dag	pending			pending		
+test	0032990	audio/test/004314/004314-0032990.flac	long_quiet_edge	Öræfajökull er talinn vera stærsta eldstöð Íslands.	öræfajökull er talinn vera stærsta eldstöð íslands	pending			pending		
+test	0148022	audio/test/009016/009016-0148022.flac	low_rms|long_quiet_edge	Nónsker, Stóra-Boðalsflaga, Uxahryggur, Dalbakki	nónsker stóra boðalsflaga uxahryggur dalbakki	pending			pending		
+test	0148040	audio/test/009016/009016-0148040.flac	low_rms	Með tíu lið spila allir leiðinlega og enginn vill fá á sig mark.	með tíu lið spila allir leiðinlega og enginn vill fá á sig mark	pending			pending		
+test	0200090	audio/test/009668/009668-0200090.flac	long_quiet_edge	Fólk dettur ekkert í sundur.	fólk dettur ekkert í sundur	pending			pending		
+test	0061934	audio/test/006993/006993-0061934.flac	low_rms|long_quiet_edge	Golan er mjúk og góð.	golan er mjúk og góð	pending			pending		
+test	0240603	audio/test/010191/010191-0240603.flac	long_quiet_edge	Elvar og Benni fara yfir meðaleinkunnir leikmanna í undankeppninni.	elvar og benni fara yfir meðaleinkunnir leikmanna í undankeppninni	pending			pending		
+test	0000313	audio/test/000052/000052-0000313.flac	low_rms	Að neðan er listi með þýðingum.	að neðan er listi með þýðingum	pending			pending		
+test	0067711	audio/test/007256/007256-0067711.flac	low_rms	Var alltaf svona heitt?	var alltaf svona heitt	pending			pending		
+test	0003797	audio/test/000555/000555-0003797.flac	long_quiet_edge	Flestir meðlimir ættarinnar eru staflaga, ófrumbjarga gerlar og geta margir þeirra myndað dvalargró.	flestir meðlimir ættarinnar eru staflaga ófrumbjarga gerlar og geta margir þeirra myndað dvalargró	pending			pending		
+test	0068166	audio/test/007265/007265-0068166.flac	long_quiet_edge	Að því verður vikið nánar hér á eftir .	að því verður vikið nánar hér á eftir	pending			pending		
+test	0220629	audio/test/009882/009882-0220629.flac	long_quiet_edge	Það er meginregla í kristninni.	það er meginregla í kristninni	pending			pending		
+test	0018121	audio/test/002428/002428-0018121.flac	long_quiet_edge	Með öðrum orðum er efast um skýringargildi hugtakanna.	með öðrum orðum er efast um skýringargildi hugtakanna	pending			pending		
+test	0024630	audio/test/003251/003251-0024630.flac	long_quiet_edge	Massi hennar er næstum þúsund sinnum meiri en samanlagður massi allra reikistjarna.	massi hennar er næstum þúsund sinnum meiri en samanlagður massi allra reikistjarna	pending			pending		
+test	0220139	audio/test/009899/009899-0220139.flac	low_rms	Alla ævi hafði hann þjáðst.	alla ævi hafði hann þjáðst	pending			pending		
+test	0007903	audio/test/001118/001118-0007903.flac	low_rms|long_quiet_edge	En vegna breytileika milli einstaklinga í ýmsum atriðum.	en vegna breytileika milli einstaklinga í ýmsum atriðum	pending			pending		
+test	0071732	audio/test/007435/007435-0071732.flac	long_quiet_edge	Frásögn Erlu samrýmdist að flestu leyti því sem áður hafði komið fram.	frásögn erlu samrýmdist að flestu leyti því sem áður hafði komið fram	pending			pending		
+test	0033645	audio/test/004417/004417-0033645.flac	long_quiet_edge	Nefna má þekktar tegundir vinsælla búrfugla eins og til dæmis kanarífugla.	nefna má þekktar tegundir vinsælla búrfugla eins og til dæmis kanarífugla	pending			pending		
+test	0001019	audio/test/000154/000154-0001019.flac	long_quiet_edge	Mögulega er hægt að meta uppruna erfðaþátta sem tengist rauðu hári einstaklinga.	mögulega er hægt að meta uppruna erfðaþátta sem tengist rauðu hári einstaklinga	pending			pending		
+test	0014906	audio/test/002025/002025-0014906.flac	long_quiet_edge	Og þú hittir engar appelsínur eins og mig, allan daginn.	og þú hittir engar appelsínur eins og mig allan daginn	pending			pending		
+test	0026433	audio/test/003454/003454-0026433.flac	long_quiet_edge	Lyf eru oft notuð með fram meðferðunum.	lyf eru oft notuð með fram meðferðunum	pending			pending		
+test	0031061	audio/test/004048/004048-0031061.flac	long_quiet_edge	Helmingunartíminn ræðst algerlega af samsetningu úrgangsins.	helmingunartíminn ræðst algerlega af samsetningu úrgangsins	pending			pending		
+test	0031722	audio/test/004158/004158-0031722.flac	low_rms	Hver er þýðingin á „bioengineering“ á íslensku?	hver er þýðingin á bioengineering á íslensku	pending			pending		
+test	0072078	audio/test/007462/007462-0072078.flac	long_quiet_edge	Svíinn hefur örugglega ekki einu sinni séð hann.	svíinn hefur örugglega ekki einu sinni séð hann	pending			pending		
+test	0248092	audio/test/009882/009882-0248092.flac	long_quiet_edge	Garðaskál, Haganef, Sandgilshraun, Hestahraun	garðaskál haganef sandgilshraun hestahraun	pending			pending		
+test	0014721	audio/test/002003/002003-0014721.flac	long_quiet_edge	Summa þessara frávika sem eru í öðru veldi kallast kvaðratsumma.	summa þessara frávika sem eru í öðru veldi kallast kvaðratsumma	pending			pending		
+test	0241848	audio/test/010229/010229-0241848.flac	low_rms	Starfsmenn voru fimm	starfsmenn voru fimm	pending			pending		
+test	0008115	audio/test/001156/001156-0008115.flac	long_quiet_edge	Blómin eru lútandi, rauðfjólublá með gulum blettum.	blómin eru lútandi rauðfjólublá með gulum blettum	pending			pending		
+test	0026400	audio/test/003447/003447-0026400.flac	long_quiet_edge	Oftast liggja þeir því sem næst hornrétt á jarðlagastaflann í kring.	oftast liggja þeir því sem næst hornrétt á jarðlagastaflann í kring	pending			pending		
+test	0071179	audio/test/007403/007403-0071179.flac	long_quiet_edge	Andri yppti öxlum.	andri yppti öxlum	pending			pending		
+test	0019230	audio/test/002572/002572-0019230.flac	long_quiet_edge	Sumir sjá þá byltingu við hvert fótmál.	sumir sjá þá byltingu við hvert fótmál	pending			pending		
+test	0009517	audio/test/001316/001316-0009517.flac	low_rms	Það að konur sæki síður í heimspeki en margar aðrar greinar.	það að konur sæki síður í heimspeki en margar aðrar greinar	pending			pending		
+test	0072489	audio/test/007502/007502-0072489.flac	long_quiet_edge	Ég missti ekki marks.	ég missti ekki marks	pending			pending		
+test	0003461	audio/test/000500/000500-0003461.flac	long_quiet_edge	Þeir þurfa þó ríkan aga snemma í uppeldinu.	þeir þurfa þó ríkan aga snemma í uppeldinu	pending			pending		
+test	0007939	audio/test/001125/001125-0007939.flac	long_quiet_edge	Göngufólk má ekki fara af göngustígunum þjóðgarðsins.	göngufólk má ekki fara af göngustígunum þjóðgarðsins	pending			pending		
+test	0019451	audio/test/002607/002607-0019451.flac	long_quiet_edge	Hver er munurinn á einkavæðingu og almenningsvæðingu?	hver er munurinn á einkavæðingu og almenningsvæðingu	pending			pending		
+test	0240514	audio/test/010189/010189-0240514.flac	long_quiet_edge	Við spiluðum vel og fengum mörg tækifæri.	við spiluðum vel og fengum mörg tækifæri	pending			pending		
+test	0223715	audio/test/009959/009959-0223715.flac	long_quiet_edge	Ertu búinn?	ertu búinn	pending			pending		
+test	0006478	audio/test/000907/000907-0006478.flac	long_quiet_edge	Í Egyptalandi til forna var það talinn alvarlegur glæpur að drepa kött.	í egyptalandi til forna var það talinn alvarlegur glæpur að drepa kött	pending			pending		
+test	0010298	audio/test/001391/001391-0010298.flac	long_quiet_edge	Sagan gerist að miklu leyti í seli.	sagan gerist að miklu leyti í seli	pending			pending		
+test	0025356	audio/test/003335/003335-0025356.flac	long_quiet_edge	Flúorinn í tannkreminu breytir yfirborðsspennu glerungs.	flúorinn í tannkreminu breytir yfirborðsspennu glerungs	pending			pending		
+test	0030957	audio/test/004029/004029-0030957.flac	long_quiet_edge	Spyrjendur auk Gests eru þau Gunnar Arnarson.	spyrjendur auk gests eru þau gunnar arnarson	pending			pending		
+test	0072462	audio/test/007501/007501-0072462.flac	long_quiet_edge	Ég var símalaus og allslaus.	ég var símalaus og allslaus	pending			pending		
+test	0240587	audio/test/010191/010191-0240587.flac	long_quiet_edge	Það þykir mér dýrt kex.	það þykir mér dýrt kex	pending			pending		
+test	0183820	audio/test/009522/009522-0183820.flac	long_quiet_edge	Hann sendi ég utan.	hann sendi ég utan	pending			pending		
+test	0033652	audio/test/004417/004417-0033652.flac	long_quiet_edge	Helsti tilgangurinn með smíði hans var að staðfesta eða hrekja tilvist Higgs-bóseindarinnar.	helsti tilgangurinn með smíði hans var að staðfesta eða hrekja tilvist higgs bóseindarinnar	pending			pending		
+test	0107466	audio/test/008681/008681-0107466.flac	long_quiet_edge	Allavega ekki ef marka má myndirnar	allavega ekki ef marka má myndirnar	pending			pending		
+test	0009783	audio/test/001336/001336-0009783.flac	long_quiet_edge	Hinrik V Íslensk þýðing eftir Helga Hálfdanarson.	hinrik v íslensk þýðing eftir helga hálfdanarson	pending			pending		
+test	0001579	audio/test/000238/000238-0001579.flac	long_quiet_edge	Þessar tilraunir mörkuðu upphaf erfðatækninnar.	þessar tilraunir mörkuðu upphaf erfðatækninnar	pending			pending		
+test	0156999	audio/test/009246/009246-0156999.flac	long_quiet_edge	Leitað lengra aftur.	leitað lengra aftur	pending			pending		
+test	0021789	audio/test/002894/002894-0021789.flac	long_quiet_edge	Hann reynir að bræða saman heillega mynd úr henni.	hann reynir að bræða saman heillega mynd úr henni	pending			pending		
+test	0018209	audio/test/002440/002440-0018209.flac	long_quiet_edge	Sverrir Kristjánsson og Jakob Benediktsson.	sverrir kristjánsson og jakob benediktsson	pending			pending		
+test	0024639	audio/test/003253/003253-0024639.flac	long_quiet_edge	Til samanburðar þá eru vestur-afrískir gíraffar.	til samanburðar þá eru vestur afrískir gíraffar	pending			pending		
+test	0220090	audio/test/009899/009899-0220090.flac	mostly_quiet	En ég var haldin.	en ég var haldin	pending			pending		
+test	0131149	audio/test/008308/008308-0131149.flac	low_rms	Landspítalinn skilar afgangi	landspítalinn skilar afgangi	pending			pending		
+test	0001831	audio/test/000281/000281-0001831.flac	long_quiet_edge	Heimildir og mynd Aldís Guðmundsdóttir og Jörgen Pind.	heimildir og mynd aldís guðmundsdóttir og jörgen pind	pending			pending		
+test	0007515	audio/test/001053/001053-0007515.flac	long_quiet_edge	Eftir sem áður getur vel verið að misvægi atkvæða sé ranglátt.	eftir sem áður getur vel verið að misvægi atkvæða sé ranglátt	pending			pending		
+test	0027573	audio/test/003593/003593-0027573.flac	long_quiet_edge	Þetta er stutta og einfalda svarið.	þetta er stutta og einfalda svarið	pending			pending		
+test	0067098	audio/test/007230/007230-0067098.flac	long_quiet_edge	Hvað segirðu, drengstauli?	hvað segirðu drengstauli	pending			pending		
+test	0013325	audio/test/001794/001794-0013325.flac	low_rms	Þeir Sverrir Stormsker og Stefán Hilmarsson fluttu lagið og kölluðu sig Betófen.	þeir sverrir stormsker og stefán hilmarsson fluttu lagið og kölluðu sig betófen	pending			pending		
+test	0025251	audio/test/003329/003329-0025251.flac	long_quiet_edge	Til eru mörg ráð við hiksta.	til eru mörg ráð við hiksta	pending			pending		
+test	0001538	audio/test/000232/000232-0001538.flac	long_quiet_edge	Menn segja þá til dæmis „líter“ og „meter“ í stað „lítri“ og „metri“.	menn segja þá til dæmis líter og meter í stað lítri og metri	pending			pending		
+test	0154174	audio/test/009179/009179-0154174.flac	long_quiet_edge	Hann drafar.	hann drafar	pending			pending		
+test	0068838	audio/test/007284/007284-0068838.flac	long_quiet_edge	Vagninn hreyfðist ekki úr stað.	vagninn hreyfðist ekki úr stað	pending			pending		
+test	0027282	audio/test/003556/003556-0027282.flac	low_rms	Næstu daga fundaði þingið þar til önnur júlí.	næstu daga fundaði þingið þar til önnur júlí	pending			pending		
+test	0010540	audio/test/001418/001418-0010540.flac	long_quiet_edge	Þar í landi eru yfir níu prósent útfara bálfarir.	þar í landi eru yfir níu prósent útfara bálfarir	pending			pending		
+test	0122747	audio/test/008849/008849-0122747.flac	long_quiet_edge	Hann er einn af bestu miðjumönnunum í heimi, það er enginn vafi um það.	hann er einn af bestu miðjumönnunum í heimi það er enginn vafi um það	pending			pending		
+test	0017371	audio/test/002364/002364-0017371.flac	long_quiet_edge	Hún inniheldur í staðinn eiginleika sérstaklega ætlaða fyrirtækjum.	hún inniheldur í staðinn eiginleika sérstaklega ætlaða fyrirtækjum	pending			pending		
+test	0066618	audio/test/004512/004512-0066618.flac	low_rms	Ólseig reiði, hugsar blaðakonan, eflaust orðin föl sjálf.	ólseig reiði hugsar blaðakonan eflaust orðin föl sjálf	pending			pending		
+test	0022665	audio/test/003008/003008-0022665.flac	long_quiet_edge	Engin ákvörðun hefur verið tekin um að taka krónumyntina úr umferð.	engin ákvörðun hefur verið tekin um að taka krónumyntina úr umferð	pending			pending		
+test	0101745	audio/test/008567/008567-0101745.flac	low_rms	Samfylkingin á völina og kvölina	samfylkingin á völina og kvölina	pending			pending		
+test	0027857	audio/test/003635/003635-0027857.flac	long_quiet_edge	Eins er það ljóst að margar af súffragettunum.	eins er það ljóst að margar af súffragettunum	pending			pending		
+test	0000709	audio/test/000106/000106-0000709.flac	long_quiet_edge	Það er í mörgum tilfellum mjög jákvætt þegar orkuinnihald er skorið niður.	það er í mörgum tilfellum mjög jákvætt þegar orkuinnihald er skorið niður	pending			pending		
+test	0068450	audio/test/007280/007280-0068450.flac	mostly_quiet|long_quiet_edge	Ég leit upp.	ég leit upp	pending			pending		
+test	0022070	audio/test/002929/002929-0022070.flac	long_quiet_edge	Þó eru til dýr sem hafa fleiri en eitt hjarta.	þó eru til dýr sem hafa fleiri en eitt hjarta	pending			pending		
+test	0000756	audio/test/000108/000108-0000756.flac	long_quiet_edge	Menn tala frekar um form eða listgildi.	menn tala frekar um form eða listgildi	pending			pending		
+test	0031098	audio/test/004055/004055-0031098.flac	long_quiet_edge	Í fimm hvalstöðvabyggðum á Vestfjörðum.	í fimm hvalstöðvabyggðum á vestfjörðum	pending			pending		
+test	0014504	audio/test/001969/001969-0014504.flac	long_quiet_edge	Framhlið þeirra snýr að grafhýsinu.	framhlið þeirra snýr að grafhýsinu	pending			pending		
+test	0012377	audio/test/001682/001682-0012377.flac	low_rms	Ungir þvermunnar líkjast mjög ungum háfiskum.	ungir þvermunnar líkjast mjög ungum háfiskum	pending			pending		
+test	0018996	audio/test/002534/002534-0018996.flac	low_rms	Sjö sinnum á sólarhring voru sungnar helgar tíðir.	sjö sinnum á sólarhring voru sungnar helgar tíðir	pending			pending		
+test	0026891	audio/test/003509/003509-0026891.flac	long_quiet_edge	Guðlaugur, hvað er að frétta?	guðlaugur hvað er að frétta	pending			pending		
+test	0030600	audio/test/003984/003984-0030600.flac	long_quiet_edge	Ölver, hvað er á innkaupalistanum mínum?	ölver hvað er á innkaupalistanum mínum	pending			pending		
+test	0024086	audio/test/003175/003175-0024086.flac	low_rms	Tafla einn skiptir Evrópulöndunum í fjóra hópa.	tafla einn skiptir evrópulöndunum í fjóra hópa	pending			pending		
+test	0065953	audio/test/007180/007180-0065953.flac	low_rms|long_quiet_edge	Á ég að skutla þér á sjúkrahúsið, Brynjólfur?	á ég að skutla þér á sjúkrahúsið brynjólfur	pending			pending		
+test	0009156	audio/test/001278/001278-0009156.flac	long_quiet_edge	Myndunarsaga reikistjarnanna hefur að líkindum spannað nokkra tugi milljóna ára.	myndunarsaga reikistjarnanna hefur að líkindum spannað nokkra tugi milljóna ára	pending			pending		
+test	0171336	audio/test/009385/009385-0171336.flac	long_quiet_edge	Þar af leiðandi eyða sjávardýr hlutfallslega minni orku til hreyfinga en landdýr.	þar af leiðandi eyða sjávardýr hlutfallslega minni orku til hreyfinga en landdýr	pending			pending		
+test	0001583	audio/test/000238/000238-0001583.flac	long_quiet_edge	Til eru vélar.	til eru vélar	pending			pending		
+test	0072492	audio/test/007503/007503-0072492.flac	mostly_quiet|long_quiet_edge	Hann hafði áhuga á þessu.	hann hafði áhuga á þessu	pending			pending		
+test	0021649	audio/test/002868/002868-0021649.flac	long_quiet_edge	Fyrstu árin í hjónabandinu bjuggu þau í Lundúnum.	fyrstu árin í hjónabandinu bjuggu þau í lundúnum	pending			pending		
+test	0026392	audio/test/003446/003446-0026392.flac	long_quiet_edge	Ekki heiti ég Eiríkur	ekki heiti ég eiríkur	pending			pending		
+test	0012399	audio/test/001686/001686-0012399.flac	low_rms	Til eru mörg þúsund steindir, mismunandi algengar.	til eru mörg þúsund steindir mismunandi algengar	pending			pending		
+test	0027851	audio/test/003634/003634-0027851.flac	long_quiet_edge	Fellibyljum eru gefin mannanöfn til að auðvelda umræðu um þá.	fellibyljum eru gefin mannanöfn til að auðvelda umræðu um þá	pending			pending		
+test	0220122	audio/test/009899/009899-0220122.flac	low_rms|mostly_quiet|long_quiet_edge	Dóttur þinnar vegna.	dóttur þinnar vegna	pending			pending		
+test	0021004	audio/test/002779/002779-0021004.flac	long_quiet_edge	Sennilega hefur þetta ekki verið talið borga sig þá.	sennilega hefur þetta ekki verið talið borga sig þá	pending			pending		
+test	0030056	audio/test/003894/003894-0030056.flac	long_quiet_edge	Félagsmálafræðingur sem starfsheiti er ekki þekkt eða formlega viðurkennt sem slíkt.	félagsmálafræðingur sem starfsheiti er ekki þekkt eða formlega viðurkennt sem slíkt	pending			pending		
+test	0026199	audio/test/003420/003420-0026199.flac	long_quiet_edge	Við setjum þetta allt í reynslubrunninn, sagði Herra Kláus.	við setjum þetta allt í reynslubrunninn sagði herra kláus	pending			pending		
+test	0006477	audio/test/000907/000907-0006477.flac	long_quiet_edge	Hún er helsta menningar-.	hún er helsta menningar	pending			pending		
+test	0072068	audio/test/007462/007462-0072068.flac	long_quiet_edge	Hún er ekki flókin og hún er engin töfralausn.	hún er ekki flókin og hún er engin töfralausn	pending			pending		
+test	0007824	audio/test/001107/001107-0007824.flac	long_quiet_edge	Leishmanssótt í húð einkennist af sárum sem geta verið lengi að gróa.	leishmanssótt í húð einkennist af sárum sem geta verið lengi að gróa	pending			pending		
+test	0009308	audio/test/001297/001297-0009308.flac	long_quiet_edge	Maður að nafni Eyjólfur Þorkelsson reisti fyrsta bæinn á Klöpp.	maður að nafni eyjólfur þorkelsson reisti fyrsta bæinn á klöpp	pending			pending		
+test	0218464	audio/test/009871/009871-0218464.flac	long_quiet_edge	Alveg ferlega vel.	alveg ferlega vel	pending			pending		
+test	0240318	audio/test/010184/010184-0240318.flac	low_rms	Leitað er að sjálfstæðum og metnaðarfullum einstaklingum með reynslu og menntun í knattspyrnuþjálfun.	leitað er að sjálfstæðum og metnaðarfullum einstaklingum með reynslu og menntun í knattspyrnuþjálfun	pending			pending		
+test	0026066	audio/test/003404/003404-0026066.flac	long_quiet_edge	Margar „þjóðsögur“ eru til um drekaflugur.	margar þjóðsögur eru til um drekaflugur	pending			pending		
+test	0024138	audio/test/003200/003200-0024138.flac	low_rms	Uppáhaldssönkonan mín er Elly Vilhjálms.	uppáhaldssönkonan mín er elly vilhjálms	pending			pending		
+test	0071785	audio/test/007442/007442-0071785.flac	low_rms	Ég er með mynd sem mig langar til að gefa henni.	ég er með mynd sem mig langar til að gefa henni	pending			pending		
+test	0007937	audio/test/001125/001125-0007937.flac	long_quiet_edge	Sólarsteinarnir kunna auk þess að hafa verið notaðir til að kveikja með eld.	sólarsteinarnir kunna auk þess að hafa verið notaðir til að kveikja með eld	pending			pending		
+test	0020100	audio/test/002678/002678-0020100.flac	long_quiet_edge	Öll önnur óendanleg tugabrot eru óræðar tölur.	öll önnur óendanleg tugabrot eru óræðar tölur	pending			pending		
+test	0026800	audio/test/003500/003500-0026800.flac	long_quiet_edge	„Nú er nóg komið!“	nú er nóg komið	pending			pending		
+test	0030461	audio/test/003960/003960-0030461.flac	long_quiet_edge	Björn Sæmundarson bjó þá í Gunnarsholti.	björn sæmundarson bjó þá í gunnarsholti	pending			pending		
+test	0002254	audio/test/000336/000336-0002254.flac	long_quiet_edge	Seyti aldósteróns er stjórnað af svokölluðu renín-angíótensín ferli.	seyti aldósteróns er stjórnað af svokölluðu renín angíótensín ferli	pending			pending		
+test	0026339	audio/test/003442/003442-0026339.flac	long_quiet_edge	Með slíkum samanburði má draga ályktanir um veðurfarsþróun fyrr á tímum.	með slíkum samanburði má draga ályktanir um veðurfarsþróun fyrr á tímum	pending			pending		
+test	0014628	audio/test/001987/001987-0014628.flac	long_quiet_edge	Liturinn er ekki ósvipaður litbrigðum Mars en ástæðan er gerólík.	liturinn er ekki ósvipaður litbrigðum mars en ástæðan er gerólík	pending			pending		
+test	0238922	audio/test/010135/010135-0238922.flac	low_rms|mostly_quiet	Ertu ánægð?	ertu ánægð	pending			pending		
+test	0016211	audio/test/002201/002201-0016211.flac	long_quiet_edge	Parið bjó aðeins í ár í kastalanum.	parið bjó aðeins í ár í kastalanum	pending			pending		
+test	0032709	audio/test/004280/004280-0032709.flac	long_quiet_edge	Þegar forverar manna þróuðust voru skilyrði allt önnur en í dag.	þegar forverar manna þróuðust voru skilyrði allt önnur en í dag	pending			pending		
+test	0238919	audio/test/010135/010135-0238919.flac	mostly_quiet|long_quiet_edge	Það hafði breyst.	það hafði breyst	pending			pending		
+test	0026407	audio/test/003449/003449-0026407.flac	long_quiet_edge	Sigmundur fær stjórnarmyndunarumboð.	sigmundur fær stjórnarmyndunarumboð	pending			pending		
+test	0017827	audio/test/002415/002415-0017827.flac	low_rms	Utan Netsins má benda á ýmsan félagsskap um ættfræði.	utan netsins má benda á ýmsan félagsskap um ættfræði	pending			pending		
+test	0032947	audio/test/004309/004309-0032947.flac	long_quiet_edge	Alþingisbækur Íslands XIII.	alþingisbækur íslands xiii	pending			pending		
+test	0001600	audio/test/000241/000241-0001600.flac	long_quiet_edge	Það sama á við um ókvænta menn sitji þeir milli systra.	það sama á við um ókvænta menn sitji þeir milli systra	pending			pending		
+test	0171308	audio/test/009385/009385-0171308.flac	mostly_quiet|long_quiet_edge	Takið á honum!	takið á honum	pending			pending		
+test	0018994	audio/test/002534/002534-0018994.flac	low_rms	Myndskreyting eftir John Bauer.	myndskreyting eftir john bauer	pending			pending		
+test	0026408	audio/test/003449/003449-0026408.flac	long_quiet_edge	Sama má segja um geymslutækni sem náði ekki nægilegri útbreiðslu.	sama má segja um geymslutækni sem náði ekki nægilegri útbreiðslu	pending			pending		
+test	0017222	audio/test/002350/002350-0017222.flac	long_quiet_edge	Höskuldur, stilltu tímamælinn á sjö mínútur.	höskuldur stilltu tímamælinn á sjö mínútur	pending			pending		
+test	0241843	audio/test/010229/010229-0241843.flac	low_rms|long_quiet_edge	Heyrir ekki ómþýðan söng minn.	heyrir ekki ómþýðan söng minn	pending			pending		
+test	0000673	audio/test/000100/000100-0000673.flac	long_quiet_edge	Herra Toshizo komst ekki lengra því hann var stöðvaður af starfsfélaga sínum.	herra toshizo komst ekki lengra því hann var stöðvaður af starfsfélaga sínum	pending			pending		
+test	0070373	audio/test/007342/007342-0070373.flac	low_rms	Þú áttir líka val, Edda.	þú áttir líka val edda	pending			pending		
+test	0116558	audio/test/008787/008787-0116558.flac	long_quiet_edge	Launin eru óbreytt frá fyrra ári	launin eru óbreytt frá fyrra ári	pending			pending		
+test	0012391	audio/test/001685/001685-0012391.flac	low_rms	Margir þeirra voru af höfðingjaættum og aðrir skjólstæðingar höfðingja.	margir þeirra voru af höfðingjaættum og aðrir skjólstæðingar höfðingja	pending			pending		
+test	0070311	audio/test/007342/007342-0070311.flac	low_rms	Sjáðu hvað hún er með í skruddunni sinni.	sjáðu hvað hún er með í skruddunni sinni	pending			pending		
+test	0030856	audio/test/004015/004015-0030856.flac	long_quiet_edge	Því miður er megnið af þeim verkum sem Aristóteles bjó til útgáfu glatað.	því miður er megnið af þeim verkum sem aristóteles bjó til útgáfu glatað	pending			pending		
+test	0223730	audio/test/009959/009959-0223730.flac	long_quiet_edge	Þar má einnig finna lýsingu á framkvæmd rannsókna fyrir mismunandi líkamshluta.	þar má einnig finna lýsingu á framkvæmd rannsókna fyrir mismunandi líkamshluta	pending			pending		
+test	0248086	audio/test/009882/009882-0248086.flac	long_quiet_edge	Athena, slökktu á þessu eftir tuttugu og níu mínútur.	athena slökktu á þessu eftir tuttugu og níu mínútur	pending			pending		
+test	0025260	audio/test/003328/003328-0025260.flac	long_quiet_edge	Varla getur það verið að hægt sé að breyta staðreyndum aftur í tímann?	varla getur það verið að hægt sé að breyta staðreyndum aftur í tímann	pending			pending		
+test	0015816	audio/test/002157/002157-0015816.flac	long_quiet_edge	Það kannar menningu Filista sem bjuggu í svæði borgarinnar.	það kannar menningu filista sem bjuggu í svæði borgarinnar	pending			pending		
+test	0012274	audio/test/001666/001666-0012274.flac	long_quiet_edge	Í sykursjúkum hægja trefjaefni.	í sykursjúkum hægja trefjaefni	pending			pending		
+test	0014687	audio/test/001995/001995-0014687.flac	long_quiet_edge	Útilokun kvenna hélst í hendur við fyrirlitningu á eiginleikum sem voru eignaðir konum.	útilokun kvenna hélst í hendur við fyrirlitningu á eiginleikum sem voru eignaðir konum	pending			pending		
+test	0025261	audio/test/003328/003328-0025261.flac	long_quiet_edge	Holgeir, er opið í Nova?	holgeir er opið í nova	pending			pending		
+test	0241860	audio/test/010229/010229-0241860.flac	low_rms	Það reyndist ekki rétt og lögmál varmafræðinnar standa því enn óhögguð.	það reyndist ekki rétt og lögmál varmafræðinnar standa því enn óhögguð	pending			pending		
+test	0240501	audio/test/010189/010189-0240501.flac	long_quiet_edge	Heimamenn svöruðu hinsvegar með tveimur mörkum fyrir leikhlé.	heimamenn svöruðu hinsvegar með tveimur mörkum fyrir leikhlé	pending			pending		
+test	0009157	audio/test/001278/001278-0009157.flac	long_quiet_edge	„Fundarstaðir skelja frá síðjökultíma“.	fundarstaðir skelja frá síðjökultíma	pending			pending		
+test	0008517	audio/test/001210/001210-0008517.flac	long_quiet_edge	Sem algengt dæmi má nefna þegar punkti er sleppt í dagsetningu.	sem algengt dæmi má nefna þegar punkti er sleppt í dagsetningu	pending			pending		
+test	0034556	audio/test/004512/004512-0034556.flac	low_rms	Hvers vegna eru hamborgarar kallaðir því nafni?	hvers vegna eru hamborgarar kallaðir því nafni	pending			pending		
+test	0006666	audio/test/000936/000936-0006666.flac	long_quiet_edge	Enginn má óvirða þjóðfánann.	enginn má óvirða þjóðfánann	pending			pending		
+test	0013322	audio/test/001794/001794-0013322.flac	low_rms	Einna þekktastir eru kolkrabbarnir fyrir blekárásir sínar.	einna þekktastir eru kolkrabbarnir fyrir blekárásir sínar	pending			pending		
+test	0220114	audio/test/009899/009899-0220114.flac	low_rms|mostly_quiet|long_quiet_edge	Spila út.	spila út	pending			pending		
+test	0007667	audio/test/001084/001084-0007667.flac	long_quiet_edge	Skjaldarmerki Þýskalands er svartur örn sem horfir til vinstri.	skjaldarmerki þýskalands er svartur örn sem horfir til vinstri	pending			pending		
+test	0017352	audio/test/002362/002362-0017352.flac	long_quiet_edge	Áhrif hans eru þó töluverð.	áhrif hans eru þó töluverð	pending			pending		
+test	0222023	audio/test/009882/009882-0222023.flac	long_quiet_edge	Neðribörð, Syðstubörð, Stóri-Straumhóll, Syðri-Bjarnahöfði	neðribörð syðstubörð stóri straumhóll syðri bjarnahöfði	pending			pending		
+test	0025341	audio/test/002154/002154-0025341.flac	possible_clipping	Frægustu verðlaun heims eru án efa Nóbelsverðlaunin sem veitt eru ár hvert.	frægustu verðlaun heims eru án efa nóbelsverðlaunin sem veitt eru ár hvert	pending			pending		
+test	0015158	audio/test/002056/002056-0015158.flac	long_quiet_edge	Guðrún er svo sögð hafa drepið drengina.	guðrún er svo sögð hafa drepið drengina	pending			pending		
+test	0148014	audio/test/009016/009016-0148014.flac	low_rms|mostly_quiet|long_quiet_edge	Klébergsskóla	klébergsskóla	pending			pending		
+test	0013057	audio/test/001773/001773-0013057.flac	low_rms	Markmið hans var hið sama.	markmið hans var hið sama	pending			pending		
+test	0006628	audio/test/000931/000931-0006628.flac	mostly_quiet	En þú skilur.	en þú skilur	pending			pending		
+test	0013347	audio/test/001797/001797-0013347.flac	long_quiet_edge	Hnattræn hlýnun hækkar sjávarhita og veldur þannig hækkun sjávaryfirborðs.	hnattræn hlýnun hækkar sjávarhita og veldur þannig hækkun sjávaryfirborðs	pending			pending		
+test	0031062	audio/test/004048/004048-0031062.flac	long_quiet_edge	Frá þeim kemur nokkurt sót.	frá þeim kemur nokkurt sót	pending			pending		
+test	0012806	audio/test/001749/001749-0012806.flac	long_quiet_edge	Af hverju er Viktoríutímabilið kallað Viktoríutímabil?	af hverju er viktoríutímabilið kallað viktoríutímabil	pending			pending		
+test	0019579	audio/test/002619/002619-0019579.flac	low_rms	Á enskri tungu er hefð fyrir því að kalla hinar tegundirnar fimm ekkjur.	á enskri tungu er hefð fyrir því að kalla hinar tegundirnar fimm ekkjur	pending			pending		
+test	0031558	audio/test/004128/004128-0031558.flac	low_rms	Þeir keppast innbyrðis með hornunum um aðgang að kvendýrunum.	þeir keppast innbyrðis með hornunum um aðgang að kvendýrunum	pending			pending		
+test	0001586	audio/test/000239/000239-0001586.flac	long_quiet_edge	Vonandi gefur þetta svar nokkra hugmynd um kosti og galla augnaðgerða með leysi.	vonandi gefur þetta svar nokkra hugmynd um kosti og galla augnaðgerða með leysi	pending			pending		
+test	0101733	audio/test/008567/008567-0101733.flac	low_rms|long_quiet_edge	Gloppa, Hrafnaklettur, Fosskotsfoss, Miðvellir	gloppa hrafnaklettur fosskotsfoss miðvellir	pending			pending		
+test	0018178	audio/test/002434/002434-0018178.flac	low_rms|long_quiet_edge	Eftir átta ár verður byggið þá komið aftur í sína upprunalegu spildu.	eftir átta ár verður byggið þá komið aftur í sína upprunalegu spildu	pending			pending		
+test	0025131	audio/test/003310/003310-0025131.flac	long_quiet_edge	Hvönnin er skordýrafrjóvguð og myndar mikið magn af hunangsvökva.	hvönnin er skordýrafrjóvguð og myndar mikið magn af hunangsvökva	pending			pending		
+test	0018243	audio/test/002443/002443-0018243.flac	long_quiet_edge	Fyrst er sett fram tilgáta um tengsl áreitis og endapunkts.	fyrst er sett fram tilgáta um tengsl áreitis og endapunkts	pending			pending		
+test	0007518	audio/test/001053/001053-0007518.flac	long_quiet_edge	Svefnsýki er alvarlegur sjúkdómur, mjög útbreiddur á hitabeltissvæði Afríku.	svefnsýki er alvarlegur sjúkdómur mjög útbreiddur á hitabeltissvæði afríku	pending			pending		
+test	0012374	audio/test/001682/001682-0012374.flac	low_rms	Það gerði hann þó ekki.	það gerði hann þó ekki	pending			pending		
+test	0014643	audio/test/001985/001985-0014643.flac	long_quiet_edge	Þá tók faðir Filippusar, Albert við konungdæminu.	þá tók faðir filippusar albert við konungdæminu	pending			pending		
+test	0022931	audio/test/003042/003042-0022931.flac	long_quiet_edge	Þetta tryggir þó ekki að barnið skaðist ekki.	þetta tryggir þó ekki að barnið skaðist ekki	pending			pending		
+test	0018495	audio/test/002474/002474-0018495.flac	long_quiet_edge	Það eru þó til ráð sem auðvelda fólki að staðsetja geitungabú.	það eru þó til ráð sem auðvelda fólki að staðsetja geitungabú	pending			pending		
+test	0019441	audio/test/002605/002605-0019441.flac	long_quiet_edge	Hægt er að beita nokkrum aðferðum við aldursgreiningu á fiskum.	hægt er að beita nokkrum aðferðum við aldursgreiningu á fiskum	pending			pending		
+test	0241850	audio/test/010229/010229-0241850.flac	low_rms	Mér fannst þetta samt ekki rautt spjald.	mér fannst þetta samt ekki rautt spjald	pending			pending		
+test	0033220	audio/test/004352/004352-0033220.flac	low_rms	Féllu nokkrir menn af Una, en hann fór nauðugur aftur með Leiðólfi.	féllu nokkrir menn af una en hann fór nauðugur aftur með leiðólfi	pending			pending		
+test	0195459	audio/test/009133/009133-0195459.flac	low_rms	Bara strax.	bara strax	pending			pending		
+test	0011527	audio/test/001551/001551-0011527.flac	long_quiet_edge	Hugsum okkur nú að fyrirtæki þurfi að framleiða þrjár tegundir örgjörva.	hugsum okkur nú að fyrirtæki þurfi að framleiða þrjár tegundir örgjörva	pending			pending		
+test	0016438	audio/test/002242/002242-0016438.flac	low_rms	Loks má nefna eintæðar tegundir, eins og hesta.	loks má nefna eintæðar tegundir eins og hesta	pending			pending		
+test	0017822	audio/test/002414/002414-0017822.flac	long_quiet_edge	Í borginni og aðliggjandi byggðum býr tæp milljón manns.	í borginni og aðliggjandi byggðum býr tæp milljón manns	pending			pending		
+test	0026431	audio/test/003453/003453-0026431.flac	long_quiet_edge	Það sem virðist hamla misþroska börnum er hinn mikli breytileiki.	það sem virðist hamla misþroska börnum er hinn mikli breytileiki	pending			pending		
+test	0065951	audio/test/007180/007180-0065951.flac	low_rms|long_quiet_edge	Svo byrjaði hún að gagga en það heyrðist krunkhljóð.	svo byrjaði hún að gagga en það heyrðist krunkhljóð	pending			pending		
+test	0148041	audio/test/009016/009016-0148041.flac	low_rms|long_quiet_edge	Hann verður frá keppni í mánuð.	hann verður frá keppni í mánuð	pending			pending		
+test	0017121	audio/test/002334/002334-0017121.flac	long_quiet_edge	Frá barnæsku var hún afar áhugasöm um dýr.	frá barnæsku var hún afar áhugasöm um dýr	pending			pending		
+test	0005872	audio/test/000825/000825-0005872.flac	long_quiet_edge	Þetta þarf að endurtaka allt sumarið.	þetta þarf að endurtaka allt sumarið	pending			pending		
+test	0068518	audio/test/007280/007280-0068518.flac	long_quiet_edge	Nú, ætlar hún bara að missa af brennunni?	nú ætlar hún bara að missa af brennunni	pending			pending		
+test	0030513	audio/test/003970/003970-0030513.flac	long_quiet_edge	Etanól, til dæmis, er endurnýjanlegt eldsneyti sem er framleitt úr lífmassa.	etanól til dæmis er endurnýjanlegt eldsneyti sem er framleitt úr lífmassa	pending			pending		
+test	0014741	audio/test/002006/002006-0014741.flac	long_quiet_edge	Móttakandinn notar svo hinn lykilinn til að afkóða skilaboðin.	móttakandinn notar svo hinn lykilinn til að afkóða skilaboðin	pending			pending		
+test	0064857	audio/test/007107/007107-0064857.flac	long_quiet_edge	Konan dó ekki ráðalaus og þreif söngfugl af næstu þúfu í landi sínu.	konan dó ekki ráðalaus og þreif söngfugl af næstu þúfu í landi sínu	pending			pending		
+test	0176573	audio/test/009441/009441-0176573.flac	low_rms	Það er lítið	það er lítið	pending			pending		
+test	0072306	audio/test/007442/007442-0072306.flac	low_rms	Tómas setti nú upp barnslegan sakleysissvip: Lakkrísdrottninguna?	tómas setti nú upp barnslegan sakleysissvip lakkrísdrottninguna	pending			pending		
+test	0010159	audio/test/001371/001371-0010159.flac	long_quiet_edge	Ef áheyrendum gest eigi að orðum hans heyrist illur kurr í þeim.	ef áheyrendum gest eigi að orðum hans heyrist illur kurr í þeim	pending			pending		
+test	0033221	audio/test/004352/004352-0033221.flac	low_rms	Verksmiðjuframleitt majónes er framleitt í samfelldri vinnslu sem byggist á tveggja þrepa blöndun.	verksmiðjuframleitt majónes er framleitt í samfelldri vinnslu sem byggist á tveggja þrepa blöndun	pending			pending		
+test	0012222	audio/test/001658/001658-0012222.flac	long_quiet_edge	Myndirnar eru fengnar af vefsetrunum Havbruk og U.S.	myndirnar eru fengnar af vefsetrunum havbruk og us	pending			pending		
+test	0012221	audio/test/001658/001658-0012221.flac	long_quiet_edge	Getur lofttæmi lyft loftskipi eins og vetni?	getur lofttæmi lyft loftskipi eins og vetni	pending			pending		
+test	0030515	audio/test/003970/003970-0030515.flac	long_quiet_edge	Berum síðan greiðuna að pappírnum á borðinu.	berum síðan greiðuna að pappírnum á borðinu	pending			pending		
+test	0015148	audio/test/002055/002055-0015148.flac	long_quiet_edge	Orðið ponta er notað í fleiri en einni merkingu.	orðið ponta er notað í fleiri en einni merkingu	pending			pending		
+test	0007065	audio/test/000995/000995-0007065.flac	long_quiet_edge	Af hverju var Nikola Tesla svona misskilinn?	af hverju var nikola tesla svona misskilinn	pending			pending		
+test	0008506	audio/test/001209/001209-0008506.flac	long_quiet_edge	Stafirnir prentast með því að hamrarnir þrýsta borða með litarefni að pappírnum.	stafirnir prentast með því að hamrarnir þrýsta borða með litarefni að pappírnum	pending			pending		
+test	0072305	audio/test/007442/007442-0072305.flac	low_rms	Goðar fella aldrei úrskurð án þess að fá eitthvað í staðinn.	goðar fella aldrei úrskurð án þess að fá eitthvað í staðinn	pending			pending		
+test	0030821	audio/test/004012/004012-0030821.flac	low_rms	Spartakus, hvað er í matinn á þriðjudaginn?	spartakus hvað er í matinn á þriðjudaginn	pending			pending		
+test	0001387	audio/test/000207/000207-0001387.flac	low_rms	Tímabilið á undan fornöld er nefnt forsögulegt.	tímabilið á undan fornöld er nefnt forsögulegt	pending			pending		
+test	0029436	audio/test/003815/003815-0029436.flac	long_quiet_edge	Þetta er einn fyrsti vísirinn að eiginlegum þroskarannsóknum.	þetta er einn fyrsti vísirinn að eiginlegum þroskarannsóknum	pending			pending		
+test	0176580	audio/test/009441/009441-0176580.flac	low_rms|mostly_quiet	Nú jæja.	nú jæja	pending			pending		
+test	0009329	audio/test/001299/001299-0009329.flac	long_quiet_edge	Því lægra sem verðið er þeim mun auðveldari er salan.	því lægra sem verðið er þeim mun auðveldari er salan	pending			pending		
+test	0003428	audio/test/000495/000495-0003428.flac	low_rms|long_quiet_edge	Hin yfirættin nefnist Feloidea.	hin yfirættin nefnist feloidea	pending			pending		
+test	0019453	audio/test/002607/002607-0019453.flac	low_rms	Massi hlutarins skiptir ekki máli í þessu.	massi hlutarins skiptir ekki máli í þessu	pending			pending		
+test	0068746	audio/test/007282/007282-0068746.flac	long_quiet_edge	Allt í einu var hrópað.	allt í einu var hrópað	pending			pending		
+test	0239143	audio/test/010140/010140-0239143.flac	mostly_quiet|long_quiet_edge	Nú á ég systur.	nú á ég systur	pending			pending		
+test	0029748	audio/test/003250/003250-0029748.flac	long_quiet_edge	Hvað er liðagigt og er hægt að lækna hana?	hvað er liðagigt og er hægt að lækna hana	pending			pending		
+test	0015213	audio/test/002062/002062-0015213.flac	long_quiet_edge	Hvers vegna geta ákveðnar tilfinningar.	hvers vegna geta ákveðnar tilfinningar	pending			pending		
+test	0029314	audio/test/003798/003798-0029314.flac	low_rms	Niðurstaðan úr slíkri vinnu er ekki einhlít.	niðurstaðan úr slíkri vinnu er ekki einhlít	pending			pending		
+test	0031902	audio/test/004182/004182-0031902.flac	long_quiet_edge	Renín er fengið sem aukaafurð við hreinsun mólýbdens.	renín er fengið sem aukaafurð við hreinsun mólýbdens	pending			pending		
+test	0015725	audio/test/002143/002143-0015725.flac	long_quiet_edge	Í Evrópu var byrjun ársins lengi vel einnig mjög á reiki.	í evrópu var byrjun ársins lengi vel einnig mjög á reiki	pending			pending		
+test	0026801	audio/test/003500/003500-0026801.flac	long_quiet_edge	Sá var eins konar sættargerðarmaður.	sá var eins konar sættargerðarmaður	pending			pending		
+test	0003286	audio/test/000469/000469-0003286.flac	long_quiet_edge	Hér fyrir neðan er tafla yfir tíu hættulegustu hákarlategundirnar samkvæmt tölfræði ISAF.	hér fyrir neðan er tafla yfir tíu hættulegustu hákarlategundirnar samkvæmt tölfræði isaf	pending			pending		
+test	0249789	audio/test/010355/010355-0249789.flac	long_quiet_edge	Skotabergsheiði, Dýhvammur, Hvítiflötur, Rauðárbotn	skotabergsheiði dýhvammur hvítiflötur rauðárbotn	pending			pending		
+test	0015250	audio/test/002068/002068-0015250.flac	long_quiet_edge	Þannig reiknuðu Súmerar.	þannig reiknuðu súmerar	pending			pending		
+test	0017515	audio/test/002373/002373-0017515.flac	low_rms	Almennt gera bandormarnir lítið tjón.	almennt gera bandormarnir lítið tjón	pending			pending		
+test	0022072	audio/test/002929/002929-0022072.flac	long_quiet_edge	Nine Parts of Desire.	nine parts of desire	pending			pending		
+test	0000707	audio/test/000106/000106-0000707.flac	long_quiet_edge	Meddelser fra Grönland.	meddelser fra grönland	pending			pending		
+test	0017053	audio/test/002321/002321-0017053.flac	long_quiet_edge	Samkvæmt auglýsingunni er markmiðið með friðlýsingu Dimmuborga sem náttúruvættis	samkvæmt auglýsingunni er markmiðið með friðlýsingu dimmuborga sem náttúruvættis	pending			pending		
+test	0010543	audio/test/001418/001418-0010543.flac	long_quiet_edge	Hafsteina, hvað myndir eru í bíó sunnudaginn?	hafsteina hvað myndir eru í bíó sunnudaginn	pending			pending		
+test	0072069	audio/test/007462/007462-0072069.flac	long_quiet_edge	Ekki hafði hún heldur margt um Lindu að segja.	ekki hafði hún heldur margt um lindu að segja	pending			pending		
+test	0019016	audio/test/002539/002539-0019016.flac	low_rms	Ritstjóri Sigurður Líndal.	ritstjóri sigurður líndal	pending			pending		
+test	0014723	audio/test/002003/002003-0014723.flac	long_quiet_edge	Slíkar kvenverur þekkjast víða í heimi undir ýmsum heitum.	slíkar kvenverur þekkjast víða í heimi undir ýmsum heitum	pending			pending		
+test	0023023	audio/test/003056/003056-0023023.flac	long_quiet_edge	Matvælasýkingar eru oftast tengdar afurðum nautgripa og er nautahakk algengasta orsökin.	matvælasýkingar eru oftast tengdar afurðum nautgripa og er nautahakk algengasta orsökin	pending			pending		
+test	0033225	audio/test/004352/004352-0033225.flac	low_rms	Af hverju er mænan okkar svona mikilvæg?	af hverju er mænan okkar svona mikilvæg	pending			pending		
+test	0019048	audio/test/002540/002540-0019048.flac	long_quiet_edge	Nær Hvítá eru flæðiengjar og víða má sjá gamla sjávarbakka eftir hærri sjávarstöðu.	nær hvítá eru flæðiengjar og víða má sjá gamla sjávarbakka eftir hærri sjávarstöðu	pending			pending		
+test	0013034	audio/test/001772/001772-0013034.flac	long_quiet_edge	Heimildir og mynd Guðný Björk Eydal.	heimildir og mynd guðný björk eydal	pending			pending		
+test	0029007	audio/test/003765/003765-0029007.flac	low_rms	Vildi að þeir myndu skoða hvað hvetur fólk áfram og hvernig það hugsar.	vildi að þeir myndu skoða hvað hvetur fólk áfram og hvernig það hugsar	pending			pending		
+dev	0033659	audio/dev/004419/004419-0033659.flac	long_quiet_edge	Viðurnefnið valdi Kristján sér sjálfur.	viðurnefnið valdi kristján sér sjálfur	pending			pending		
+dev	0015476	audio/dev/002104/002104-0015476.flac	long_quiet_edge	Forsjá sambúðarforeldrisins varir þó aðeins á meðan á sambúðinni stendur.	forsjá sambúðarforeldrisins varir þó aðeins á meðan á sambúðinni stendur	pending			pending		
+dev	0127833	audio/dev/008887/008887-0127833.flac	mostly_quiet|long_quiet_edge	Þriggja stafa orð fyrir blek?	þriggja stafa orð fyrir blek	pending			pending		
+dev	0020948	audio/dev/002772/002772-0020948.flac	long_quiet_edge	Auk þess hafa nokkrar teiknimyndir verið gerðar upp úr sögunni.	auk þess hafa nokkrar teiknimyndir verið gerðar upp úr sögunni	pending			pending		
+dev	0071952	audio/dev/007454/007454-0071952.flac	long_quiet_edge	Ósýnilegur hnífur í brjóst.	ósýnilegur hnífur í brjóst	pending			pending		
+dev	0016750	audio/dev/002276/002276-0016750.flac	long_quiet_edge	Hvítu blóðkornin myndast ekki endilega í beinmerg eins og rauðu blóðkornin.	hvítu blóðkornin myndast ekki endilega í beinmerg eins og rauðu blóðkornin	pending			pending		
+dev	0071962	audio/dev/007455/007455-0071962.flac	long_quiet_edge	Jökulkaldur hrollur hríslaðist eftir bakinu á henni.	jökulkaldur hrollur hríslaðist eftir bakinu á henni	pending			pending		
+dev	0012680	audio/dev/001733/001733-0012680.flac	long_quiet_edge	Gúa, mun rigna í dag?	gúa mun rigna í dag	pending			pending		
+dev	0154700	audio/dev/009187/009187-0154700.flac	low_rms	Ekkert bólaði enn á honum.	ekkert bólaði enn á honum	pending			pending		
+dev	0009259	audio/dev/001291/001291-0009259.flac	long_quiet_edge	Þessi hiti nefnist bræðslumark efnisins.	þessi hiti nefnist bræðslumark efnisins	pending			pending		
+dev	0241533	audio/dev/010223/010223-0241533.flac	long_quiet_edge	Hún sest ekki.	hún sest ekki	pending			pending		
+dev	0012803	audio/dev/001748/001748-0012803.flac	long_quiet_edge	Af og til koma upp tilvik um mannætuljón.	af og til koma upp tilvik um mannætuljón	pending			pending		
+dev	0072277	audio/dev/007484/007484-0072277.flac	long_quiet_edge	Í menntaskóla vorum við par og þótt sambandið slitnaði var þráðurinn sterkur.	í menntaskóla vorum við par og þótt sambandið slitnaði var þráðurinn sterkur	pending			pending		
+dev	0225106	audio/dev/009975/009975-0225106.flac	low_rms	Það er það sem hann mun gera áfram.	það er það sem hann mun gera áfram	pending			pending		
+dev	0028302	audio/dev/003682/003682-0028302.flac	long_quiet_edge	Jafnvel var talið að um ástarjátningu gæti verið að ræða.	jafnvel var talið að um ástarjátningu gæti verið að ræða	pending			pending		
+dev	0067133	audio/dev/007233/007233-0067133.flac	low_rms|mostly_quiet	Ég hrekk við.	ég hrekk við	pending			pending		
+dev	0032278	audio/dev/004235/004235-0032278.flac	low_rms|mostly_quiet	Mikill hafís var fyrir Norðurlandi.	mikill hafís var fyrir norðurlandi	pending			pending		
+dev	0031224	audio/dev/004074/004074-0031224.flac	long_quiet_edge	Þegar rekbeltið er yfir stróknum má búast við mikilli eldvirkni.	þegar rekbeltið er yfir stróknum má búast við mikilli eldvirkni	pending			pending		
+dev	0003792	audio/dev/000554/000554-0003792.flac	long_quiet_edge	Eldur var á gólfinu og vermdi hún vatn til að fægja sárin.	eldur var á gólfinu og vermdi hún vatn til að fægja sárin	pending			pending		
+dev	0028107	audio/dev/003656/003656-0028107.flac	low_rms|long_quiet_edge	Hver er uppruni íslensku gæsalappanna?	hver er uppruni íslensku gæsalappanna	pending			pending		
+dev	0032499	audio/dev/004268/004268-0032499.flac	long_quiet_edge	Mynd á grísku skrautkeri af Heraklesi að draga Kerberos frá Hadesarheimi.	mynd á grísku skrautkeri af heraklesi að draga kerberos frá hadesarheimi	pending			pending		
+dev	0004239	audio/dev/000598/000598-0004239.flac	long_quiet_edge	Froðueyðar eru einnig yfirborðsvirk efni.	froðueyðar eru einnig yfirborðsvirk efni	pending			pending		
+dev	0020583	audio/dev/002731/002731-0020583.flac	long_quiet_edge	Líklegast kom gráúlfurinn fram á sjónarsviðið í Asíu fyrir um milljón árum síðan.	líklegast kom gráúlfurinn fram á sjónarsviðið í asíu fyrir um milljón árum síðan	pending			pending		
+dev	0071937	audio/dev/007451/007451-0071937.flac	mostly_quiet|long_quiet_edge	Heldurðu að þú fáir að leika þér með lögin?	heldurðu að þú fáir að leika þér með lögin	pending			pending		
+dev	0069234	audio/dev/007302/007302-0069234.flac	long_quiet_edge	Látinn og vel súrsaður Sigurður gagnaðist engum málstað!	látinn og vel súrsaður sigurður gagnaðist engum málstað	pending			pending		
+dev	0006042	audio/dev/000848/000848-0006042.flac	long_quiet_edge	Þegar erfðagallinn sem móðirin ber er þekktur.	þegar erfðagallinn sem móðirin ber er þekktur	pending			pending		
+dev	0021288	audio/dev/002830/002830-0021288.flac	low_rms	Lengd gossprungu var um ellefu kílómetrar.	lengd gossprungu var um ellefu kílómetrar	pending			pending		
+dev	0012713	audio/dev/001735/001735-0012713.flac	long_quiet_edge	Talið er að frumbyggjarnir Majorku hafi komið þangað á bronsöld.	talið er að frumbyggjarnir majorku hafi komið þangað á bronsöld	pending			pending		
+dev	0019208	audio/dev/002567/002567-0019208.flac	long_quiet_edge	Það sem greinir að Bandaríkin og Evrópu hvað þunganir unglingsstúlkna varðar.	það sem greinir að bandaríkin og evrópu hvað þunganir unglingsstúlkna varðar	pending			pending		
+dev	0035207	audio/dev/004588/004588-0035207.flac	long_quiet_edge	Hvaða afleiðingar hafa breytingar á jöklum?	hvaða afleiðingar hafa breytingar á jöklum	pending			pending		
+dev	0199590	audio/dev/009664/009664-0199590.flac	low_rms|mostly_quiet	Einu sinni, já.	einu sinni já	pending			pending		
+dev	0007550	audio/dev/001060/001060-0007550.flac	long_quiet_edge	Páll er formaður Norræna félagsins í Vestmannaeyjum og sænskur ráðgjafi í Vestmannaeyjum.	páll er formaður norræna félagsins í vestmannaeyjum og sænskur ráðgjafi í vestmannaeyjum	pending			pending		
+dev	0019984	audio/dev/002661/002661-0019984.flac	long_quiet_edge	Saxi, opnaðu Netflix.	saxi opnaðu netflix	pending			pending		
+dev	0053869	audio/dev/006485/006485-0053869.flac	long_quiet_edge	Er ég ekki stjórnmálamaður samt?	er ég ekki stjórnmálamaður samt	pending			pending		
+dev	0026514	audio/dev/003464/003464-0026514.flac	long_quiet_edge	Við getum þá oft gert eitthvað til að flýta fyrir svari.	við getum þá oft gert eitthvað til að flýta fyrir svari	pending			pending		
+dev	0011998	audio/dev/001628/001628-0011998.flac	low_rms|long_quiet_edge	Skuldahjöðnun hefði verið næsta skref.	skuldahjöðnun hefði verið næsta skref	pending			pending		
+dev	0067070	audio/dev/007228/007228-0067070.flac	long_quiet_edge	Gott að þú ert kominn, Brynjar.	gott að þú ert kominn brynjar	pending			pending		
+dev	0241539	audio/dev/010224/010224-0241539.flac	long_quiet_edge	Það er líka bíó hérna.	það er líka bíó hérna	pending			pending		
+dev	0021296	audio/dev/002832/002832-0021296.flac	long_quiet_edge	Díonýsos hafði, líkt og Apollon, samskipti við mannfólkið í gegnum véfréttir.	díonýsos hafði líkt og apollon samskipti við mannfólkið í gegnum véfréttir	pending			pending		
+dev	0103349	audio/dev/008611/008611-0103349.flac	mostly_quiet	Góð súpa	góð súpa	pending			pending		
+dev	0008311	audio/dev/001176/001176-0008311.flac	long_quiet_edge	Annar var Teitur Þorvaldsson lögsögumaður í Bræðratungu.	annar var teitur þorvaldsson lögsögumaður í bræðratungu	pending			pending		
+dev	0020833	audio/dev/000541/000541-0020833.flac	long_quiet_edge	Kristdór, hvað er að frétta í dag?	kristdór hvað er að frétta í dag	pending			pending		
+dev	0023245	audio/dev/003092/003092-0023245.flac	long_quiet_edge	Ingmar, hvernig er veðurspáin?	ingmar hvernig er veðurspáin	pending			pending		
+dev	0034386	audio/dev/004493/004493-0034386.flac	long_quiet_edge	Angela, hvenær kemur sexan?	angela hvenær kemur sexan	pending			pending		
+dev	0069207	audio/dev/007296/007296-0069207.flac	low_rms	Aðrir nefna hærri tölur.	aðrir nefna hærri tölur	pending			pending		
+dev	0018207	audio/dev/002439/002439-0018207.flac	low_rms	Nútildags er byggingin notuð sem sýningaraðstaða og skrifstofa.	nútildags er byggingin notuð sem sýningaraðstaða og skrifstofa	pending			pending		
+dev	0033445	audio/dev/004389/004389-0033445.flac	low_rms	Skáldsaga byggð á heimildum.	skáldsaga byggð á heimildum	pending			pending		
+dev	0071532	audio/dev/007421/007421-0071532.flac	long_quiet_edge	Ég sætti mig snemma við að vera í skugganum.	ég sætti mig snemma við að vera í skugganum	pending			pending		
+dev	0062006	audio/dev/006995/006995-0062006.flac	low_rms|mostly_quiet|long_quiet_edge	Honum er því alls ekki rótt og er stöðugt á varðbergi.	honum er því alls ekki rótt og er stöðugt á varðbergi	pending			pending		
+dev	0027018	audio/dev/003525/003525-0027018.flac	long_quiet_edge	Hollenskir hvalveiðimenn á Svalbarða.	hollenskir hvalveiðimenn á svalbarða	pending			pending		
+dev	0123891	audio/dev/008867/008867-0123891.flac	long_quiet_edge	Ég komst aldrei á séns.	ég komst aldrei á séns	pending			pending		
+dev	0020919	audio/dev/002767/002767-0020919.flac	long_quiet_edge	Borgarstjórinn telur misráðið að láta svo marga flóttamenn búa á sama stað.	borgarstjórinn telur misráðið að láta svo marga flóttamenn búa á sama stað	pending			pending		
+dev	0070148	audio/dev/007331/007331-0070148.flac	long_quiet_edge	Geturðu klætt þig öðruvísi?	geturðu klætt þig öðruvísi	pending			pending		
+dev	0003306	audio/dev/000472/000472-0003306.flac	long_quiet_edge	Ef jarðvegur er þurr er raki í neðstu lögum loftsins að jafnaði lítill.	ef jarðvegur er þurr er raki í neðstu lögum loftsins að jafnaði lítill	pending			pending		
+dev	0071779	audio/dev/007441/007441-0071779.flac	long_quiet_edge	Slíkt höfðu þó mínir ættingjar aldrei lagt fyrir sig.	slíkt höfðu þó mínir ættingjar aldrei lagt fyrir sig	pending			pending		
+dev	0071350	audio/dev/007413/007413-0071350.flac	low_rms	Í fyrstu blæddi og vessaði úr höndunum.	í fyrstu blæddi og vessaði úr höndunum	pending			pending		
+dev	0173345	audio/dev/009408/009408-0173345.flac	mostly_quiet	Hún er fín.	hún er fín	pending			pending		
+dev	0024398	audio/dev/003238/003238-0024398.flac	long_quiet_edge	Grænþörungar er ein fylking þörunga.	grænþörungar er ein fylking þörunga	pending			pending		
+dev	0134796	audio/dev/008930/008930-0134796.flac	low_rms|long_quiet_edge	Þurfti ekki að segja neitt.	þurfti ekki að segja neitt	pending			pending		
+dev	0003835	audio/dev/000561/000561-0003835.flac	long_quiet_edge	Nafn safnaðarins er tekið úr grísku og merkir klettur.	nafn safnaðarins er tekið úr grísku og merkir klettur	pending			pending		
+dev	0071972	audio/dev/007456/007456-0071972.flac	long_quiet_edge	Þannig vinna þeir hálfa vinnuna fyrir okkur tröllin.	þannig vinna þeir hálfa vinnuna fyrir okkur tröllin	pending			pending		
+dev	0027061	audio/dev/003533/003533-0027061.flac	long_quiet_edge	Í öðru lagi er svanasöngur notað um síðasta verk listamanns.	í öðru lagi er svanasöngur notað um síðasta verk listamanns	pending			pending		
+dev	0033442	audio/dev/004388/004388-0033442.flac	low_rms	Annars er það heimsókn til Sigurðar skólastjóra og símtal til mömmu þinnar.	annars er það heimsókn til sigurðar skólastjóra og símtal til mömmu þinnar	pending			pending		
+dev	0238911	audio/dev/010133/010133-0238911.flac	long_quiet_edge	Óléttar konur mega ekki drekka.	óléttar konur mega ekki drekka	pending			pending		
+dev	0155272	audio/dev/009206/009206-0155272.flac	long_quiet_edge	Þetta er víst hann Kiljan.	þetta er víst hann kiljan	pending			pending		
+dev	0034666	audio/dev/004527/004527-0034666.flac	low_rms	Talið er höktandi.	talið er höktandi	pending			pending		
+dev	0018204	audio/dev/002439/002439-0018204.flac	low_rms|long_quiet_edge	Það er til dæmis hægt á síðum Vodafone, Símans og Nova.	það er til dæmis hægt á síðum vodafone símans og nova	pending			pending		
+dev	0173573	audio/dev/009412/009412-0173573.flac	mostly_quiet	Ég þakka.	ég þakka	pending			pending		
+dev	0015470	audio/dev/002103/002103-0015470.flac	long_quiet_edge	Tveir mögulegir eiturbyrlarar voru nefndir.	tveir mögulegir eiturbyrlarar voru nefndir	pending			pending		
+dev	0019470	audio/dev/002611/002611-0019470.flac	long_quiet_edge	Hann var kasmekktur á Bláfjöll.	hann var kasmekktur á bláfjöll	pending			pending		
+dev	0224740	audio/dev/009966/009966-0224740.flac	low_rms	Kleifarhólmi, Föxutangi, Fasarhólmar, Neðrivíkur	kleifarhólmi föxutangi fasarhólmar neðrivíkur	pending			pending		
+dev	0023663	audio/dev/003159/003159-0023663.flac	low_rms	Þetta áttu að vera hans síðustu Ólympíuleikar.	þetta áttu að vera hans síðustu ólympíuleikar	pending			pending		
+dev	0067125	audio/dev/007231/007231-0067125.flac	long_quiet_edge	Þá yrði lægðin rétt ókomin og fáir á ferð.	þá yrði lægðin rétt ókomin og fáir á ferð	pending			pending		
+dev	0131251	audio/dev/008908/008908-0131251.flac	long_quiet_edge	Sturtan niðri er þögnuð.	sturtan niðri er þögnuð	pending			pending		
+dev	0034064	audio/dev/004469/004469-0034064.flac	long_quiet_edge	Jóhann er fæddur að Hofi í Svarfaðardal.	jóhann er fæddur að hofi í svarfaðardal	pending			pending		
+dev	0009321	audio/dev/001298/001298-0009321.flac	long_quiet_edge	Til dæmis sýnir myndin að ofan ferhyrning og sexhyrning.	til dæmis sýnir myndin að ofan ferhyrning og sexhyrning	pending			pending		
+dev	0185330	audio/dev/009547/009547-0185330.flac	low_rms|mostly_quiet|long_quiet_edge	Kann allt.	kann allt	pending			pending		
+dev	0071976	audio/dev/007456/007456-0071976.flac	long_quiet_edge	Þarna ertu þá, ljósið mitt.	þarna ertu þá ljósið mitt	pending			pending		
+dev	0034756	audio/dev/004543/004543-0034756.flac	long_quiet_edge	Konungar þessarar konungsættar voru „útlendingar“ sem báru semísk nöfn.	konungar þessarar konungsættar voru útlendingar sem báru semísk nöfn	pending			pending		
+dev	0240725	audio/dev/007378/007378-0240725.flac	long_quiet_edge	Einn af stofnendum Kvennaframboðs og Kvennalista	einn af stofnendum kvennaframboðs og kvennalista	pending			pending		
+dev	0070812	audio/dev/007370/007370-0070812.flac	long_quiet_edge	Ég heiti Dagný, sagði konan.	ég heiti dagný sagði konan	pending			pending		
+dev	0026607	audio/dev/003479/003479-0026607.flac	long_quiet_edge	Nokkur hlutlaus orð eru til dæmis fljóð.	nokkur hlutlaus orð eru til dæmis fljóð	pending			pending		
+dev	0016912	audio/dev/002297/002297-0016912.flac	long_quiet_edge	Einhverjir steinaldarmenn borðuðu þess vegna nær örugglega hunang.	einhverjir steinaldarmenn borðuðu þess vegna nær örugglega hunang	pending			pending		
+dev	0021300	audio/dev/002832/002832-0021300.flac	long_quiet_edge	Um nykra má svo lesa í svari JGÞ.	um nykra má svo lesa í svari jgþ	pending			pending		
+dev	0193446	audio/dev/009618/009618-0193446.flac	mostly_quiet|long_quiet_edge	Dundi landa!	dundi landa	pending			pending		
+dev	0030095	audio/dev/003900/003900-0030095.flac	long_quiet_edge	Auðvelt er að segja að þetta eru ekki eiginlegar rúnir.	auðvelt er að segja að þetta eru ekki eiginlegar rúnir	pending			pending		
+dev	0067123	audio/dev/007231/007231-0067123.flac	long_quiet_edge	Jú, ég var svo sem til í það líka, sagði Fenrir.	jú ég var svo sem til í það líka sagði fenrir	pending			pending		
+dev	0015475	audio/dev/002104/002104-0015475.flac	mostly_quiet|long_quiet_edge	Polly, hvað er að frétta í dag?	polly hvað er að frétta í dag	pending			pending		
+dev	0011678	audio/dev/001579/001579-0011678.flac	long_quiet_edge	Lifrin framleiðir kólesteról.	lifrin framleiðir kólesteról	pending			pending		
+dev	0009011	audio/dev/001267/001267-0009011.flac	long_quiet_edge	Þessar ættir eiga margt sameiginlegt.	þessar ættir eiga margt sameiginlegt	pending			pending		
+dev	0035020	audio/dev/004568/004568-0035020.flac	low_rms	Annars vegar eru skyntaugahnoðu og hins vegar sjálfvirk taugahnoðu.	annars vegar eru skyntaugahnoðu og hins vegar sjálfvirk taugahnoðu	pending			pending		
+dev	0180738	audio/dev/009485/009485-0180738.flac	low_rms	Ekkert sem minnir á Rósu.	ekkert sem minnir á rósu	pending			pending		
+dev	0035920	audio/dev/004633/004633-0035920.flac	long_quiet_edge	Heilsu Tolstojs hafði hrakað mjög undanfarna daga og vikur.	heilsu tolstojs hafði hrakað mjög undanfarna daga og vikur	pending			pending		
+dev	0001465	audio/dev/000219/000219-0001465.flac	long_quiet_edge	Þeir eru oft notaðir við námundun.	þeir eru oft notaðir við námundun	pending			pending		
+dev	0018668	audio/dev/002493/002493-0018668.flac	long_quiet_edge	Í því voru þrír stórir salir.	í því voru þrír stórir salir	pending			pending		
+dev	0022180	audio/dev/002940/002940-0022180.flac	long_quiet_edge	Gas hefur einnig fundist þar.	gas hefur einnig fundist þar	pending			pending		
+dev	0153729	audio/dev/009170/009170-0153729.flac	low_rms|mostly_quiet	Hann stuggar við mér.	hann stuggar við mér	pending			pending		
+dev	0033718	audio/dev/004421/004421-0033718.flac	long_quiet_edge	Á skothylkinu stendur skýrum stöfum „Made in Bandaríki Norður-Ameríku.“	á skothylkinu stendur skýrum stöfum made in bandaríki norður ameríku	pending			pending		
+dev	0003394	audio/dev/000490/000490-0003394.flac	long_quiet_edge	Þar fengu Dalamenn að kynnast ýmsum undrum vísindanna.	þar fengu dalamenn að kynnast ýmsum undrum vísindanna	pending			pending		
+dev	0021962	audio/dev/002919/002919-0021962.flac	long_quiet_edge	Fís-dúr er samhljóma Ges-dúr.	fís dúr er samhljóma ges dúr	pending			pending		
+dev	0069011	audio/dev/007290/007290-0069011.flac	long_quiet_edge	Finnst þér þetta koma þannig út?	finnst þér þetta koma þannig út	pending			pending		
+dev	0072195	audio/dev/007477/007477-0072195.flac	long_quiet_edge	Ég fylgist með tímanum af tréstólnum mínum.	ég fylgist með tímanum af tréstólnum mínum	pending			pending		
+dev	0023464	audio/dev/003127/003127-0023464.flac	long_quiet_edge	Já, fullhlaðnar rafhlöður eru örlítið þyngri en tómar rafhlöður.	já fullhlaðnar rafhlöður eru örlítið þyngri en tómar rafhlöður	pending			pending		
+dev	0070288	audio/dev/007338/007338-0070288.flac	long_quiet_edge	Sjálfsagt var ýmsum illa við mig þess vegna.	sjálfsagt var ýmsum illa við mig þess vegna	pending			pending		
+dev	0035019	audio/dev/004568/004568-0035019.flac	low_rms|long_quiet_edge	Tvær tilgátur hafa þó verið settar fram.	tvær tilgátur hafa þó verið settar fram	pending			pending		
+dev	0157524	audio/dev/009267/009267-0157524.flac	long_quiet_edge	Og Þóra og Vala?	og þóra og vala	pending			pending		
+dev	0069265	audio/dev/007302/007302-0069265.flac	long_quiet_edge	Þetta kvöld stóð hann óvenju lengi yfir henni.	þetta kvöld stóð hann óvenju lengi yfir henni	pending			pending		
+dev	0028096	audio/dev/003654/003654-0028096.flac	low_rms	Á meðan hélt Hrafn til Íslands og bað Helgu hinnar fögru.	á meðan hélt hrafn til íslands og bað helgu hinnar fögru	pending			pending		
+dev	0238910	audio/dev/010133/010133-0238910.flac	long_quiet_edge	Ætlaði Lúlli að koma?	ætlaði lúlli að koma	pending			pending		
+dev	0010529	audio/dev/001416/001416-0010529.flac	long_quiet_edge	Á öllu tímabilinu.	á öllu tímabilinu	pending			pending		
+dev	0007911	audio/dev/001120/001120-0007911.flac	long_quiet_edge	Gagnsemi þeirra er hins vegar mikil þar sem þær veiða ýmis smádýr.	gagnsemi þeirra er hins vegar mikil þar sem þær veiða ýmis smádýr	pending			pending		
+dev	0224743	audio/dev/009966/009966-0224743.flac	low_rms	Lambárfoss, Kleppafoss, Hvítfoss, Fauskhólafoss	lambárfoss kleppafoss hvítfoss fauskhólafoss	pending			pending		
+dev	0028099	audio/dev/003654/003654-0028099.flac	low_rms|long_quiet_edge	Algengt er þó að þreyta.	algengt er þó að þreyta	pending			pending		
+dev	0031004	audio/dev/004037/004037-0031004.flac	long_quiet_edge	Mest áhrif hafði grein eftir bandaríska heimspekinginn Saul Kripke.	mest áhrif hafði grein eftir bandaríska heimspekinginn saul kripke	pending			pending		
+dev	0023665	audio/dev/003159/003159-0023665.flac	low_rms	Þetta er góð spurning og svarið snertir mörg af undirstöðuatriðum varmafræðinnar.	þetta er góð spurning og svarið snertir mörg af undirstöðuatriðum varmafræðinnar	pending			pending		
+dev	0031682	audio/dev/004153/004153-0031682.flac	long_quiet_edge	Hann kallaði jafnframt grein Abels til frönsku akademíunnar „minnismerki varanlegra en brons“.	hann kallaði jafnframt grein abels til frönsku akademíunnar minnismerki varanlegra en brons	pending			pending		
+dev	0027007	audio/dev/003524/003524-0027007.flac	long_quiet_edge	Eins og nafnið bendir til er skeifugörn eins og skeifa í laginu.	eins og nafnið bendir til er skeifugörn eins og skeifa í laginu	pending			pending		
+dev	0026116	audio/dev/003409/003409-0026116.flac	long_quiet_edge	Verkefni hennar fólst í því að setja fram mannfræðilega greiningu á samfélögum.	verkefni hennar fólst í því að setja fram mannfræðilega greiningu á samfélögum	pending			pending		
+dev	0154492	audio/dev/009183/009183-0154492.flac	mostly_quiet|long_quiet_edge	Hún gekk of langt.	hún gekk of langt	pending			pending		
+dev	0154496	audio/dev/009183/009183-0154496.flac	long_quiet_edge	Tíminn vinnur með henni.	tíminn vinnur með henni	pending			pending		
+dev	0010538	audio/dev/001417/001417-0010538.flac	long_quiet_edge	Þá er jarðvegurinn frjósamur en ræktunarskilyrði eru þó háð úrkomu.	þá er jarðvegurinn frjósamur en ræktunarskilyrði eru þó háð úrkomu	pending			pending		
+dev	0035910	audio/dev/004631/004631-0035910.flac	long_quiet_edge	Hinir stefndu hyggjast sækja skaðabætur á hendi Glitni banka.	hinir stefndu hyggjast sækja skaðabætur á hendi glitni banka	pending			pending		
+dev	0071707	audio/dev/007431/007431-0071707.flac	long_quiet_edge	Raunar var það oft og tíðum gert þrátt fyrir að tilræðismenn næðust.	raunar var það oft og tíðum gert þrátt fyrir að tilræðismenn næðust	pending			pending		
+dev	0032208	audio/dev/004223/004223-0032208.flac	long_quiet_edge	Um hryðjuverkin í Bandaríkjunum má lesa í grein Magnúsar Þorkels Bernharðssonar.	um hryðjuverkin í bandaríkjunum má lesa í grein magnúsar þorkels bernharðssonar	pending			pending		
+dev	0239435	audio/dev/010152/010152-0239435.flac	long_quiet_edge	Ætlar Róbert með þér?	ætlar róbert með þér	pending			pending		
+dev	0019987	audio/dev/002662/002662-0019987.flac	long_quiet_edge	Hæstaréttardómarar eru þó ekki kjörgengir.	hæstaréttardómarar eru þó ekki kjörgengir	pending			pending		
+dev	0071824	audio/dev/007443/007443-0071824.flac	low_rms|long_quiet_edge	Eigum við ekki að fara bara strax upp í bækistöðina?	eigum við ekki að fara bara strax upp í bækistöðina	pending			pending		
+dev	0007871	audio/dev/001116/001116-0007871.flac	long_quiet_edge	Spruði hann Toshizo Tanabe og lét eins og ekkert væri.	spruði hann toshizo tanabe og lét eins og ekkert væri	pending			pending		
+dev	0047893	audio/dev/006055/006055-0047893.flac	low_rms	Ætti ég ekki að skella mér til Rússlands að leita hana uppi?	ætti ég ekki að skella mér til rússlands að leita hana uppi	pending			pending		
+dev	0257657	audio/dev/010437/010437-0257657.flac	long_quiet_edge	Hvernig skildi Ara líða?	hvernig skildi ara líða	pending			pending		
+dev	0033721	audio/dev/004421/004421-0033721.flac	mostly_quiet|long_quiet_edge	Eins á litin.	eins á litin	pending			pending		
+dev	0070814	audio/dev/007370/007370-0070814.flac	long_quiet_edge	Ég var til alls líklegur.	ég var til alls líklegur	pending			pending		
+dev	0015423	audio/dev/002097/002097-0015423.flac	long_quiet_edge	Öskjuvatn er í Öskju í Dyngjufjöllum.	öskjuvatn er í öskju í dyngjufjöllum	pending			pending		
+dev	0025270	audio/dev/003330/003330-0025270.flac	long_quiet_edge	Rudolf, spilaðu tónlist.	rudolf spilaðu tónlist	pending			pending		
+dev	0167944	audio/dev/009362/009362-0167944.flac	low_rms|long_quiet_edge	Þeir skipta mig ekki máli.	þeir skipta mig ekki máli	pending			pending		
+dev	0003351	audio/dev/000481/000481-0003351.flac	long_quiet_edge	Sníkjudýr eru nokkurs konar innrásarlífverur.	sníkjudýr eru nokkurs konar innrásarlífverur	pending			pending		
+dev	0213986	audio/dev/009773/009773-0213986.flac	mostly_quiet|long_quiet_edge	Þú ólst þá.	þú ólst þá	pending			pending		
+dev	0067065	audio/dev/007227/007227-0067065.flac	long_quiet_edge	En hátignin sjálf lét á engu bera heldur heilsaði henni vinsamlega.	en hátignin sjálf lét á engu bera heldur heilsaði henni vinsamlega	pending			pending		
+dev	0238915	audio/dev/010134/010134-0238915.flac	long_quiet_edge	Nei, sem betur fer.	nei sem betur fer	pending			pending		
+dev	0225079	audio/dev/009975/009975-0225079.flac	low_rms	Barnið tekur aðra törn.	barnið tekur aðra törn	pending			pending		
+dev	0015454	audio/dev/002100/002100-0015454.flac	long_quiet_edge	Í svo þéttri sáningu greinist plantan ekki.	í svo þéttri sáningu greinist plantan ekki	pending			pending		
+dev	0008120	audio/dev/001157/001157-0008120.flac	long_quiet_edge	Formgerð sem mótar líf okkar allra og setur okkar skorður.	formgerð sem mótar líf okkar allra og setur okkar skorður	pending			pending		
+dev	0195835	audio/dev/009637/009637-0195835.flac	long_quiet_edge	Sækir skæri.	sækir skæri	pending			pending		
+dev	0028263	audio/dev/003677/003677-0028263.flac	long_quiet_edge	Fólk getur til að mynda fundið fyrir guðlegri návist.	fólk getur til að mynda fundið fyrir guðlegri návist	pending			pending		
+dev	0101550	audio/dev/008560/008560-0101550.flac	long_quiet_edge	Hvorugt sagði orð.	hvorugt sagði orð	pending			pending		
+dev	0103350	audio/dev/008611/008611-0103350.flac	mostly_quiet|long_quiet_edge	Ég er að rugla.	ég er að rugla	pending			pending		
+dev	0033438	audio/dev/004387/004387-0033438.flac	low_rms	Vísindavefurinn eða ritstjórn hans getur ekki borið ábyrgð á skaða.	vísindavefurinn eða ritstjórn hans getur ekki borið ábyrgð á skaða	pending			pending		
+dev	0003709	audio/dev/000541/000541-0003709.flac	long_quiet_edge	Sogamýri er svæði í Reykjavík, milli Miklubrautar og Suðurlandsbrautar, austan við Skeiðarvog.	sogamýri er svæði í reykjavík milli miklubrautar og suðurlandsbrautar austan við skeiðarvog	pending			pending		
+dev	0004355	audio/dev/000621/000621-0004355.flac	long_quiet_edge	Árni Magnússon og Páll Vídalín, Jarðabók.	árni magnússon og páll vídalín jarðabók	pending			pending		
+dev	0071774	audio/dev/007440/007440-0071774.flac	mostly_quiet|long_quiet_edge	Bað hún þig um það?	bað hún þig um það	pending			pending		
+dev	0149703	audio/dev/009098/009098-0149703.flac	low_rms|mostly_quiet|long_quiet_edge	Nei, Rósa mín.	nei rósa mín	pending			pending		
+dev	0022195	audio/dev/002943/002943-0022195.flac	long_quiet_edge	Ýmis námskeið verða í boði en þar geta nemendur fræðst um stjörnufræði.	ýmis námskeið verða í boði en þar geta nemendur fræðst um stjörnufræði	pending			pending		
+dev	0003393	audio/dev/000490/000490-0003393.flac	long_quiet_edge	Theodóra, slökku á niðurteljaranum.	theodóra slökku á niðurteljaranum	pending			pending		
+dev	0017240	audio/dev/002353/002353-0017240.flac	long_quiet_edge	Á sjöunda öld.	á sjöunda öld	pending			pending		
+dev	0148845	audio/dev/009069/009069-0148845.flac	long_quiet_edge	Byltum okkur báðar í einu.	byltum okkur báðar í einu	pending			pending		
+dev	0025920	audio/dev/003398/003398-0025920.flac	long_quiet_edge	Kvikasilfursgufa og lífræna efnasambandið metýlkvikasilfur eru dæmi um mjög eitruð form.	kvikasilfursgufa og lífræna efnasambandið metýlkvikasilfur eru dæmi um mjög eitruð form	pending			pending		
+dev	0026544	audio/dev/003470/003470-0026544.flac	long_quiet_edge	Flest karlmannsnöfnin eru sótt til villtra spendýra.	flest karlmannsnöfnin eru sótt til villtra spendýra	pending			pending		
+dev	0071940	audio/dev/007451/007451-0071940.flac	long_quiet_edge	Hún þolir engar afsakanir, svo mikið skil ég.	hún þolir engar afsakanir svo mikið skil ég	pending			pending		
+dev	0070149	audio/dev/007331/007331-0070149.flac	long_quiet_edge	Svona svona, þú stendur þig vel.	svona svona þú stendur þig vel	pending			pending		
+dev	0241548	audio/dev/010224/010224-0241548.flac	mostly_quiet	Mér datt það í hug.	mér datt það í hug	pending			pending		
+dev	0071725	audio/dev/007434/007434-0071725.flac	long_quiet_edge	Sjálf hefði hún helst reynt við kótiletturnar en Njáll pantaði sér steikarsamloku.	sjálf hefði hún helst reynt við kótiletturnar en njáll pantaði sér steikarsamloku	pending			pending		
+dev	0009761	audio/dev/001333/001333-0009761.flac	low_rms|long_quiet_edge	Hún þótti þunglamaleg og óörugg og var uppnefnd „líkkistan fljúgandi“ af bandarískum flugmönnum.	hún þótti þunglamaleg og óörugg og var uppnefnd líkkistan fljúgandi af bandarískum flugmönnum	pending			pending		
+dev	0018084	audio/dev/002425/002425-0018084.flac	low_rms	Hún er upprunnin nyrst úr Asíu.	hún er upprunnin nyrst úr asíu	pending			pending		
+dev	0024041	audio/dev/003188/003188-0024041.flac	low_rms	Fjölmiðlar og kvikmynda- og tónlistariðnaðurinn tóku upp nafnið „pirat“ frá þessum fyrstu samtökum.	fjölmiðlar og kvikmynda og tónlistariðnaðurinn tóku upp nafnið pirat frá þessum fyrstu samtökum	pending			pending		
+dev	0029341	audio/dev/003801/003801-0029341.flac	long_quiet_edge	Það er okkar eigið framlag að líkamlegu heilbrigði.	það er okkar eigið framlag að líkamlegu heilbrigði	pending			pending		
+dev	0022410	audio/dev/002979/002979-0022410.flac	long_quiet_edge	Reglulegur vinnutími fólks var lengri en okkar.	reglulegur vinnutími fólks var lengri en okkar	pending			pending		
+dev	0021040	audio/dev/002786/002786-0021040.flac	long_quiet_edge	Ekki er vitað hvaða ættbálki ættin tilheyrir.	ekki er vitað hvaða ættbálki ættin tilheyrir	pending			pending		
+dev	0053459	audio/dev/006464/006464-0053459.flac	long_quiet_edge	Stefanía hafði leitað Önnu í Sveinsbæ uppi.	stefanía hafði leitað önnu í sveinsbæ uppi	pending			pending		
+dev	0225110	audio/dev/009975/009975-0225110.flac	low_rms	Þeir litu mjög vel út.	þeir litu mjög vel út	pending			pending		
+dev	0008065	audio/dev/001146/001146-0008065.flac	long_quiet_edge	Venjulega er rukkað fyrir þann tíma sem notandi ver í tölvum.	venjulega er rukkað fyrir þann tíma sem notandi ver í tölvum	pending			pending		
+dev	0047724	audio/dev/006030/006030-0047724.flac	low_rms	útgáfa Jón Jóhannesson.	útgáfa jón jóhannesson	pending			pending		
+dev	0199591	audio/dev/009664/009664-0199591.flac	low_rms	Mig langaði í hana.	mig langaði í hana	pending			pending		
+dev	0071713	audio/dev/007433/007433-0071713.flac	long_quiet_edge	Kannski gæti ég náð af henni tali þegar hún var á leiðinni út.	kannski gæti ég náð af henni tali þegar hún var á leiðinni út	pending			pending		
+dev	0033600	audio/dev/004410/004410-0033600.flac	long_quiet_edge	Efnið er eld- og sprenigfimt og flokkast sums staðar sem „sprengiefni“.	efnið er eld og sprenigfimt og flokkast sums staðar sem sprengiefni	pending			pending		
+dev	0026513	audio/dev/003464/003464-0026513.flac	long_quiet_edge	Þetta voru sterkbyggð dýr.	þetta voru sterkbyggð dýr	pending			pending		
+dev	0020936	audio/dev/002770/002770-0020936.flac	long_quiet_edge	Heimildir benda þó til að slíkt hafi sumstaðar verið gert.	heimildir benda þó til að slíkt hafi sumstaðar verið gert	pending			pending		
+dev	0009323	audio/dev/001298/001298-0009323.flac	long_quiet_edge	Sjálfsagt hefur hið stórvaxna kattardýr einungis ráðið við ungviði risaletidýranna.	sjálfsagt hefur hið stórvaxna kattardýr einungis ráðið við ungviði risaletidýranna	pending			pending		
+dev	0148578	audio/dev/009047/009047-0148578.flac	long_quiet_edge	Eins og hann hafði verið.	eins og hann hafði verið	pending			pending		
+dev	0191815	audio/dev/009605/009605-0191815.flac	mostly_quiet	Hristir mig.	hristir mig	pending			pending		
+dev	0067069	audio/dev/007227/007227-0067069.flac	mostly_quiet|long_quiet_edge	Hún deyr, hugsaði ég.	hún deyr hugsaði ég	pending			pending		
+dev	0224684	audio/dev/009966/009966-0224684.flac	low_rms|mostly_quiet|long_quiet_edge	Rafnar	rafnar	pending			pending		
+dev	0123873	audio/dev/008864/008864-0123873.flac	long_quiet_edge	Gátu ekki einu sinni flogið.	gátu ekki einu sinni flogið	pending			pending		
+dev	0071717	audio/dev/007433/007433-0071717.flac	mostly_quiet|long_quiet_edge	Þau fóru á gistihús.	þau fóru á gistihús	pending			pending		
+dev	0048902	audio/dev/006201/006201-0048902.flac	low_rms	Sá er góður!	sá er góður	pending			pending		
+dev	0017738	audio/dev/002403/002403-0017738.flac	long_quiet_edge	Dingóar eru afar gamalt hundakyn og teljast raunar sérstök deilitegund.	dingóar eru afar gamalt hundakyn og teljast raunar sérstök deilitegund	pending			pending		
+dev	0022424	audio/dev/002982/002982-0022424.flac	long_quiet_edge	Hann lést áður en fyrsta bókin kom út.	hann lést áður en fyrsta bókin kom út	pending			pending		
+dev	0067113	audio/dev/007231/007231-0067113.flac	long_quiet_edge	Það er tómt mál að tala um að hafa engan her.	það er tómt mál að tala um að hafa engan her	pending			pending		
+dev	0013302	audio/dev/001791/001791-0013302.flac	low_rms	Garðyrkjufélag Íslands Reykjavík.	garðyrkjufélag íslands reykjavík	pending			pending		
+dev	0014673	audio/dev/001993/001993-0014673.flac	long_quiet_edge	Gömul rannsókn á dánarorsökum bjóra í Vestur Evrópu.	gömul rannsókn á dánarorsökum bjóra í vestur evrópu	pending			pending		
+dev	0021299	audio/dev/002832/002832-0021299.flac	long_quiet_edge	Frostrós, hvernig verður veðrið á morgun?	frostrós hvernig verður veðrið á morgun	pending			pending		
+dev	0071712	audio/dev/007432/007432-0071712.flac	long_quiet_edge	Af yfirheyrslutímanum var nefnilega eftir heil klukkustund.	af yfirheyrslutímanum var nefnilega eftir heil klukkustund	pending			pending		
+dev	0007549	audio/dev/001060/001060-0007549.flac	long_quiet_edge	Þar fyrir utan hafa gasrisarnir ekkert fast yfirborð sem við gætum gengið á.	þar fyrir utan hafa gasrisarnir ekkert fast yfirborð sem við gætum gengið á	pending			pending		
+dev	0014484	audio/dev/001965/001965-0014484.flac	long_quiet_edge	Þó að framtíð sé falin,	þó að framtíð sé falin	pending			pending		
+dev	0026977	audio/dev/003521/003521-0026977.flac	long_quiet_edge	Runninn er ættaður frá Japan og fær mjög fallega haustliti.	runninn er ættaður frá japan og fær mjög fallega haustliti	pending			pending		
+dev	0015446	audio/dev/002099/002099-0015446.flac	long_quiet_edge	Línberg, hringdu í Vorsvein.	línberg hringdu í vorsvein	pending			pending		
+dev	0147961	audio/dev/009012/009012-0147961.flac	long_quiet_edge	Bara léttvín og bjór.	bara léttvín og bjór	pending			pending		
+dev	0021037	audio/dev/002786/002786-0021037.flac	long_quiet_edge	Ritið þykir gott dæmi um beitingu markhyggju í raunvísindum.	ritið þykir gott dæmi um beitingu markhyggju í raunvísindum	pending			pending		
+dev	0072105	audio/dev/007464/007464-0072105.flac	long_quiet_edge	Væri Grímhildur húsfreyja tekin að hreyfast og vildi inn undir sængurklæðin hjá honum.	væri grímhildur húsfreyja tekin að hreyfast og vildi inn undir sængurklæðin hjá honum	pending			pending		
+dev	0225109	audio/dev/009975/009975-0225109.flac	low_rms	Grimmilegri bardagar þekkjast þó einnig en þá eru skögultennurnar notaðar sem vopn.	grimmilegri bardagar þekkjast þó einnig en þá eru skögultennurnar notaðar sem vopn	pending			pending		
+dev	0157162	audio/dev/009256/009256-0157162.flac	mostly_quiet|long_quiet_edge	Það er ekkert fínt.	það er ekkert fínt	pending			pending		
+dev	0025107	audio/dev/003303/003303-0025107.flac	long_quiet_edge	Ljóseindin hefur því takmarkaðan líftíma í geislaholinu.	ljóseindin hefur því takmarkaðan líftíma í geislaholinu	pending			pending		
+dev	0048418	audio/dev/006140/006140-0048418.flac	long_quiet_edge	Ekkert er minnst á stjórnmálaátökin á Íslandi á þessu heimili.	ekkert er minnst á stjórnmálaátökin á íslandi á þessu heimili	pending			pending		
+dev	0072220	audio/dev/007479/007479-0072220.flac	long_quiet_edge	Á stofnuninni er aðeins allra einfaldasta þjófavarnarkerfi og raunar við aldur.	á stofnuninni er aðeins allra einfaldasta þjófavarnarkerfi og raunar við aldur	pending			pending		
+dev	0028098	audio/dev/003654/003654-0028098.flac	low_rms|long_quiet_edge	Íva, hvað er á dagatalinu í dag?	íva hvað er á dagatalinu í dag	pending			pending		
+dev	0224733	audio/dev/009966/009966-0224733.flac	low_rms	Viku eftir að gosið í Eyjafjallajökli hófst, fylltist lónið af gosefnum í jökulhlaupum.	viku eftir að gosið í eyjafjallajökli hófst fylltist lónið af gosefnum í jökulhlaupum	pending			pending		
+dev	0031135	audio/dev/004059/004059-0031135.flac	long_quiet_edge	Við getum breytt bylgjunum viljandi.	við getum breytt bylgjunum viljandi	pending			pending		
+dev	0011942	audio/dev/001617/001617-0011942.flac	low_rms	Mundu líka að prófkvíði getur verið ansi smitandi.	mundu líka að prófkvíði getur verið ansi smitandi	pending			pending		
+dev	0033153	audio/dev/004340/004340-0033153.flac	long_quiet_edge	Samkvæmt Íslenskri orðsifjabók er það tökuorð úr dönsku.	samkvæmt íslenskri orðsifjabók er það tökuorð úr dönsku	pending			pending		
+dev	0024312	audio/dev/003220/003220-0024312.flac	long_quiet_edge	Rushdie leikur sér að versinu um gyðjurnar Lat.	rushdie leikur sér að versinu um gyðjurnar lat	pending			pending		
+dev	0026788	audio/dev/003499/003499-0026788.flac	long_quiet_edge	Fita hægir á magatæmingunni svo sykrurnar berast hægar út í blóðrásina.	fita hægir á magatæmingunni svo sykrurnar berast hægar út í blóðrásina	pending			pending		
+dev	0032324	audio/dev/004245/004245-0032324.flac	long_quiet_edge	Ólíkt blettahýenunni eru jurtir einnig stór hluti af fæðu brúnhýenunnar.	ólíkt blettahýenunni eru jurtir einnig stór hluti af fæðu brúnhýenunnar	pending			pending		
+dev	0072279	audio/dev/007484/007484-0072279.flac	long_quiet_edge	Hann slengir málbandi yfir hvirfilinn á sér, geiflar sig og fer.	hann slengir málbandi yfir hvirfilinn á sér geiflar sig og fer	pending			pending		
+dev	0053495	audio/dev/006468/006468-0053495.flac	low_rms	Portúgal kom Íslendingum við eða það fannst honum.	portúgal kom íslendingum við eða það fannst honum	pending			pending		
+dev	0071943	audio/dev/007452/007452-0071943.flac	long_quiet_edge	Það sem mig bráðvantar er ástæðan fyrir morðinu.	það sem mig bráðvantar er ástæðan fyrir morðinu	pending			pending		
+dev	0035021	audio/dev/004568/004568-0035021.flac	low_rms	Sömuleiðis þarf barnið að gera sér grein fyrir því hvað aðrir vita.	sömuleiðis þarf barnið að gera sér grein fyrir því hvað aðrir vita	pending			pending		
+dev	0053496	audio/dev/006468/006468-0053496.flac	low_rms	Það er allsérstakt.	það er allsérstakt	pending			pending		
+dev	0240308	audio/dev/010183/010183-0240308.flac	long_quiet_edge	Örn hugsaði sig um.	örn hugsaði sig um	pending			pending		
+dev	0015445	audio/dev/002099/002099-0015445.flac	long_quiet_edge	Beinin leiða því titringinn frá hljóðhimnunni gegnum miðeyrað yfir í innra eyra.	beinin leiða því titringinn frá hljóðhimnunni gegnum miðeyrað yfir í innra eyra	pending			pending		
+dev	0047898	audio/dev/006056/006056-0047898.flac	low_rms	Javert horfði á hana jafn sviplaus og venjulega.	javert horfði á hana jafn sviplaus og venjulega	pending			pending		
+dev	0147930	audio/dev/009012/009012-0147930.flac	mostly_quiet|long_quiet_edge	Kalt og dimmt.	kalt og dimmt	pending			pending		
+dev	0016426	audio/dev/002238/002238-0016426.flac	long_quiet_edge	Síðan tók báturinn snögga vinstri beygju og stefndi á norður Finnland sem fyrsta áfangastað.	síðan tók báturinn snögga vinstri beygju og stefndi á norður finnland sem fyrsta áfangastað	pending			pending		
+dev	0019838	audio/dev/002644/002644-0019838.flac	long_quiet_edge	Leikmaður hittir, fær upplýsingar um, og er étinn af grue.	leikmaður hittir fær upplýsingar um og er étinn af grue	pending			pending		
+dev	0014572	audio/dev/001980/001980-0014572.flac	long_quiet_edge	Súrefni hlýtur þó sannarlega að vera handan allra viðskipta.	súrefni hlýtur þó sannarlega að vera handan allra viðskipta	pending			pending		
+dev	0070874	audio/dev/007375/007375-0070874.flac	long_quiet_edge	Hvað heldurðu að hafi gerst?	hvað heldurðu að hafi gerst	pending			pending		
+dev	0072714	audio/dev/007518/007518-0072714.flac	low_rms	Þið ættuð að koma ykkur.	þið ættuð að koma ykkur	pending			pending		
+dev	0025918	audio/dev/003398/003398-0025918.flac	long_quiet_edge	Í röðum þess mátti finna marga háttsetta menn innan stjórnkerfis Serbíu.	í röðum þess mátti finna marga háttsetta menn innan stjórnkerfis serbíu	pending			pending		

@@ -1,0 +1,4 @@
+# Preserve the verified byte representation of manifests, references, and reports.
+output/** -text whitespace=cr-at-eol
+# Empty trailing TSV fields are part of the data.
+output/*.tsv whitespace=cr-at-eol,-blank-at-eol

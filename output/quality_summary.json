@@ -1,0 +1,413 @@
+{
+  "seed": 2105,
+  "source": {
+    "audit_version": 1,
+    "metadata_sha256": "36a04485e6fc711bbe11575ead214f7f5fb842f28e64a0c53ed6e83774d0fb24",
+    "readme_sha256": "eee159b656f8b409dd87a7f16622a4b6c4c2bc0defb75f879e8e6eeb9ceb5795",
+    "checksums_sha256": "4fcd0eab13a5d694bf83d6d91cd265dc85264f7bb0e0cd72c91cfcc60d39b30b",
+    "documentation_md5": {
+      "README": {
+        "expected": "36f3158cd5bb71c10c62367f0896aafa",
+        "actual": "36f3158cd5bb71c10c62367f0896aafa"
+      },
+      "metadata.tsv": {
+        "expected": "38689fdbd8ea68fd4dd168a59ef12d3f",
+        "actual": "38689fdbd8ea68fd4dd168a59ef12d3f"
+      }
+    },
+    "metadata_rows": 100000,
+    "audio_paths_found": 100000,
+    "other_split_files": [],
+    "quiet_dbfs": -50,
+    "libsndfile": "1.2.2"
+  },
+  "official_overlap": {
+    "train/dev": {
+      "session": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "raw_prompt": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "source_normalized": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "reference": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "pcm": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "file_md5": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      }
+    },
+    "train/test": {
+      "session": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "raw_prompt": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "source_normalized": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "reference": {
+        "shared": 1,
+        "train": 1,
+        "test": 1
+      },
+      "pcm": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "file_md5": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      }
+    },
+    "dev/test": {
+      "session": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "raw_prompt": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "source_normalized": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "reference": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "pcm": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "file_md5": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      }
+    }
+  },
+  "selected_overlap": {
+    "train/dev": {
+      "session": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "raw_prompt": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "source_normalized": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "reference": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "pcm": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      },
+      "file_md5": {
+        "shared": 0,
+        "train": 0,
+        "dev": 0
+      }
+    },
+    "train/test": {
+      "session": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "raw_prompt": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "source_normalized": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "reference": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "pcm": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      },
+      "file_md5": {
+        "shared": 0,
+        "train": 0,
+        "test": 0
+      }
+    },
+    "dev/test": {
+      "session": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "raw_prompt": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "source_normalized": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "reference": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "pcm": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      },
+      "file_md5": {
+        "shared": 0,
+        "dev": 0,
+        "test": 0
+      }
+    }
+  },
+  "splits": {
+    "train": {
+      "metadata_clips": 80005,
+      "session_ids": 4643,
+      "audio_without_metadata": 0,
+      "missing_raw_transcripts": 0,
+      "missing_normalized_transcripts": 0,
+      "audio_states": {
+        "decoded": 80005
+      },
+      "checked_md5_matches": 80005,
+      "decoded_hours": 114.57236152777779,
+      "duration_percentiles_seconds": {
+        "min": 1.068125,
+        "p05": 2.88,
+        "median": 4.92,
+        "p95": 8.208650000000008,
+        "max": 19.98
+      },
+      "sample_rates": {
+        "16000": 80005
+      },
+      "channels": {
+        "1": 80005
+      },
+      "formats": {
+        "FLAC/PCM_16": 80005
+      },
+      "pcm_duplicates": {
+        "groups": 0,
+        "clips": 0
+      },
+      "file_duplicates": {
+        "groups": 0,
+        "clips": 0
+      },
+      "exclusions": {
+        "digital_silence": 1,
+        "metadata_empty_or_unknown": 1,
+        "metadata_not_validated": 83,
+        "near_silence": 43
+      },
+      "flags": {
+        "long_quiet_edge": 7856,
+        "low_rms": 2195,
+        "mostly_quiet": 1163,
+        "possible_clipping": 24
+      },
+      "excluded_paths": 127,
+      "eligible_unsampled_paths": 69390,
+      "selected_clips": 10488,
+      "selected_hours": 15.00001513888889,
+      "target_delta_seconds": 0.054499999998370185,
+      "selected_sessions": 2796,
+      "selected_unique_references": 10240,
+      "selected_flagged_clips": 1363,
+      "selected_flags": {
+        "long_quiet_edge": 1079,
+        "low_rms": 306,
+        "mostly_quiet": 141,
+        "possible_clipping": 5
+      }
+    },
+    "dev": {
+      "metadata_clips": 9995,
+      "session_ids": 2108,
+      "audio_without_metadata": 0,
+      "missing_raw_transcripts": 0,
+      "missing_normalized_transcripts": 0,
+      "audio_states": {
+        "decoded": 9995
+      },
+      "checked_md5_matches": 9995,
+      "decoded_hours": 15.276728055555555,
+      "duration_percentiles_seconds": {
+        "min": 1.439625,
+        "p05": 3.0293125,
+        "median": 5.34,
+        "p95": 8.4985,
+        "max": 15.0
+      },
+      "sample_rates": {
+        "16000": 9995
+      },
+      "channels": {
+        "1": 9995
+      },
+      "formats": {
+        "FLAC/PCM_16": 9995
+      },
+      "pcm_duplicates": {
+        "groups": 0,
+        "clips": 0
+      },
+      "file_duplicates": {
+        "groups": 0,
+        "clips": 0
+      },
+      "exclusions": {
+        "metadata_not_validated": 10,
+        "near_silence": 8
+      },
+      "flags": {
+        "long_quiet_edge": 1344,
+        "low_rms": 355,
+        "mostly_quiet": 207
+      },
+      "excluded_paths": 18,
+      "eligible_unsampled_paths": 8663,
+      "selected_clips": 1314,
+      "selected_hours": 2.00088140625,
+      "target_delta_seconds": 3.1730625000000146,
+      "selected_sessions": 963,
+      "selected_unique_references": 1314,
+      "selected_flagged_clips": 226,
+      "selected_flags": {
+        "long_quiet_edge": 183,
+        "low_rms": 52,
+        "mostly_quiet": 26
+      },
+      "ctc_oov_characters": {}
+    },
+    "test": {
+      "metadata_clips": 10000,
+      "session_ids": 1641,
+      "audio_without_metadata": 0,
+      "missing_raw_transcripts": 0,
+      "missing_normalized_transcripts": 0,
+      "audio_states": {
+        "decoded": 10000
+      },
+      "checked_md5_matches": 10000,
+      "decoded_hours": 15.858512569444445,
+      "duration_percentiles_seconds": {
+        "min": 1.56,
+        "p05": 3.24,
+        "median": 5.58,
+        "p95": 8.64,
+        "max": 19.98
+      },
+      "sample_rates": {
+        "16000": 10000
+      },
+      "channels": {
+        "1": 10000
+      },
+      "formats": {
+        "FLAC/PCM_16": 10000
+      },
+      "pcm_duplicates": {
+        "groups": 0,
+        "clips": 0
+      },
+      "file_duplicates": {
+        "groups": 0,
+        "clips": 0
+      },
+      "exclusions": {
+        "metadata_empty_or_unknown": 1,
+        "metadata_not_validated": 2,
+        "near_silence": 2
+      },
+      "flags": {
+        "long_quiet_edge": 1309,
+        "low_rms": 434,
+        "mostly_quiet": 141,
+        "possible_clipping": 17
+      },
+      "excluded_paths": 5,
+      "eligible_unsampled_paths": 8111,
+      "selected_clips": 1884,
+      "selected_hours": 2.999711875,
+      "target_delta_seconds": -1.0372499999994034,
+      "selected_sessions": 1026,
+      "selected_unique_references": 1884,
+      "selected_flagged_clips": 315,
+      "selected_flags": {
+        "long_quiet_edge": 245,
+        "low_rms": 83,
+        "mostly_quiet": 18,
+        "possible_clipping": 2
+      },
+      "ctc_oov_characters": {}
+    }
+  },
+  "pcm_duplicates_total": {
+    "groups": 0,
+    "clips": 0
+  },
+  "file_duplicates_total": {
+    "groups": 0,
+    "clips": 0
+  }
+}
