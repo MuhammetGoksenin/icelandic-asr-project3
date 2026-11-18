@@ -36,6 +36,8 @@ git lfs pull --include="data/raw/samromur_21.05/**" --exclude=""
 
 For a single split, append its name before the wildcard, for example **data/cleaned/samromur-21.05-20h-v1/dev/**. Git LFS reuses cached objects shared by the raw and cleaned roots. The [storage notes](DATA_STORAGE.md) give byte counts and quota details.
 
+A fresh public clone on Windows fetched every object with credential helpers disabled. The checkout decoded and verified all 17,307 raw FLACs, matched the 13,686 cleaned files to their release bytes, and reproduced the scoped reports and six v1 ASR artifacts. All 12 independent tests and the 12-artifact gzip replay also passed there. [Verification record](output/lfs_verification.json)
+
 ## Get started
 
 Use the hydrated cleaned LFS root, the local full release, or the **audio/** directory of the optional LF handoff. Each has train, dev, and test directories and works with the frozen manifests. The Windows verification environment used Python 3.14.10, NumPy 2.5.5, SoundFile 0.14.0 with libsndfile 1.2.2, and Transformers 5.23.0.

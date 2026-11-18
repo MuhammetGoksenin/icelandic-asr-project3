@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "data_commit": "26e9c05f966b6d792993f7d9f7b69ac20b5abe2d",
+  "public_repository": "https://github.com/RanimAlyaseen/icelandic-asr-project3.git",
+  "authenticated_download": false,
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.14.10",
+  "raw_flacs_decoded_and_md5_verified": 17307,
+  "cleaned_flacs_verified_byte_for_byte": 13686,
+  "downloaded_lfs_objects": 17307,
+  "downloaded_lfs_object_bytes": 1384670011,
+  "checkout_method": "Fetched raw paths through anonymous Git LFS, then hydrated both roots from one cache",
+  "independent_tests_passed": 12,
+  "gzip_replay_artifacts_matched": 12,
+  "raw_to_cleaned_reproduced_sha256": {
+    "raw_subset_cleaning.json": "fe06e1567aa083b4993ab4d1bc86fdee5599aab0d17f76d335a2ba7723830737",
+    "raw_subset_inventory.tsv": "fcf7aec067c5d7245b30f392c9d68d1c693cae92151c4207747c5c6cbf37e938",
+    "raw_subset_removals.tsv": "cbaeed6081b5373e940b909d745e7b623e65ff599c54152e4e1f395a8d6800b7",
+    "split_integrity.json": "a84fa1dbb191acc0eb284719a17674f8c42427bcaa4c46016a1ad831c7818ab1",
+    "train.jsonl": "d36a1adccdb10682b30a6fd8b2f7e20f8c86babb4b1d20a007af79179c4436ed",
+    "dev.jsonl": "f0e7675cd31497788250728bba966d1d884ad5f929b3488724b2fef2110f9bf4",
+    "test.jsonl": "f5e346f545a5d7f4298f1838bc63b978a4d7ab9d063ddc97897fa065223d0481",
+    "evaluation_references.jsonl": "f6cd0c67fc246ee58b6833961389ff102b17d595ca30ef04106d83244bfbbd9c",
+    "evaluation_references.tsv": "1fa27d978dc40966309e1e1ad2d2b01aef02f1f8fb47e8a7f320c3c867db1a16",
+    "ctc_vocab.json": "6950ed67200f501f1daec880bb47102da453b8c55f7977db67073aa56c899caf"
+  },
+  "human_listening": "pending",
+  "icelandic_transcript_review": "pending"
+}

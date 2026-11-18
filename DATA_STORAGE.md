@@ -32,6 +32,8 @@ The cleaner decodes and screens all 17,307 inputs and removes two near-silence r
 
 Both locations contain individually accessible FLACs when hydrated. Their **30,993 paths** refer to **17,307 distinct SHA-256 object IDs** because every cleaned file has the same bytes and object ID as its raw counterpart. The unique payload is **1,384,670,011 bytes**. With both locations hydrated, the working tree has **2,467,211,639 audio bytes**.
 
+An anonymous fresh clone fetched all 17,307 objects by the raw path and hydrated both locations from one cache. Its downloaded FLACs reproduced the scoped audit and cleaning artifacts. [Public-clone verification](output/lfs_verification.json)
+
 The signed-in billing page showed GitHub Free, no LFS usage for the month, and a **$0** LFS budget before upload. GitHub Free includes 10 GiB of LFS storage and 10 GiB of monthly download bandwidth. A raw download consumes about 1.29 GiB and a cleaned-only download about 1.01 GiB on a cold cache. A public download counts toward the owner's bandwidth allowance. [GitHub LFS billing](https://docs.github.com/en/billing/concepts/product-billing/git-lfs)
 
 Redistributed release files and derived references use CC BY 4.0. The project code and original documentation use MIT. [Attribution and terms](LICENSE)
