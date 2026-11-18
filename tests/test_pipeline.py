@@ -15,6 +15,7 @@ from audit import SPLITS, audit_path, inspect_file, read_metadata, run_audit
 from prepare import build, flags_for, normalize_text, overlap, read_jsonl, select
 from verify import GENERATED, check_manifests
 from verify_handoff import verify_package
+from subset import clean_subset, raw_membership, split_integrity, stage_release
 
 ONE_SECOND = {split: 1 / 3600 for split in SPLITS}
 FIELDS = ("id", "speaker_id", "filename", "status", "sentence", "sentence_norm",
@@ -196,6 +197,93 @@ class ArtifactTests(unittest.TestCase):
         with TemporaryDirectory() as temporary:
             with self.assertRaisesRegex(ValueError, "extracted handoff"):
                 verify_package(Path(temporary), None)
+
+
+class RawSubsetTests(unittest.TestCase):
+    def test_raw_scope_uses_first_official_id_independently_of_quality(self):
+        first = "train/000010/000010-0000001.flac"
+        chosen = "train/000010/000010-0000002.flac"
+        unrelated = "train/000020/000020-0000003.flac"
+        metadata = {
+            chosen: metadata_row(uid="0000002"),
+            unrelated: metadata_row(speaker="000020", uid="0000003"),
+            first: metadata_row() | {"is_valid": "0.0"},
+        }
+        row = {"audio_path": chosen, "split": "train", "id": "0000002", "speaker_session_id": "000010"}
+        expected = {first: "first_session_utterance", chosen: "frozen_v1"}
+        self.assertEqual(raw_membership(metadata, {"train": [row]}), expected)
+        self.assertEqual(raw_membership(dict(reversed(list(metadata.items()))), {"train": [row]}), expected)
+        with self.assertRaisesRegex(ValueError, "Official identity"):
+            raw_membership(metadata, {"dev": [row]})
+        with self.assertRaisesRegex(ValueError, "Official identity"):
+            raw_membership(metadata, {"train": [row | {"speaker_session_id": "000020"}]})
+
+    def test_exact_and_normalized_test_overlap_count_utterances_separately(self):
+        def utterance(speaker, original, normalized):
+            return {"session": speaker, "raw_prompt": original, "reference": normalized,
+                    "frames": 16_000, "audio": {"sample_rate": 16_000}}
+
+        clips = {"train": [utterance("01", "Þá.", "þá")], "dev": [],
+                 "test": [utterance("02", "Þá.", "þá"), utterance("02", "ÞÁ!", "þá"),
+                          utterance("02", "Æ.", "æ")]}
+        report = split_integrity(clips)
+        self.assertEqual(report["test_in_train"], {
+            "exact_original_sentence": {"test_utterances": 1, "distinct_sentences": 1},
+            "normalized_scoring_text": {"test_utterances": 2, "distinct_sentences": 1},
+        })
+        self.assertEqual(report["splits"]["test"], {
+            "speaker_session_ids": 1, "utterances": 3, "decoded_hours": 3 / 3600,
+        })
+        clips["test"][0]["session"] = "01"
+        with self.assertRaisesRegex(ValueError, "Cross-split speaker/session overlap"):
+            split_integrity(clips)
+
+    def test_real_raw_flacs_rebuild_frozen_labels_and_log_a_quality_removal(self):
+        with TemporaryDirectory() as temporary, patch.dict("prepare.TARGET_HOURS", ONE_SECOND):
+            base = Path(temporary)
+            source, raw, frozen, clean, output = (
+                base / name for name in ("release", "raw", "frozen", "cleaned", "output")
+            )
+            rows = [
+                metadata_row(sentence="Hljótt."),
+                metadata_row(uid="0000002", sentence="Þá."),
+                metadata_row("dev", "000020", "0000003", "Öð?"),
+                metadata_row("test", "000030", "0000004", "Æ!"),
+            ]
+            paths = [f"{row['status']}/{row['speaker_id']}/{row['filename']}" for row in rows]
+            sums = [f"{flac(source / path, amplitude)}  r1/{path}"
+                    for path, amplitude in zip(paths, (0, 2000, 4000, 6000))]
+            (source / "README").write_bytes(b"Fixture\n")
+            (source / "md5s.txt").write_bytes(("\n".join(sums) + "\n").encode("utf-8"))
+            with (source / "metadata.tsv").open("w", encoding="utf-8", newline="") as stream:
+                writer = csv.DictWriter(stream, FIELDS, delimiter="\t", lineterminator="\n")
+                writer.writeheader()
+                writer.writerows(rows)
+            run_audit(source, frozen, 1)
+            build(source, frozen, 2105)
+            raw.mkdir()
+            for name in ("README", "metadata.tsv", "md5s.txt"):
+                (raw / name).write_bytes((source / name).read_bytes())
+            stage_release(source, raw, frozen)
+            clean_subset(raw, clean, frozen, output, 1)
+
+            self.assertEqual(sorted(p.relative_to(raw).as_posix() for p in raw.rglob("*.flac")), sorted(paths))
+            self.assertEqual(sorted(p.relative_to(clean).as_posix() for p in clean.rglob("*.flac")), sorted(paths[1:]))
+            for path in paths[1:]:
+                self.assertEqual((clean / path).read_bytes(), (source / path).read_bytes())
+            with (output / "raw_subset_removals.tsv").open(encoding="utf-8", newline="") as stream:
+                removals = list(csv.DictReader(stream, delimiter="\t"))
+            self.assertEqual([(r["id"], r["role"], r["reasons"]) for r in removals],
+                             [("0000001", "first_session_utterance", "digital_silence")])
+            self.assertEqual(list(read_jsonl(output / "evaluation_references.jsonl")), [
+                {"id": "0000003", "split": "dev", "text": "öð", "text_raw": "Öð?"},
+                {"id": "0000004", "split": "test", "text": "æ", "text_raw": "Æ!"},
+            ])
+            self.assertEqual(json.loads((output / "ctc_vocab.json").read_bytes()),
+                             {"[PAD]": 0, "[UNK]": 1, "|": 2, "á": 3, "þ": 4})
+            (raw / paths[2]).write_bytes(b"git-lfs pointer instead of audio")
+            with self.assertRaisesRegex(ValueError, "Missing or changed original FLAC bytes"):
+                clean_subset(raw, clean, frozen, base / "failure", 1)
 
 
 if __name__ == "__main__":

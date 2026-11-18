@@ -1,20 +1,44 @@
 # Samrómur 21.05 Icelandic ASR dataset preparation
 
-**Status.** Use **samromur-21.05-20h-v1**, the frozen seed-2105 selection established at commit 55f5a68. Its selected IDs and references are unchanged. This checkout includes the three original source documents and can replay the selection from the committed audit. Human listening and in-repository delivery of raw and cleaned audio remain pending. [Data inventory and storage plan](DATA_STORAGE.md)
+**Dataset.** Use **samromur-21.05-20h-v1**, the frozen seed-2105 selection verified at commit 55f5a68. Its 15/2/3-hour targets, selected IDs, and references are unchanged. The professor accepts the bounded raw subset and Git LFS in this public repository. [Download the audio](#download-the-audio) · [Raw scope and storage](DATA_STORAGE.md)
 
 This repository contains the shared 20-hour Samrómur selection for Whisper and wav2vec 2.0. Seed **2105** selected clips within the official train, dev, and test partitions. The dataset is Icelandic audio-to-text ASR.
 
-| Split | Clips | Decoded hours |
-|---|---:|---:|
-| [Train](output/train.jsonl) | 10,488 | 15.00002 |
-| [Dev](output/dev.jsonl) | 1,314 | 2.00088 |
-| [Test](output/test.jsonl) | 1,884 | 2.99971 |
+| Split | Speaker/session IDs | Utterances | Decoded hours |
+|---|---:|---:|---:|
+| [Train](output/train.jsonl) | 2,796 | 10,488 | 15.00002 |
+| [Dev](output/dev.jsonl) | 963 | 1,314 | 2.00088 |
+| [Test](output/test.jsonl) | 1,026 | 1,884 | 2.99971 |
+
+The [split integrity report](output/split_integrity.json) confirms **zero shared speaker/session IDs** for train/dev, train/test, and dev/test. The selected test set has **zero utterances** whose exact original sentence is in selected train and **zero** whose normalized scoring text is in selected train. These are separate comparisons.
+
+The [publisher's README](data/raw/samromur_21.05/README) documents the official partitions as speaker-separated and uses session IDs as speaker IDs. The cleaner checks each selected utterance against the original partition and session in the release metadata. It selects within those partitions. The identifiers establish separation of recorded sessions and cannot identify a person across sessions. Any future new split design must keep each complete speaker/session group together.
+
+Use **dev** to select checkpoints, settings, and hyperparameters. Use **test** after freezing those choices for the final model comparison with shared v1 references. [Required baseline checklist](BASELINES.md)
+
+## Download the audio
+
+With Git LFS installed, clone without downloading audio and then fetch the paths you need. The example uses PowerShell.
+
+~~~powershell
+git lfs install
+$env:GIT_LFS_SKIP_SMUDGE = '1'
+git clone https://github.com/RanimAlyaseen/icelandic-asr-project3.git
+Remove-Item Env:GIT_LFS_SKIP_SMUDGE
+Set-Location icelandic-asr-project3
+
+# For model preprocessing, fetch the cleaned v1 audio
+git lfs pull --include="data/cleaned/samromur-21.05-20h-v1/**" --exclude=""
+
+# For raw-to-cleaned reproduction or review of shipped exclusions, fetch the raw subset
+git lfs pull --include="data/raw/samromur_21.05/**" --exclude=""
+~~~
+
+For a single split, append its name before the wildcard, for example **data/cleaned/samromur-21.05-20h-v1/dev/**. Git LFS reuses cached objects shared by the raw and cleaned roots. The [storage notes](DATA_STORAGE.md) give byte counts and quota details.
 
 ## Get started
 
-Use the revised **Samromur_ASR_Handoff_LF.zip** for artifact checksum verification. It contains the same audio, IDs, and references as the earlier ZIP. The Windows verification environment used Python 3.14.10, NumPy 2.5.5, SoundFile 0.14.0 with libsndfile 1.2.2, and Transformers 5.23.0.
-
-Use your local copy of the full Samrómur 21.05 release or extract the separately provided team handoff ZIP. Set the audio root to the release directory or the handoff's `audio/` directory. Both have `train/`, `dev/`, and `test/` directories and work with the same manifests.
+Use the hydrated cleaned LFS root, the local full release, or the **audio/** directory of the optional LF handoff. Each has train, dev, and test directories and works with the frozen manifests. The Windows verification environment used Python 3.14.10, NumPy 2.5.5, SoundFile 0.14.0 with libsndfile 1.2.2, and Transformers 5.23.0.
 
 The preparation environment was verified on Windows with Python 3.14.10. Run from the repository root.
 
@@ -32,16 +56,18 @@ On macOS or Linux with Python 3.14, use `python3.14 -m venv .venv`, `.venv/bin/p
 | Path | Purpose |
 |---|---|
 | [README.md](README.md) | Setup, review, and reproduction instructions |
+| [BASELINES.md](BASELINES.md) | Required modeling checklist and official language support evidence |
 | [DATA_STORAGE.md](DATA_STORAGE.md) | Measured data sizes, availability, and storage decision |
-| [LICENSE](LICENSE) | MIT license for project code |
+| [LICENSE](LICENSE) | MIT terms for project code and CC BY 4.0 dataset attribution |
 | [.gitignore](.gitignore) and [.gitattributes](.gitattributes) | Local-file exclusions and byte-preserving checkout of generated artifacts |
 | [audit.py](audit.py) and [prepare.py](prepare.py) | Release audit, cleaning, and seeded subset generation |
+| [subset.py](subset.py) | Bounded raw membership and raw-to-cleaned processing with split checks |
 | [preprocess.py](preprocess.py) | Audio loader and Whisper and wav2vec 2.0 preprocessing |
 | [verify.py](verify.py) and [verify_handoff.py](verify_handoff.py) | Verification against the release or the extracted handoff |
 | [requirements.txt](requirements.txt) and [requirements-windows-py314.lock.txt](requirements-windows-py314.lock.txt) | Pinned dependencies and tested Windows environment |
 | [tests/](tests/) | Independent tests with known inputs and expected outputs |
 | [output/](output/) | Frozen manifests and references, vocabulary, audit, review queues, and verification records |
-| [data/raw/samromur_21.05/](data/raw/samromur_21.05/) | Exact upstream README, metadata.tsv, and md5s.txt. The full raw release also requires its FLACs. |
+| [data/](data/) | Raw subset and original documents under **raw/samromur_21.05/** and cleaned v1 FLACs under **cleaned/samromur-21.05-20h-v1/** |
 | [review/](review/) | Manual listening decisions kept outside the generated outputs |
 | [contributions/](contributions/) | Individual work records authored and committed by team members |
 
@@ -62,7 +88,7 @@ from preprocess import (
     whisper_example,
 )
 
-audio_root = Path(r"C:\path\to\samromur_21.05")  # Or the extracted handoff's audio directory.
+audio_root = Path("data/cleaned/samromur-21.05-20h-v1")
 output = Path("output")
 example = next(iter_examples(audio_root, output / "dev.jsonl"))
 
@@ -83,7 +109,7 @@ Use the shared [evaluation references (TSV)](output/evaluation_references.tsv) o
 
 Record decisions for the **53 near-silence exclusions and seven retained possible-clipping cases** in the [60-recording manual review log](review/focused_manual_review.tsv). The [generated measurements](output/focused_review.tsv) remain available as evidence. Preprocessing writes the generated outputs separately. Keep leading zeros when importing IDs.
 
-1. **Find and play the FLAC.** Append the row's **audio_path** to the root of the full local Samrómur release, the folder containing **train/**, **dev/**, and **test/**. The extracted LF handoff's **audio/** directory also works for the seven retained cases. Use the full release for the 53 excluded cases.
+1. **Find and play the FLAC.** Append the row's **audio_path** to the hydrated raw subset or to the root of your full local release. The raw subset includes all seven retained clipping cases and two of the near-silence cases, **0008401** and **0076273**. Use the full release for the other 51 near-silence recordings.
 2. **Record audio quality.** Any teammate can listen for audible speech, gaps, competing voices, clipping, noise, and abrupt cutoffs. Enter your name or initials as reviewer and record **usable**, **issue**, or **uncertain**. Add a timestamp and what you heard where useful. A low RMS score can occur in intelligible speech.
 3. **Check transcript agreement.** A reviewer who understands Icelandic can find the original prompt in the [release metadata](data/raw/samromur_21.05/metadata.tsv) under the same ID in the **sentence** column. Record **match**, **mismatch**, or **uncertain**, and note the phrase or timestamp. Keep each unreviewed decision **pending**.
 4. **Recommend an action.** Note whether to retain the clip, keep it excluded, or propose a change. Keep v1 frozen. A verified membership or transcript correction needs a documented reason and a new dataset version before its use in benchmark comparisons.
@@ -113,6 +139,20 @@ The exclusion log contains **150 unique utterances**, with 127 train, 18 dev, an
 - Among otherwise usable signals, flag RMS at or below −35 dBFS, at least 75% quiet time, a quiet edge of at least 1.5 seconds, or at least 0.1% full-scale samples. Flag invalid duration metadata, a measured duration difference greater than 0.05 seconds, or a sample-rate disagreement.
 - Withhold exact PCM groups with conflicting scoring text. For matching labels, retain one eligible copy in test/dev/train priority order, breaking ties by seeded order. The same split priority screens later selections against selected session IDs, raw prompts, and scoring references. The IDs establish session separation. A person could have recorded in several sessions.
 - The sampler sorts by SHA-256 of **seed/audio_path** and takes the prefix closest to each duration target from its official partition. This revision preserves the existing IDs and references. Any later membership or reference change needs a dataset version and a documented reason before model comparisons use it.
+
+## Regenerate cleaned audio from the raw subset
+
+The raw input is the frozen v1 membership plus the first release utterance by numeric ID from every represented split and session. Membership uses the original metadata and ignores audio flags. It does not construct new splits. The raw files and full release metadata preserve the original bytes. The publisher says human listeners verified the published audio against the prompts. Every selected v1 row carries the release validation flag and its original text alongside derived scoring text. [Upstream release README](data/raw/samromur_21.05/README)
+
+With the raw LFS files hydrated, run:
+
+~~~powershell
+& $venvPy -X utf8 subset.py clean
+~~~
+
+This reads and decodes all raw inputs, verifies release MD5s, applies the same automated cleaning rules, and fails if a frozen clip or artifact changes. It writes the **13,686** cleaned FLACs under **reproduced/cleaned/samromur-21.05-20h-v1/**, plus rebuilt manifests, references, vocabulary, and logs under **reproduced/subset/**. The output is independent of the committed compressed audio audit. The [scoped removal log](output/raw_subset_removals.tsv) records two near-silence exclusions and one unvalidated utterance, while **3,618** eligible session examples stay outside frozen v1. The 150 historical exclusions describe the entire release.
+
+To reconstruct the inputs from a local full release, run **subset.py stage --source-release** followed by the release directory path. It verifies the three documents and each original FLAC checksum before copying the bounded membership into the raw data directory.
 
 ## Replay the frozen artifacts from a fresh checkout
 
@@ -164,14 +204,12 @@ Run the handoff verifier against the inner folder extracted from the LF ZIP. It 
 
 Earlier Windows verification re-decoded all 100,000 official paths and matched the committed decompressed audit. It checked all selected clips and labels and ran both feature extractors on 30 clips. The earlier handoff check used a fresh extraction and local Whisper assets. The fresh-checkout replay above is a separate check of regeneration from stored audit results.
 
-## Course requirements pending confirmation
+## Remaining work
 
-- The professor's accepted data-storage arrangement, including Git LFS, and the required raw-data scope.
-- The exact mandatory Project 3 baseline list.
-- Whether approximately 15 hours of training data meets the project minimum.
+Team listening and Icelandic transcript-agreement review remain pending. The [confirmed baseline checklist](BASELINES.md) records the open applicability decisions for named checkpoints. The professor's minimum training duration remains unconfirmed. Each teammate documents and commits their own contribution from their own GitHub account.
 
 ## Source and attribution
 
-The repository code is [MIT-licensed](LICENSE). The release audio, prompts, and derived references use the corpus license.
+The repository's original code and documentation use [MIT](LICENSE). The Samrómur audio, prompts, metadata, and derived scoring references use CC BY 4.0.
 
 Samrómur Icelandic Speech 21.05 by David Erik Mollberg et al. is distributed under CC BY 4.0. This repository selects IDs and derives normalized scoring references from that release. Cite Mollberg et al., “Samrómur: Crowd-sourcing Data Collection for Icelandic Speech Recognition,” LREC 2020. [CLARIN release](https://repository.clarin.is/repository/xmlui/handle/20.500.12537/189) · [OpenSLR 112](https://openslr.org/112/) · [LREC paper](https://aclanthology.org/2020.lrec-1.425/) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)

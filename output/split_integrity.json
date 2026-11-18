@@ -1,0 +1,35 @@
+{
+  "dataset_version": "samromur-21.05-20h-v1",
+  "splits": {
+    "train": {
+      "speaker_session_ids": 2796,
+      "utterances": 10488,
+      "decoded_hours": 15.00001513888889
+    },
+    "dev": {
+      "speaker_session_ids": 963,
+      "utterances": 1314,
+      "decoded_hours": 2.00088140625
+    },
+    "test": {
+      "speaker_session_ids": 1026,
+      "utterances": 1884,
+      "decoded_hours": 2.999711875
+    }
+  },
+  "pairwise_speaker_session_overlap": {
+    "train/dev": 0,
+    "train/test": 0,
+    "dev/test": 0
+  },
+  "test_in_train": {
+    "exact_original_sentence": {
+      "test_utterances": 0,
+      "distinct_sentences": 0
+    },
+    "normalized_scoring_text": {
+      "test_utterances": 0,
+      "distinct_sentences": 0
+    }
+  }
+}

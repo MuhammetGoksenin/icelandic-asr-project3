@@ -117,7 +117,7 @@ def audio_metrics(samples, rate):
     }
 
 
-def inspect_file(root, path, expected_md5):
+def inspect_file(root, path, expected_md5, *, include_sha256=False):
     result = {"audio_path": path, "split": path.split("/")[0], "expected_md5": expected_md5}
     try:
         contents = (root / path).read_bytes()
@@ -127,6 +127,8 @@ def inspect_file(root, path, expected_md5):
         return result | {"state": "read_error", "error": exc.strerror or type(exc).__name__}
     result["file_md5"] = hashlib.md5(contents, usedforsecurity=False).hexdigest()
     result["file_bytes"] = len(contents)
+    if include_sha256:
+        result["file_sha256"] = sha256(contents)
     try:
         with sf.SoundFile(io.BytesIO(contents)) as audio:
             result.update(sample_rate=audio.samplerate, channels=audio.channels, format=audio.format,

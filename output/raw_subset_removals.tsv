@@ -1,0 +1,4 @@
+split	id	speaker_session_id	audio_path	role	outcome	release_md5	sha256	bytes	reasons	state	rms_dbfs	quiet_fraction
+dev	0161633	009301	dev/009301/009301-0161633.flac	first_session_utterance	removed_quality	7008a807da6e99283c094d6c91750a07	22aca200610640f74f4ced6c491fcaf898ad653325dd1e7f61e336f9b1488b51	34158	metadata_not_validated	decoded	-27.4329	0.266722
+train	0008401	001192	train/001192/001192-0008401.flac	first_session_utterance	removed_quality	fb2ca44fcdc9bc57bc0223bc3a26f052	b18964cc15c26d8feb925203c6ce42126349e0a1f25f554fbbe7a9a44abe1e7d	49811	near_silence	decoded	-56.0323	0.930693
+train	0076273	007661	train/007661/007661-0076273.flac	first_session_utterance	removed_quality	37789296bd539bbc8c91cca1cd1a073c	15d41404caf7e992cb9aa141cfa85463775074746c92d09f20af720e64943fef	39778	near_silence	decoded	-60.8919	1.0

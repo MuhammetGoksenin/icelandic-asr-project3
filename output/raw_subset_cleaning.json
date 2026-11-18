@@ -1,0 +1,34 @@
+{
+  "dataset_version": "samromur-21.05-20h-v1",
+  "splits": {
+    "train": {
+      "raw_utterances": 12677,
+      "raw_bytes": 985998416,
+      "kept": 10488,
+      "cleaned_bytes": 809559603,
+      "removed_quality": 2,
+      "eligible_outside_v1": 2187
+    },
+    "dev": {
+      "raw_utterances": 2027,
+      "raw_bytes": 170000879,
+      "kept": 1314,
+      "cleaned_bytes": 109222018,
+      "removed_quality": 1,
+      "eligible_outside_v1": 712
+    },
+    "test": {
+      "raw_utterances": 2603,
+      "raw_bytes": 228670716,
+      "kept": 1884,
+      "cleaned_bytes": 163760007,
+      "removed_quality": 0,
+      "eligible_outside_v1": 719
+    }
+  },
+  "removal_reason_hits": {
+    "metadata_not_validated": 1,
+    "near_silence": 2
+  },
+  "human_listening": "pending"
+}

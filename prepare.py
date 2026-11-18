@@ -162,8 +162,7 @@ def nearest_prefix(items, target):
     raise ValueError(f"Only {total / RATE / 3600:.3f} eligible hours for target {target / RATE / 3600:.3f}")
 
 
-def select(items, seed):
-    candidates = sorted(items, key=lambda item: seeded_order(item, seed))
+def mark_duplicates(candidates):
     hashes = defaultdict(list)
     for item in candidates:
         if item["pcm"]:
@@ -184,6 +183,10 @@ def select(items, seed):
                     item["blocked"].append("duplicate_pcm")
                     item["related_audio_path"] = keep["audio_path"]
 
+
+def select(items, seed):
+    candidates = sorted(items, key=lambda item: seeded_order(item, seed))
+    mark_duplicates(candidates)
     selected = {}
     previous = {field: {} for field in ("session", "raw_prompt", "reference")}
     for split in PRIORITY:
@@ -248,6 +251,21 @@ def manifest_record(item):
         "pcm_sha256": item["pcm"],
         "flags": item["flags"],
     }
+
+
+def write_asr_artifacts(output, selected):
+    for split in SPLITS:
+        write_jsonl(output / f"{split}.jsonl", map(manifest_record, selected[split]))
+    references = [{key: record[key] for key in ("id", "split", "text", "text_raw")}
+                  for split in ("dev", "test") for record in map(manifest_record, selected[split])]
+    write_jsonl(output / "evaluation_references.jsonl", references)
+    write_tsv(output / "evaluation_references.tsv", ("id", "split", "text", "text_raw"), references)
+    characters = sorted(set("".join(item["reference"] for item in selected["train"])) - {" "})
+    vocab = {token: index for index, token in enumerate(["[PAD]", "[UNK]", "|", *characters])}
+    (output / "ctc_vocab.json").write_text(
+        json.dumps(vocab, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
+    return vocab
 
 
 def write_focused_review(path, items):
@@ -458,12 +476,7 @@ def build(root, output, seed):
     summary = summarize(groups, selected, header, seed)
     if any(metric["shared"] for pair in summary["selected_overlap"].values() for metric in pair.values()):
         raise ValueError("Unexpected selected overlap")
-    for split in SPLITS:
-        write_jsonl(output / f"{split}.jsonl", map(manifest_record, selected[split]))
-    references = [{key: record[key] for key in ("id", "split", "text", "text_raw")}
-                  for split in ("dev", "test") for record in map(manifest_record, selected[split])]
-    write_jsonl(output / "evaluation_references.jsonl", references)
-    write_tsv(output / "evaluation_references.tsv", ("id", "split", "text", "text_raw"), references)
+    vocab = write_asr_artifacts(output, selected)
     write_tsv(output / "prompt_overlap.tsv", ("pair", "split", "id", "audio_path", "selected", "reference",
               "text_raw", "text_source_normalized"), prompt_overlap_rows(groups))
 
@@ -491,11 +504,6 @@ def build(root, output, seed):
     review.sort(key=lambda row: (not row["selected"], row["review_reasons"] == "unflagged_control",
                                  PRIORITY.index(row["split"]), row["audio_path"]))
     write_tsv(output / "listening_queue.tsv", (*identity, "selected", "review_reasons", "text", *review_metrics), review)
-    characters = sorted(set("".join(item["reference"] for item in selected["train"])) - {" "})
-    vocab = {token: index for index, token in enumerate(["[PAD]", "[UNK]", "|", *characters])}
-    (output / "ctc_vocab.json").write_text(
-        json.dumps(vocab, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
-    )
     for split in ("dev", "test"):
         unknown = Counter(char for item in selected[split] for char in item["reference"] if char != " " and char not in vocab)
         summary["splits"][split]["ctc_oov_characters"] = dict(sorted(unknown.items()))

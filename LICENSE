@@ -19,3 +19,24 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Dataset attribution and separate license
+
+The MIT terms above apply to our project code and original project
+documentation. Samrómur Icelandic Speech 21.05 audio, release transcripts,
+metadata, and derived scoring references use Creative Commons Attribution
+4.0 International (CC BY 4.0).
+
+Samrómur 21.05 creators are David Erik Mollberg, Ólafur Helgi Jónsson,
+Sunneva Þorsteinsdóttir, Jóhanna Vigdís Guðmundsdóttir, Steinþór
+Steingrímsson, Eydís Huld Magnúsdóttir, Judy Y. Fong, Michal Borsky,
+and Jón Guðnason. The Language and Voice Lab at Reykjavík University
+developed the corpus in cooperation with Almannarómur.
+
+Release: https://repository.clarin.is/repository/xmlui/handle/20.500.12537/189
+License: https://creativecommons.org/licenses/by/4.0/
+Publication: https://aclanthology.org/2020.lrec-1.425/
+
+This repository selects and repackages unchanged published FLACs and uses
+the release prompts to derive normalized scoring text. The original
+prompt text and the complete published metadata are preserved.

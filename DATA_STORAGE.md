@@ -1,44 +1,37 @@
-# Raw and cleaned data delivery
+# Raw and cleaned data
 
-The professor requires both raw and cleaned data in the repository. The checkout contains code, frozen manifests and references, a compressed audit, and the [three original release documents](data/raw/samromur_21.05/). Both the raw and cleaned sets still need repository-contained audio delivery. The separately distributed handoff supports local team use.
+The professor accepts a documented raw subset and Git LFS in this public repository. The raw root is **data/raw/samromur_21.05/** and the cleaned root is **data/cleaned/samromur-21.05-20h-v1/**. The original release documents and the frozen manifests use ordinary Git.
 
-## What the pipeline uses
+## Raw scope and cleaned output
 
-The raw dataset for this experiment is the published Samrómur 21.05 release. Raw means the original **released** FLACs and companion metadata. The upstream release converted earlier recording formats.
+Raw audio is the original **released** FLAC. The upstream release converted earlier recording formats. The bounded input contains each frozen v1 utterance plus the smallest numeric utterance ID in each represented official split and session. If that ID is already selected, include it once. This adds a first-utterance example from every represented session using metadata order before considering audio quality or validation flags. Unrepresented sessions stay outside the scope. [Subset inventory](output/raw_subset_inventory.tsv)
 
-| Measured content | Files or recordings | Bytes |
-|---|---:|---:|
-| Raw official train FLACs | 80,005 | 6,189,063,586 |
-| Raw official dev FLACs | 9,995 | 830,660,665 |
-| Raw official test FLACs | 10,000 | 865,534,897 |
-| Raw metadata.tsv, md5s.txt, and README | 3 | 38,814,399 |
-| **Full raw release** | **100,003** | **7,924,073,547 (7.38 GiB)** |
-| Cleaned selected train FLACs | 10,488 | 809,559,603 |
-| Cleaned selected dev FLACs | 1,314 | 109,222,018 |
-| Cleaned selected test FLACs | 1,884 | 163,760,007 |
-| **Selected audio** | **13,686** | **1,082,541,628 (1.01 GiB)** |
-| Selected manifests and two reference formats | 5 | 7,802,843 |
+| Audio | Raw candidates | Raw bytes | Cleaned v1 | Cleaned bytes |
+|---|---:|---:|---:|---:|
+| Train | 12,677 | 985,998,416 | 10,488 | 809,559,603 |
+| Dev | 2,027 | 170,000,879 | 1,314 | 109,222,018 |
+| Test | 2,603 | 228,670,716 | 1,884 | 163,760,007 |
+| **Total** | **17,307** | **1,384,670,011 (1.29 GiB)** | **13,686** | **1,082,541,628 (1.01 GiB)** |
 
-The largest official FLAC is 247,461 bytes. The revised 20-hour LF handoff ZIP is 1,099,892,127 bytes, including audit data, verification evidence, preprocessing assets, and scripts. The local extraction also contains 22 FLAC copies under **dev/train/** and three duplicated release text files under **dev/**. All 25 matched their official counterparts byte for byte. They were outside the release count. A fresh audit in a separate clean view of the 100,000 official paths matched the committed audit.
+The [three original release documents](data/raw/samromur_21.05/) add 38,814,399 bytes in ordinary Git. They include the entire release metadata and checksum list. The full upstream release contains 100,000 official recordings and totals 7,924,073,547 bytes (7.38 GiB) including its three companion files. A previous local extraction contained 22 extra FLAC copies under **dev/train/** and three extra copies of the release documents under **dev/**. These paths were outside the official release inventory and the bounded project subset.
 
-The cleaned dataset selects and labels existing FLACs. The frozen manifests under [output/](output/) encode membership and relative source paths. Evaluation references and the train-only vocabulary record how text is represented. Feature extraction happens when the audio is loaded. The cleaned handoff materializes the selected FLACs alongside these artifacts.
+The cleaner decodes and screens all 17,307 inputs and removes two near-silence recordings and one unvalidated recording. Another 3,618 session examples passed quality checks and remained outside frozen v1. The historic 150 exclusions refer to the full release. [Scoped cleaning report](output/raw_subset_cleaning.json) · [Scoped removal log](output/raw_subset_removals.tsv)
 
-## Reproduction from a checkout
+## Reproduction
 
-| Inputs available | What can be reproduced |
+| Inputs | What can be reproduced |
 |---|---|
-| Checkout and installed dependencies | Run the synthetic tests and replay the full-corpus seed-2105 selection from the committed gzip audit and the three included release documents |
-| Checkout and full release | Re-decode the corpus, recreate the audit and selection, and verify the selected audio against the release. Feature checks additionally require the pinned Whisper configuration and tokenizer. |
-| Extracted LF handoff | Verify every packaged FLAC and both preprocessing paths using the bundled assets. The full release is required to listen to excluded clips and rebuild the audit from audio. |
+| Ordinary Git files and installed dependencies | Run the tests and replay the full-corpus seed-2105 selection from its committed gzip audit and original release documents |
+| Raw FLACs fetched through Git LFS | Independently decode the 17,307 candidates, regenerate the cleaned FLACs and six frozen ASR artifacts, and reproduce the subset removal log |
+| Cleaned FLACs fetched through Git LFS | Load the frozen v1 clips and use the same committed references for all models |
+| Full external release | Re-decode all 100,000 official recordings and reproduce the original full-release audit from the audio |
 
-An independent full-release audit needs all 100,000 FLACs under their official split paths and the three exact release documents. The documents and stored audit support replay of the selection. A smaller raw scope requires a documented input snapshot, a new audit and selection version, and a revised reproducibility claim. [Replay and re-audit commands](README.md#replay-the-frozen-artifacts-from-a-fresh-checkout)
+[Download, cleaning, and verification commands](README.md#download-the-audio)
 
-## Storage recommendation before an upload
+## Git LFS storage and quota
 
-The professor's answer on **Git LFS objects fetched from this repository** and the accepted raw-data scope is pending. If accepted and the account has enough included capacity, track a versioned raw release under **data/raw/** in checksummed archive shards. Add separate selected-audio shards under **data/cleaned/** with the frozen manifests. The three companion files are already in ordinary Git. Shards of about 1 GiB or less allow a clean checkout to fetch just the cleaned data for preprocessing or both datasets for grading and reproduction. Commit a shard-to-path index and checksums, then test a fresh clone and LFS fetch before calling data delivery complete. [GitHub LFS checkout behavior and limits](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)
+Both locations contain individually accessible FLACs when hydrated. Their **30,993 paths** refer to **17,307 distinct SHA-256 object IDs** because every cleaned file has the same bytes and object ID as its raw counterpart. The unique payload is **1,384,670,011 bytes**. With both locations hydrated, the working tree has **2,467,211,639 audio bytes**.
 
-- **Ordinary Git.** Each FLAC fits under the 100 MiB blob limit, but the full release would add roughly 7.38 GiB before a separate cleaned snapshot. GitHub strongly recommends repositories under 5 GB and caps individual pushes at 2 GiB. Splitting pushes would still leave each full clone with a multi-gigabyte Git history. [Large-file guidance](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github) · [Push limit](https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit)
-- **Git LFS.** A full raw snapshot plus a separate selected-audio copy totals about **8.39 GiB** before archive overhead. GitHub documents **10 GiB each** of included storage and monthly download bandwidth on individual Free and Pro plans. Four complete downloads would use about **33.6 GiB**. Four cleaned-only downloads would use about **4.03 GiB**. Adding one full raw download brings that to about **11.41 GiB**. Verify the owner's available allowance and expected grading downloads before choosing this route. [Git LFS billing](https://docs.github.com/en/billing/concepts/product-billing/git-lfs)
-- **Account and approval status.** Git LFS is installed locally. The authenticated billing usage request returned HTTP 404, so the remaining owner quota and budget settings are unverified. Confirm both in Billing and licensing, and confirm the professor accepts LFS, before creating or uploading shards. Paid billing was left untouched. If bandwidth is insufficient or LFS is declined, get an agreed storage arrangement or explicit approval for a smaller raw scope. [Account billing settings](https://github.com/settings/billing)
+The signed-in billing page showed GitHub Free, no LFS usage for the month, and a **$0** LFS budget before upload. GitHub Free includes 10 GiB of LFS storage and 10 GiB of monthly download bandwidth. A raw download consumes about 1.29 GiB and a cleaned-only download about 1.01 GiB on a cold cache. A public download counts toward the owner's bandwidth allowance. [GitHub LFS billing](https://docs.github.com/en/billing/concepts/product-billing/git-lfs)
 
-Redistributed release files and derived references carry CC BY 4.0 attribution. The project code uses the repository's MIT license. [Corpus license and attribution](README.md#source-and-attribution)
+Redistributed release files and derived references use CC BY 4.0. The project code and original documentation use MIT. [Attribution and terms](LICENSE)

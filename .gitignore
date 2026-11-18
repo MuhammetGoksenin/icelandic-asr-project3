@@ -228,6 +228,8 @@ __marimo__/
 /Samromur_ASR_Handoff/
 /reproduced/
 *.flac
+!/data/raw/samromur_21.05/*/*/*.flac
+!/data/cleaned/samromur-21.05-20h-v1/*/*/*.flac
 *.wav
 *.mp3
 *.ogg
