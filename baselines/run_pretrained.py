@@ -28,6 +28,7 @@ AUDIO_ROOT = ROOT / "data" / "cleaned" / "samromur-21.05-20h-v1"
 MANIFESTS = ROOT / "output"
 OUT = ROOT / "results" / "pretrained"
 LANGUAGE = "is"
+BASE_WHISPER = "openai/whisper-small"
 
 
 @dataclass(frozen=True)
@@ -144,6 +145,14 @@ def transcribe_whisper(ckpt, revision, records, *, batch_size, num_beams, device
     processor = WhisperProcessor.from_pretrained(ckpt.repo_id, revision=revision)
     model = WhisperForConditionalGeneration.from_pretrained(
         ckpt.repo_id, revision=revision, dtype=dtype).to(device).eval()
+    generation_config_source = ckpt.repo_id
+    if not hasattr(model.generation_config, "lang_to_id"):
+        # Older fine-tunes (2022) ship a generation config without language/task tables.
+        # Use the base model's config, as recommended in transformers issue #25084.
+        from transformers import GenerationConfig
+        model.generation_config = GenerationConfig.from_pretrained(
+            BASE_WHISPER, revision=resolve_revision(BASE_WHISPER, REVISIONS["whisper_small"]))
+        generation_config_source = BASE_WHISPER
     hyps = {}
     for batch in batches(records, batch_size):
         audio = [load_audio(r) for r in batch]
@@ -157,7 +166,8 @@ def transcribe_whisper(ckpt, revision, records, *, batch_size, num_beams, device
         texts = processor.batch_decode(ids, skip_special_tokens=True)
         hyps.update({r["id"]: t.strip() for r, t in zip(batch, texts)})
     settings = {"decoding": "beam" if num_beams > 1 else "greedy", "num_beams": num_beams,
-                "language": LANGUAGE, "task": "transcribe", "max_new_tokens": 225}
+                "language": LANGUAGE, "task": "transcribe", "max_new_tokens": 225,
+                "generation_config_from": generation_config_source}
     return hyps, model, settings
 
 
