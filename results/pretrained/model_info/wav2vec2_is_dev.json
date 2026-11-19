@@ -1,0 +1,32 @@
+{
+  "model_key": "wav2vec2_is",
+  "checkpoint": "language-and-voice-lab/wav2vec2-large-xlsr-53-icelandic-ep30-967h",
+  "revision": "f8de0cdc7a09ef45362f32c3514afb2edefca68d",
+  "family": "ctc",
+  "note": "wav2vec 2.0 XLSR-53 + CTC head, fine-tuned by LVL on 967 h of Samromur Milljon. Possible overlap with our test clips; see README.",
+  "trained_by_our_group": false,
+  "parameters": 315477670,
+  "split": "dev",
+  "utterances": 1314,
+  "audio_hours": 2.00088,
+  "device": "cuda",
+  "dtype": "float16",
+  "batch_size": 16,
+  "decoding": "greedy CTC (argmax), no language model",
+  "wall_seconds_incl_audio_loading": 35.41,
+  "rtf_incl_audio_loading": 0.0049,
+  "peak_gpu_memory_gb": 3.211,
+  "text_normalization": "prepare.normalize_text (lowercase, NFC, punctuation/symbols -> space)",
+  "scores_preliminary": {
+    "wer": 0.07108778625954199,
+    "cer": 0.017455695409856597
+  },
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.23.0",
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "gpu_memory_gb": 14.56
+  }
+}
