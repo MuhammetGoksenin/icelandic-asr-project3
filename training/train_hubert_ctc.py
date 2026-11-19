@@ -45,17 +45,25 @@ class Config:
     base_revision: str | None = None  # resolved at run time and recorded; pin it after the first run
     seed: int = 2105
     epochs: int = 30
-    learning_rate: float = 1e-4
+    # Run 1 (lr 1e-4, grad_accum 2, patience 5) stayed on the CTC blank plateau
+    # (dev WER 1.0, train loss ~12.7) and early stopping ended it after 6 epochs /
+    # ~1k updates. Run 2: 3x higher LR, twice as many updates per epoch, and
+    # patience 10 so the model gets past the plateau before stopping can trigger.
+    learning_rate: float = 3e-4
     warmup_steps: int = 500
     weight_decay: float = 0.005
     batch_size: int = 16
-    grad_accum: int = 2
+    grad_accum: int = 1
     max_seconds: float = 20.0
     freeze_feature_encoder: bool = True
     mask_time_prob: float = 0.05
     layerdrop: float = 0.05
     ctc_zero_infinity: bool = True
-    early_stopping_patience: int = 5
+    early_stopping_patience: int = 10
+    # Quota guard: if dev WER is still >= this after `plateau_guard_epoch` epochs,
+    # the model never left the CTC blank plateau. Stop instead of burning GPU hours.
+    plateau_guard_epoch: int = 6
+    plateau_guard_wer: float = 0.98
     fp16: bool = True
 
 
@@ -144,6 +152,27 @@ def resolve_revision(repo_id, pinned):
 
 # ---------- train ----------
 
+class PlateauGuard:
+    """Stops training when dev WER never drops below `wer` by epoch `epoch`."""
+
+    def __init__(self, epoch, wer):
+        from transformers import TrainerCallback
+
+        guard = self
+
+        class _Callback(TrainerCallback):
+            def on_evaluate(self, args, state, control, metrics=None, **kwargs):
+                guard.history.append(metrics.get("eval_wer", 1.0))
+                if state.epoch is not None and state.epoch >= guard.epoch and min(guard.history) >= guard.wer:
+                    guard.tripped = True
+                    control.should_training_stop = True
+                    print(f"PLATEAU GUARD: dev WER still {min(guard.history):.3f} after epoch "
+                          f"{state.epoch:.0f}; stopping to save GPU quota.", flush=True)
+
+        self.epoch, self.wer, self.history, self.tripped = epoch, wer, [], False
+        self.callback = _Callback()
+
+
 def train(cfg: Config, limit: int | None, resume: bool):
     import numpy as np
     import torch
@@ -159,6 +188,7 @@ def train(cfg: Config, limit: int | None, resume: bool):
         train_records, dev_records = train_records[:limit], dev_records[:max(8, limit // 4)]
 
     model = build_model(cfg, revision, tokenizer)
+    guard = PlateauGuard(cfg.plateau_guard_epoch, cfg.plateau_guard_wer)
 
     def compute_metrics(pred):
         import jiwer
@@ -197,7 +227,7 @@ def train(cfg: Config, limit: int | None, resume: bool):
         eval_dataset=AudioDataset(dev_records, extractor, tokenizer),
         compute_metrics=compute_metrics,
         preprocess_logits_for_metrics=lambda logits, labels: logits.argmax(dim=-1),
-        callbacks=[EarlyStoppingCallback(cfg.early_stopping_patience)],
+        callbacks=[EarlyStoppingCallback(cfg.early_stopping_patience), guard.callback],
     )
 
     if torch.cuda.is_available():
@@ -205,6 +235,13 @@ def train(cfg: Config, limit: int | None, resume: bool):
     start = time.perf_counter()
     trainer.train(resume_from_checkpoint=resume or None)
     train_seconds = time.perf_counter() - start
+
+    if guard.tripped:
+        OUT.mkdir(parents=True, exist_ok=True)
+        (OUT / "training_log.json").write_text(json.dumps(trainer.state.log_history, indent=2) + "\n",
+                                               encoding="utf-8")
+        plot_curves(trainer.state.log_history, OUT / "training_curves.png")
+        raise SystemExit("Training stopped by the plateau guard: no usable model, test not decoded.")
 
     best = MODEL_DIR / "best"
     trainer.save_model(str(best))
