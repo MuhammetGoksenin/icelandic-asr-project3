@@ -29,11 +29,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from baselines.run_pretrained import load_audio, load_manifest  # noqa: E402
-from training.train_hubert_ctc import VOCAB, Config, decode_ids  # noqa: E402
+from training.train_hubert_ctc import VOCAB, Config, decode_ids, set_encoder_trainable  # noqa: E402
 
 N_CLIPS = 32
 BATCH = 8
-STEPS = 400
+STEPS = 800
 PRINT_EVERY = 50
 
 try:
@@ -78,19 +78,24 @@ def overfit(mode, cfg, revision, tokenizer, extractor, records, audio):
         ctc_loss_reduction="mean", ctc_zero_infinity=True, mask_time_prob=0.0, layerdrop=0.0,
         ignore_mismatched_sizes=True).to(DEVICE).train()
     model.freeze_feature_encoder()
-    if mode == "B_head_only":
-        for name, param in model.named_parameters():
-            param.requires_grad = name.startswith("lm_head")
-    lr = 3e-4 if mode == "A_full" else 1e-3
-    params = [p for p in model.parameters() if p.requires_grad]
-    optim = torch.optim.AdamW(params, lr=lr)
+    freeze_steps = {"A_full": 0, "B_head_only": 10**9, "C_two_stage": STEPS // 2}[mode]
+    set_encoder_trainable(model, freeze_steps == 0)
+    head = [p for n, p in model.named_parameters() if n.startswith("lm_head")]
+    encoder = [p for n, p in model.named_parameters()
+               if not n.startswith("lm_head") and "feature_extractor" not in n]
+    head_lr, lr = (3e-4, 3e-4) if mode == "A_full" else (1e-3, 5e-5)
+    optim = torch.optim.AdamW([{"params": head, "lr": head_lr}, {"params": encoder, "lr": lr}])
+    params = head + encoder
     scaler = torch.amp.GradScaler(enabled=DEVICE == "cuda")
-    print(f"\n== overfit {mode}: {sum(p.numel() for p in params):,} trainable params, lr {lr}")
+    print(f"\n== overfit {mode}: head lr {head_lr}, encoder lr {lr}, encoder frozen for {min(freeze_steps, STEPS)} steps")
 
     labels = [tokenizer(r["text"], add_special_tokens=False).input_ids for r in records]
     use_mask = bool(extractor.return_attention_mask)
     start, best = time.time(), float("inf")
     for step in range(1, STEPS + 1):
+        if step == freeze_steps + 1:
+            set_encoder_trainable(model, True)
+            print(f"  -- encoder unfrozen at step {step}", flush=True)
         idx = np.random.default_rng(step).choice(len(records), BATCH, replace=False)
         feats = extractor([audio[i] for i in idx], sampling_rate=16_000, padding=True,
                           return_attention_mask=use_mask, return_tensors="pt")
@@ -105,7 +110,7 @@ def overfit(mode, cfg, revision, tokenizer, extractor, records, audio):
         optim.zero_grad()
         scaler.scale(out.loss).backward()
         scaler.unscale_(optim)
-        torch.nn.utils.clip_grad_norm_(params, 1.0)
+        torch.nn.utils.clip_grad_norm_([p for p in params if p.requires_grad], 1.0)
         scaler.step(optim)
         scaler.update()
         best = min(best, out.loss.item())
@@ -141,10 +146,10 @@ def main():
     del probe
     audio = [load_audio(r) for r in records]
 
-    results = {mode: overfit(mode, cfg, revision, tokenizer, extractor, records, audio)
-               for mode in ("A_full", "B_head_only")}
+    modes = sys.argv[1:] or ["C_two_stage"]
+    results = {mode: overfit(mode, cfg, revision, tokenizer, extractor, records, audio) for mode in modes}
     print("\n== lowest loss per mode:", json.dumps({k: round(v, 3) for k, v in results.items()}))
-    print("Plateau in the full runs was ~6.5. Well below that + readable hyp = pipeline OK.")
+    print("OK if blank is well below 100% and hyp starts to look like ref by the last steps.")
 
 
 if __name__ == "__main__":

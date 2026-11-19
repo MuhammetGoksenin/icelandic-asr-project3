@@ -49,8 +49,15 @@ class Config:
     # (dev WER 1.0, train loss ~12.7) and early stopping ended it after 6 epochs /
     # ~1k updates. Run 2: 3x higher LR, twice as many updates per epoch, and
     # patience 10 so the model gets past the plateau before stopping can trigger.
-    learning_rate: float = 3e-4
-    warmup_steps: int = 500
+    # Run 3 (diagnosed): full fine-tuning from a random CTC head collapses to all-blank
+    # within ~50 updates; a frozen encoder does not. So train in two stages, as in the
+    # fairseq HuBERT/wav2vec 2.0 recipes (freeze_finetune_updates):
+    #   stage 1: encoder frozen, head only (head_learning_rate) for freeze_encoder_steps
+    #   stage 2: encoder unfrozen (learning_rate), head keeps head_learning_rate
+    learning_rate: float = 5e-5
+    head_learning_rate: float = 1e-3
+    freeze_encoder_steps: int = 1000
+    warmup_steps: int = 300
     weight_decay: float = 0.005
     batch_size: int = 16
     grad_accum: int = 1
@@ -62,7 +69,7 @@ class Config:
     early_stopping_patience: int = 10
     # Quota guard: if dev WER is still >= this after `plateau_guard_epoch` epochs,
     # the model never left the CTC blank plateau. Stop instead of burning GPU hours.
-    plateau_guard_epoch: int = 6
+    plateau_guard_epoch: int = 8
     plateau_guard_wer: float = 0.98
     fp16: bool = True
 
@@ -152,6 +159,50 @@ def resolve_revision(repo_id, pinned):
 
 # ---------- train ----------
 
+def set_encoder_trainable(model, trainable: bool):
+    """Freeze/unfreeze everything except the CTC head; the conv feature encoder stays frozen."""
+    for name, param in model.named_parameters():
+        if name.startswith("lm_head"):
+            param.requires_grad = True
+        elif "feature_extractor" in name:
+            param.requires_grad = False
+        else:
+            param.requires_grad = trainable
+
+
+def two_stage_optimizer(model, cfg: Config, steps_per_epoch: int):
+    """Head and encoder in separate param groups; frozen params get no grads, so AdamW skips them."""
+    import torch
+    from transformers import get_linear_schedule_with_warmup
+
+    head = [p for n, p in model.named_parameters() if n.startswith("lm_head")]
+    encoder = [p for n, p in model.named_parameters()
+               if not n.startswith("lm_head") and "feature_extractor" not in n]
+    optimizer = torch.optim.AdamW([
+        {"params": head, "lr": cfg.head_learning_rate, "weight_decay": 0.0},
+        {"params": encoder, "lr": cfg.learning_rate, "weight_decay": cfg.weight_decay},
+    ])
+    total = steps_per_epoch * cfg.epochs
+    return optimizer, get_linear_schedule_with_warmup(optimizer, cfg.warmup_steps, total)
+
+
+class UnfreezeEncoder:
+    def __init__(self, steps):
+        from transformers import TrainerCallback
+
+        outer = self
+
+        class _Callback(TrainerCallback):
+            def on_step_begin(self, args, state, control, model=None, **kwargs):
+                if not outer.done and state.global_step >= outer.steps:
+                    set_encoder_trainable(model, True)
+                    outer.done = True
+                    print(f"STAGE 2: encoder unfrozen at update {state.global_step}", flush=True)
+
+        self.steps, self.done = steps, False
+        self.callback = _Callback()
+
+
 class PlateauGuard:
     """Stops training when dev WER never drops below `wer` by epoch `epoch`."""
 
@@ -188,7 +239,13 @@ def train(cfg: Config, limit: int | None, resume: bool):
         train_records, dev_records = train_records[:limit], dev_records[:max(8, limit // 4)]
 
     model = build_model(cfg, revision, tokenizer)
+    set_encoder_trainable(model, cfg.freeze_encoder_steps <= 0)
     guard = PlateauGuard(cfg.plateau_guard_epoch, cfg.plateau_guard_wer)
+    unfreeze = UnfreezeEncoder(cfg.freeze_encoder_steps)
+    import math
+    per_update = cfg.batch_size * max(1, torch.cuda.device_count()) * cfg.grad_accum
+    steps_per_epoch = math.ceil(len(train_records) / per_update)
+    optimizers = two_stage_optimizer(model, cfg, steps_per_epoch)
 
     def compute_metrics(pred):
         import jiwer
@@ -227,7 +284,8 @@ def train(cfg: Config, limit: int | None, resume: bool):
         eval_dataset=AudioDataset(dev_records, extractor, tokenizer),
         compute_metrics=compute_metrics,
         preprocess_logits_for_metrics=lambda logits, labels: logits.argmax(dim=-1),
-        callbacks=[EarlyStoppingCallback(cfg.early_stopping_patience), guard.callback],
+        callbacks=[EarlyStoppingCallback(cfg.early_stopping_patience), guard.callback, unfreeze.callback],
+        optimizers=optimizers,
     )
 
     if torch.cuda.is_available():
