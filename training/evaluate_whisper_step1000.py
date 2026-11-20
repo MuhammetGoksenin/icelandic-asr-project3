@@ -7,7 +7,10 @@ import hashlib
 import json
 import platform
 import time
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import jiwer
 import soundfile as sf
@@ -45,9 +48,14 @@ def main():
     tokenizer = WhisperTokenizerFast.from_pretrained(str(args.model), language='icelandic', task='transcribe', local_files_only=True)
     # The recovered export has processor_config.json but no preprocessor_config.json.
     # Whisper Small uses the standard 80-mel feature extractor settings.
-    extractor = WhisperFeatureExtractor(feature_size=80, sampling_rate=16000)
-    forced_ids = tokenizer.get_decoder_prompt_ids(language='icelandic', task='transcribe')
-    generation = {'forced_decoder_ids': forced_ids, 'max_new_tokens': 225, 'num_beams': 1, 'do_sample': False}
+    extractor = WhisperFeatureExtractor(feature_size=80, sampling_rate=16000) 
+generation = {
+    'language': 'is',
+    'task': 'transcribe',
+    'max_new_tokens': 225,
+    'num_beams': 1,
+    'do_sample': False
+}
     rows, refs, hyps = [], [], []
     start = time.perf_counter()
     for i, record in enumerate(records, 1):
