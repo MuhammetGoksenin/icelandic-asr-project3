@@ -3,7 +3,12 @@ import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from baselines.run_pretrained import CSV_FIELDS, batches, prediction_rows, write_csv
+import re
+
+from baselines.run_pretrained import (
+    CHECKPOINTS, CSV_FIELDS, REVISIONS, batches, prediction_rows, resolve_revision, write_csv,
+)
+from training.train_hubert_ctc import Config
 
 
 def record(uid, duration, text="þess vegna", raw="Þess vegna."):
@@ -39,6 +44,20 @@ class PredictionTableTest(unittest.TestCase):
         self.assertEqual(tuple(back[0]), CSV_FIELDS)
         self.assertEqual(back[0]["id"], "0000042")
         self.assertEqual(back[0]["hypothesis"], "ærið ðól")
+
+
+class PinnedRevisionTest(unittest.TestCase):
+    def test_every_checkpoint_is_pinned_to_a_full_commit(self):
+        self.assertEqual(set(REVISIONS), set(CHECKPOINTS))
+        for key, sha in REVISIONS.items():
+            self.assertRegex(sha, r"^[0-9a-f]{40}$", key)
+        self.assertRegex(Config().base_revision, r"^[0-9a-f]{40}$")
+
+    def test_unpinned_revision_is_refused(self):
+        with self.assertRaises(ValueError):
+            resolve_revision("openai/whisper-small", None)
+        with self.assertRaises(ValueError):
+            resolve_revision("openai/whisper-small", "main")
 
 
 if __name__ == "__main__":

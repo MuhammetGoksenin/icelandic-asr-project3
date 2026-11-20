@@ -42,7 +42,7 @@ KEY = "hubert_ctc"
 @dataclass
 class Config:
     base_model: str = "utter-project/mHuBERT-147"
-    base_revision: str | None = None  # resolved at run time and recorded; pin it after the first run
+    base_revision: str = "7ad3fc0bc5106c58c9c13526abccad527150d135"  # exact Hub commit used for the reported run
     seed: int = 2105
     epochs: int = 30
     # Run 1 (lr 1e-4, grad_accum 2, patience 5) stayed on the CTC blank plateau
@@ -151,10 +151,10 @@ def build_model(cfg: Config, revision: str, tokenizer):
 
 
 def resolve_revision(repo_id, pinned):
-    if pinned:
-        return pinned
-    from huggingface_hub import HfApi
-    return HfApi().model_info(repo_id).sha
+    import re
+    if not pinned or not re.fullmatch(r"[0-9a-f]{40}", pinned):
+        raise ValueError(f"{repo_id}: pin a full 40-character commit hash in Config.base_revision")
+    return pinned
 
 
 # ---------- train ----------

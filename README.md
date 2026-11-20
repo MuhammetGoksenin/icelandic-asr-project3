@@ -67,6 +67,7 @@ On macOS or Linux with Python 3.14, use `python3.14 -m venv .venv`, `.venv/bin/p
 | [preprocess.py](preprocess.py) | Audio loader and Whisper and wav2vec 2.0 preprocessing |
 | [verify.py](verify.py) and [verify_handoff.py](verify_handoff.py) | Verification against the release or the extracted handoff |
 | [requirements.txt](requirements.txt) and [requirements-windows-py314.lock.txt](requirements-windows-py314.lock.txt) | Pinned dependencies and tested Windows environment |
+| [requirements-modeling.txt](requirements-modeling.txt) | Pinned modeling environment (PyTorch, Transformers, Accelerate) used for every baseline and HuBERT run |
 | [tests/](tests/) | Independent tests with known inputs and expected outputs |
 | [output/](output/) | Frozen manifests and references, vocabulary, audit, review queues, and verification records |
 | [data/](data/) | Raw subset and original documents under **raw/samromur_21.05/** and cleaned v1 FLACs under **cleaned/samromur-21.05-20h-v1/** |
@@ -219,6 +220,34 @@ Per-clip predictions and run records (checkpoint, revision, decoding settings, G
 [`results/pretrained/`](results/pretrained/) and [`results/hubert_ctc/`](results/hubert_ctc/).
 Hardware: Kaggle, one NVIDIA Tesla T4 (16 GB), fp16.
 
+Every Hugging Face checkpoint is pinned to a full commit hash in the code (`REVISIONS` in
+[`baselines/run_pretrained.py`](baselines/run_pretrained.py), `Config.base_revision` in
+[`training/train_hubert_ctc.py`](training/train_hubert_ctc.py)), including the `openai/whisper-small`
+generation config used as a fallback for `Valdimarb13/whisper-small-icelandic`. A script refuses to run with an
+unpinned checkpoint, and [`tests/test_pretrained.py`](tests/test_pretrained.py) checks the pins.
+
+#### Setup for the modeling code
+
+The modeling code uses its own pinned environment, [`requirements-modeling.txt`](requirements-modeling.txt):
+the exact versions recorded for every reported run (Python 3.13.16, PyTorch 2.11.0 with CUDA 13.0,
+Transformers 5.23.0, Accelerate 1.15.0). Keep it separate from the Windows data-pipeline environment above.
+
+On Kaggle or Colab (GPU T4, internet on), open a notebook from [`notebooks/`](notebooks/) and run it top to bottom.
+Its first cell checks out a fixed data commit of this repository (`DATA_COMMIT`) and a fixed code commit
+(`CODE_COMMIT`), pulls only the needed audio through Git LFS, and installs `requirements-modeling.txt`.
+No manual uploads are needed.
+
+On your own Linux machine with an NVIDIA GPU:
+
+```bash
+python3.13 -m venv .venv-modeling
+.venv-modeling/bin/python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu130
+.venv-modeling/bin/python -m pip install -r requirements-modeling.txt
+git lfs pull --include="data/cleaned/samromur-21.05-20h-v1/**" --exclude=""
+.venv-modeling/bin/python -m unittest discover -s tests -p "test_pretrained.py"
+.venv-modeling/bin/python baselines/run_pretrained.py --model wav2vec2_is --split dev
+```
+
 ### Baselines: published checkpoints, no training by our group
 
 Code: [`baselines/run_pretrained.py`](baselines/run_pretrained.py), notebook:
@@ -271,8 +300,22 @@ How we got here: full fine-tuning from a random CTC head collapsed to all-blank 
 that way, while the two-stage schedule memorized them within 800 updates. Both failed runs were stopped automatically by a
 plateau guard (dev WER still ≥ 98 % at epoch 6), which saved GPU quota.
 
-Notes: dev WER measured inside the Trainer at the selected epoch was 61.3 %; the table reports the repository's decoding
-script (66.3 %), which batches clips differently. This encoder takes no attention mask, so padding changes results slightly.
+**Two dev WER numbers for the same checkpoint.** Dev WER is 61.31 % during checkpoint selection and 66.30 % in the
+final decoding. Both come from the same weights (epoch 29, `checkpoint-9512`) on the same 1,314 dev clips with the same
+normalization and greedy decoding. They differ only in how clips are batched:
+
+| | Checkpoint selection (Trainer evaluation) | Final decoding (`decode_split`) |
+|---|---|---|
+| Where | [`training_log.json`](results/hubert_ctc/training_log.json), `eval_wer` at epoch 29 | [`hubert_ctc_dev.json`](results/hubert_ctc/model_info/hubert_ctc_dev.json) |
+| Batching | manifest order, 16 clips per GPU on 2 GPUs | sorted by duration, 16 clips, 1 GPU |
+| Dev WER / CER | 61.31 % / 19.61 % | 66.30 % / 22.55 % |
+
+The mHuBERT-147 feature encoder uses group normalization and takes no attention mask, so the zero padding added to
+shorter clips in a batch changes the features the model sees. In manifest order, clips of very different lengths share a
+batch, as they did during training; sorted by duration, clips get almost no padding. The model was trained with padded
+batches, which is the most likely reason it scores better under the matching condition; we did not test this separately. The 61.31 % was used only to choose the epoch. We report
+the final-decoding numbers (66.30 % dev, 68.46 % test) because the same script produced the test result and every other
+system's predictions in this table. Decoding each clip alone (batch size 1, no padding) would remove the effect; we did not run it.
 Dev WER was still falling slowly at epoch 30, so longer training would probably help. CER is far below WER: most errors are
 merged or split words and single-letter spelling mistakes that a language model would fix.
 

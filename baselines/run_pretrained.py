@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import platform
 import sys
 import time
@@ -39,8 +40,8 @@ class Checkpoint:
     note: str
 
 
-# Revisions are resolved at run time and written to model_info. After the
-# first run, copy the resolved hash here so later runs load the same weights.
+# Exact Hugging Face commits used for every reported number (see results/pretrained/model_info).
+# Runs fail if a checkpoint is not pinned here, so nobody silently loads newer weights.
 CHECKPOINTS = {
     "whisper_small": Checkpoint(
         "whisper_small", "openai/whisper-small", "whisper",
@@ -56,7 +57,11 @@ CHECKPOINTS = {
         "Whisper small fine-tuned on language-and-voice-lab/samromur_asr by a third party.",
     ),
 }
-REVISIONS: dict[str, str | None] = {key: None for key in CHECKPOINTS}
+REVISIONS: dict[str, str] = {
+    "whisper_small": "973afd24965f72e36ca33b3055d56a652f456b4d",
+    "wav2vec2_is": "f8de0cdc7a09ef45362f32c3514afb2edefca68d",
+    "whisper_small_is": "e078378ec8dfc6ebd1860d549f70bf132f030f64",
+}
 
 CSV_FIELDS = ("id", "split", "speaker_session_id", "duration_sec",
               "reference", "reference_raw", "hypothesis_raw", "hypothesis")
@@ -127,10 +132,9 @@ def environment() -> dict:
 
 
 def resolve_revision(repo_id: str, pinned: str | None) -> str:
-    if pinned:
-        return pinned
-    from huggingface_hub import HfApi
-    return HfApi().model_info(repo_id).sha
+    if not pinned or not re.fullmatch(r"[0-9a-f]{40}", pinned):
+        raise ValueError(f"{repo_id}: pin a full 40-character commit hash before running")
+    return pinned
 
 
 def load_audio(record: dict):
@@ -150,9 +154,9 @@ def transcribe_whisper(ckpt, revision, records, *, batch_size, num_beams, device
         # Older fine-tunes (2022) ship a generation config without language/task tables.
         # Use the base model's config, as recommended in transformers issue #25084.
         from transformers import GenerationConfig
-        model.generation_config = GenerationConfig.from_pretrained(
-            BASE_WHISPER, revision=resolve_revision(BASE_WHISPER, REVISIONS["whisper_small"]))
-        generation_config_source = BASE_WHISPER
+        revision_base = resolve_revision(BASE_WHISPER, REVISIONS["whisper_small"])
+        model.generation_config = GenerationConfig.from_pretrained(BASE_WHISPER, revision=revision_base)
+        generation_config_source = f"{BASE_WHISPER}@{revision_base}"
     hyps = {}
     for batch in batches(records, batch_size):
         audio = [load_audio(r) for r in batch]
