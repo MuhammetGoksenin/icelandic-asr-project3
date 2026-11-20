@@ -1,0 +1,37 @@
+{
+  "model_key": "whisper_small_is",
+  "checkpoint": "Valdimarb13/whisper-small-icelandic",
+  "revision": "e078378ec8dfc6ebd1860d549f70bf132f030f64",
+  "family": "whisper",
+  "note": "Whisper small fine-tuned on language-and-voice-lab/samromur_asr by a third party.",
+  "trained_by_our_group": false,
+  "parameters": 241734912,
+  "split": "dev",
+  "utterances": 1314,
+  "audio_hours": 2.00088,
+  "device": "cuda",
+  "dtype": "float16",
+  "batch_size": 16,
+  "decoding": "beam",
+  "num_beams": 5,
+  "language": "is",
+  "task": "transcribe",
+  "max_new_tokens": 225,
+  "generation_config_from": "openai/whisper-small",
+  "wall_seconds_incl_audio_loading": 395.52,
+  "rtf_incl_audio_loading": 0.0549,
+  "peak_gpu_memory_gb": 5.143,
+  "text_normalization": "prepare.normalize_text (lowercase, NFC, punctuation/symbols -> space)",
+  "scores_preliminary": {
+    "wer": 0.1642175572519084,
+    "cer": 0.04097000438349302
+  },
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.23.0",
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "gpu_memory_gb": 14.56
+  }
+}

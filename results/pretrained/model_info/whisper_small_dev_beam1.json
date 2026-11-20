@@ -1,0 +1,37 @@
+{
+  "model_key": "whisper_small",
+  "checkpoint": "openai/whisper-small",
+  "revision": "973afd24965f72e36ca33b3055d56a652f456b4d",
+  "family": "whisper",
+  "note": "Multilingual Whisper small, zero-shot Icelandic (language='is').",
+  "trained_by_our_group": false,
+  "parameters": 241734912,
+  "split": "dev",
+  "utterances": 1314,
+  "audio_hours": 2.00088,
+  "device": "cuda",
+  "dtype": "float16",
+  "batch_size": 16,
+  "decoding": "greedy",
+  "num_beams": 1,
+  "language": "is",
+  "task": "transcribe",
+  "max_new_tokens": 225,
+  "generation_config_from": "openai/whisper-small",
+  "wall_seconds_incl_audio_loading": 141.61,
+  "rtf_incl_audio_loading": 0.0197,
+  "peak_gpu_memory_gb": 1.498,
+  "text_normalization": "prepare.normalize_text (lowercase, NFC, punctuation/symbols -> space)",
+  "scores_preliminary": {
+    "wer": 0.8936068702290076,
+    "cer": 0.38565345356628467
+  },
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.23.0",
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "gpu_memory_gb": 14.56
+  }
+}

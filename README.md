@@ -67,11 +67,16 @@ On macOS or Linux with Python 3.14, use `python3.14 -m venv .venv`, `.venv/bin/p
 | [preprocess.py](preprocess.py) | Audio loader and Whisper and wav2vec 2.0 preprocessing |
 | [verify.py](verify.py) and [verify_handoff.py](verify_handoff.py) | Verification against the release or the extracted handoff |
 | [requirements.txt](requirements.txt) and [requirements-windows-py314.lock.txt](requirements-windows-py314.lock.txt) | Pinned dependencies and tested Windows environment |
+| [requirements-modeling.txt](requirements-modeling.txt) | Pinned modeling environment (PyTorch, Transformers, Accelerate) used for every baseline and HuBERT run |
 | [tests/](tests/) | Independent tests with known inputs and expected outputs |
 | [output/](output/) | Frozen manifests and references, vocabulary, audit, review queues, and verification records |
 | [data/](data/) | Raw subset and original documents under **raw/samromur_21.05/** and cleaned v1 FLACs under **cleaned/samromur-21.05-20h-v1/** |
 | [review/](review/) | Manual listening decisions kept outside the generated outputs |
 | [contributions/](contributions/) | Individual work records authored and committed by team members |
+| [baselines/](baselines/) | Inference code for published pretrained checkpoints (baselines, no training by the group) |
+| [training/](training/) | Our own training code: HuBERT + CTC fine-tuning and its diagnostic |
+| [notebooks/](notebooks/) | Kaggle/Colab notebooks that run the committed scripts end to end from this repository |
+| [results/](results/) | Per-clip predictions (CSV), run records (JSON: checkpoint, revision, settings, GPU) and training logs |
 
 ## Load and preprocess a clip
 
@@ -205,6 +210,133 @@ Run the handoff verifier against the inner folder extracted from the LF ZIP. It 
 ~~~
 
 Earlier Windows verification re-decoded all 100,000 official paths and matched the committed decompressed audit. It checked all selected clips and labels and ran both feature extractors on 30 clips. The earlier handoff check used a fresh extraction and local Whisper assets. The fresh-checkout replay above is a separate check of regeneration from stored audit results.
+
+## Pretrained baselines and HuBERT + CTC (Muhammet Çelik)
+
+All systems below are scored on the same frozen v1 test clips (1,884 utterances, 3.0 h) against the same
+references (`output/evaluation_references.tsv`), with the same text normalization (`prepare.normalize_text`:
+lowercase, Unicode NFC, punctuation and symbols removed). Settings were chosen on the dev split; test was decoded once.
+Per-clip predictions and run records (checkpoint, revision, decoding settings, GPU, package versions) are in
+[`results/pretrained/`](results/pretrained/) and [`results/hubert_ctc/`](results/hubert_ctc/).
+Hardware: Kaggle, one NVIDIA Tesla T4 (16 GB), fp16.
+
+Every Hugging Face checkpoint is pinned to a full commit hash in the code (`REVISIONS` in
+[`baselines/run_pretrained.py`](baselines/run_pretrained.py), `Config.base_revision` in
+[`training/train_hubert_ctc.py`](training/train_hubert_ctc.py)), including the `openai/whisper-small`
+generation config used as a fallback for `Valdimarb13/whisper-small-icelandic`. A script refuses to run with an
+unpinned checkpoint, and [`tests/test_pretrained.py`](tests/test_pretrained.py) checks the pins.
+
+#### Setup for the modeling code
+
+The modeling code uses its own pinned environment, [`requirements-modeling.txt`](requirements-modeling.txt):
+the exact versions recorded for every reported run (Python 3.13.16, PyTorch 2.11.0 with CUDA 13.0,
+Transformers 5.23.0, Accelerate 1.15.0). Keep it separate from the Windows data-pipeline environment above.
+
+On Kaggle or Colab (GPU T4, internet on), open a notebook from [`notebooks/`](notebooks/) and run it top to bottom.
+Its first cell checks out a fixed data commit of this repository (`DATA_COMMIT`) and a fixed code commit
+(`CODE_COMMIT`), pulls only the needed audio through Git LFS, and installs `requirements-modeling.txt`.
+No manual uploads are needed.
+
+On your own Linux machine with an NVIDIA GPU:
+
+```bash
+python3.13 -m venv .venv-modeling
+.venv-modeling/bin/python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu130
+.venv-modeling/bin/python -m pip install -r requirements-modeling.txt
+git lfs pull --include="data/cleaned/samromur-21.05-20h-v1/**" --exclude=""
+.venv-modeling/bin/python -m unittest discover -s tests -p "test_pretrained.py"
+.venv-modeling/bin/python baselines/run_pretrained.py --model wav2vec2_is --split dev
+```
+
+### Baselines: published checkpoints, no training by our group
+
+Code: [`baselines/run_pretrained.py`](baselines/run_pretrained.py), notebook:
+[`notebooks/person2_pretrained_baselines.ipynb`](notebooks/person2_pretrained_baselines.ipynb).
+
+| System | Checkpoint | Revision | Decoding | Dev WER | Test WER | Test CER |
+|---|---|---|---|---:|---:|---:|
+| Whisper small, multilingual, zero-shot | [`openai/whisper-small`](https://huggingface.co/openai/whisper-small) | `973afd24965f72e36ca33b3055d56a652f456b4d` | beam 5, `language="is"` | 85.77 % | 86.82 % | 36.35 % |
+| wav2vec 2.0 XLSR-53 + CTC, fine-tuned for Icelandic by LVL | [`language-and-voice-lab/wav2vec2-large-xlsr-53-icelandic-ep30-967h`](https://huggingface.co/language-and-voice-lab/wav2vec2-large-xlsr-53-icelandic-ep30-967h) | `f8de0cdc7a09ef45362f32c3514afb2edefca68d` | greedy CTC, no LM | 7.11 % | **7.76 %** | 1.86 % |
+| Whisper small, fine-tuned for Icelandic by a third party | [`Valdimarb13/whisper-small-icelandic`](https://huggingface.co/Valdimarb13/whisper-small-icelandic) | `e078378ec8dfc6ebd1860d549f70bf132f030f64` | beam 5, `language="is"` | 16.42 % | 21.75 % | 5.60 % |
+
+Beam size for both Whisper models was chosen on dev from {1, 5}; beam 5 had the lower dev WER for both
+(whisper-small 89.36 → 85.77 %, whisper-small-icelandic 17.95 → 16.42 %).
+`Valdimarb13/whisper-small-icelandic` ships an old generation config without language tables, so its decoding
+uses the generation config of `openai/whisper-small` (recorded as `generation_config_from` in its run record).
+
+**Possible test overlap.** The two Icelandic checkpoints were trained by others on Samrómur data:
+the LVL wav2vec 2.0 model on 967 h of Samrómur Milljón, and `Valdimarb13/whisper-small-icelandic` on
+`language-and-voice-lab/samromur_asr` (its card does not name the training split). Our test clips come from
+Samrómur 21.05, so these models may have heard some of them during training. Their scores are an optimistic
+upper bound and should not be compared one-to-one with models trained only on our 15 h train split.
+
+### Course baselines that do not support Icelandic (not run)
+
+As the course instructions require, these were not run with a wrong language setting:
+
+| Model | Model card | Icelandic |
+|---|---|---|
+| `nvidia/canary-1b-v2` | https://huggingface.co/nvidia/canary-1b-v2 | not in the supported languages (25 European languages) |
+| `nvidia/parakeet-tdt-0.6b-v3` | https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3 | not in the supported languages (25 European languages) |
+| `Qwen/Qwen3-ASR-1.7B`, `Qwen/Qwen3-ASR-0.6B` | https://huggingface.co/Qwen/Qwen3-ASR-1.7B | not in the supported languages |
+
+### HuBERT + CTC, fine-tuned for Icelandic by our group
+
+No published Icelandic HuBERT ASR checkpoint was found, and a bare HuBERT encoder cannot transcribe, so we
+fine-tuned one. This is a course baseline family that we trained ourselves.
+
+- Base encoder: [`utter-project/mHuBERT-147`](https://huggingface.co/utter-project/mHuBERT-147) (HuBERT base, 95M parameters, 147 languages), revision `7ad3fc0bc5106c58c9c13526abccad527150d135`.
+- A new CTC head over the train-only character vocabulary ([`output/ctc_vocab.json`](output/ctc_vocab.json), 38 symbols).
+- Two-stage fine-tuning on the 15 h train split: encoder frozen and head trained alone for 1,000 updates (head LR 1e-3), then the transformer encoder unfrozen (LR 5e-5). 30 epochs, best epoch chosen by dev WER (epoch 29), seed 2105, 2 × T4, about 5.8 h.
+- Code: [`training/train_hubert_ctc.py`](training/train_hubert_ctc.py), notebook: [`notebooks/hubert_ctc_training.ipynb`](notebooks/hubert_ctc_training.ipynb), tests: [`tests/test_hubert_ctc.py`](tests/test_hubert_ctc.py).
+- Fine-tuned weights (378 MB, too large for the repository's LFS quota): [`GokseninMuhammet/mhubert-147-icelandic-ctc-samromur`](https://huggingface.co/GokseninMuhammet/mhubert-147-icelandic-ctc-samromur), revision `6cf95c5810843ceeac3044038760f40eeb992879`, `model.safetensors` SHA-256 `a9fffe14358a03465dca6243a4598047c01ff1c4180c789c4e8ebeedaa424075`.
+
+| System | Decoding | Dev WER | Dev CER | Test WER | Test CER |
+|---|---|---:|---:|---:|---:|
+| mHuBERT-147 + CTC (ours, 15 h) | greedy CTC, no LM | 66.30 % | 22.55 % | **68.46 %** | **23.31 %** |
+
+How we got here: full fine-tuning from a random CTC head collapsed to all-blank output (dev WER 100 % for 6 epochs, in two runs).
+[`training/diagnose_hubert_ctc.py`](training/diagnose_hubert_ctc.py) showed the same model could not even memorize 32 clips
+that way, while the two-stage schedule memorized them within 800 updates. Both failed runs were stopped automatically by a
+plateau guard (dev WER still ≥ 98 % at epoch 6), which saved GPU quota.
+
+**Two dev WER numbers for the same checkpoint.** Dev WER is 61.31 % during checkpoint selection and 66.30 % in the
+final decoding. Both come from the same weights (epoch 29, `checkpoint-9512`) on the same 1,314 dev clips with the same
+normalization and greedy decoding. They differ only in how clips are batched:
+
+| | Checkpoint selection (Trainer evaluation) | Final decoding (`decode_split`) |
+|---|---|---|
+| Where | [`training_log.json`](results/hubert_ctc/training_log.json), `eval_wer` at epoch 29 | [`hubert_ctc_dev.json`](results/hubert_ctc/model_info/hubert_ctc_dev.json) |
+| Batching | manifest order, 16 clips per GPU on 2 GPUs | sorted by duration, 16 clips, 1 GPU |
+| Dev WER / CER | 61.31 % / 19.61 % | 66.30 % / 22.55 % |
+
+The mHuBERT-147 feature encoder uses group normalization and takes no attention mask, so the zero padding added to
+shorter clips in a batch changes the features the model sees. In manifest order, clips of very different lengths share a
+batch, as they did during training; sorted by duration, clips get almost no padding. The model was trained with padded
+batches, which is the most likely reason it scores better under the matching condition; we did not test this separately. The 61.31 % was used only to choose the epoch. We report
+the final-decoding numbers (66.30 % dev, 68.46 % test) because the same script produced the test result and every other
+system's predictions in this table. Decoding each clip alone (batch size 1, no padding) would remove the effect; we did not run it.
+Dev WER was still falling slowly at epoch 30, so longer training would probably help. CER is far below WER: most errors are
+merged or split words and single-letter spelling mistakes that a language model would fix.
+
+### Why WER and CER
+
+We report word error rate as the main metric because it is the standard ASR metric: it counts substitutions,
+deletions and insertions at the word level and divides by the number of reference words, so lower is better and
+a misspelled word counts as a full error. Icelandic is highly inflected, so one wrong ending turns a word into an
+error even when the sound was recognized almost correctly; we therefore also report character error rate, which
+uses the same edit operations at the character level and gives partial credit for partly correct words.
+Both are computed on normalized text (lowercase, no punctuation), as the Hugging Face audio course recommends,
+so that systems are not penalized for casing or punctuation conventions (Whisper outputs them, CTC models do not).
+Reference: [Hugging Face audio course, chapter 5, "Evaluation"](https://huggingface.co/learn/audio-course/en/chapter5/evaluation).
+
+Known caveat: references spell numbers as words, while Whisper can output digits; this inflates Whisper's WER.
+The raw outputs are kept in the `hypothesis_raw` column for the error analysis.
+
+### License of model weights
+
+The project's code is under the repository's MIT license. The fine-tuned HuBERT weights are a derivative of
+`utter-project/mHuBERT-147` and are released under its license, CC BY-NC-SA 4.0.
 
 ## Remaining work
 
