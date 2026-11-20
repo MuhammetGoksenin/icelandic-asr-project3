@@ -72,6 +72,10 @@ On macOS or Linux with Python 3.14, use `python3.14 -m venv .venv`, `.venv/bin/p
 | [data/](data/) | Raw subset and original documents under **raw/samromur_21.05/** and cleaned v1 FLACs under **cleaned/samromur-21.05-20h-v1/** |
 | [review/](review/) | Manual listening decisions kept outside the generated outputs |
 | [contributions/](contributions/) | Individual work records authored and committed by team members |
+| [baselines/](baselines/) | Inference code for published pretrained checkpoints (baselines, no training by the group) |
+| [training/](training/) | Our own training code: HuBERT + CTC fine-tuning and its diagnostic |
+| [notebooks/](notebooks/) | Kaggle/Colab notebooks that run the committed scripts end to end from this repository |
+| [results/](results/) | Per-clip predictions (CSV), run records (JSON: checkpoint, revision, settings, GPU) and training logs |
 
 ## Load and preprocess a clip
 
