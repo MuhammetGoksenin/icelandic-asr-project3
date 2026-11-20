@@ -49,13 +49,13 @@ def main():
     # The recovered export has processor_config.json but no preprocessor_config.json.
     # Whisper Small uses the standard 80-mel feature extractor settings.
     extractor = WhisperFeatureExtractor(feature_size=80, sampling_rate=16000) 
-generation = {
-    'language': 'is',
-    'task': 'transcribe',
-    'max_new_tokens': 225,
-    'num_beams': 1,
-    'do_sample': False
-}
+    generation = {
+        'language': 'is',
+        'task': 'transcribe',
+        'max_new_tokens': 225,
+        'num_beams': 1,
+        'do_sample': False
+    }
     rows, refs, hyps = [], [], []
     start = time.perf_counter()
     for i, record in enumerate(records, 1):
