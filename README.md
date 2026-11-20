@@ -206,6 +206,91 @@ Run the handoff verifier against the inner folder extracted from the LF ZIP. It 
 
 Earlier Windows verification re-decoded all 100,000 official paths and matched the committed decompressed audit. It checked all selected clips and labels and ran both feature extractors on 30 clips. The earlier handoff check used a fresh extraction and local Whisper assets. The fresh-checkout replay above is a separate check of regeneration from stored audit results.
 
+## Pretrained baselines and HuBERT + CTC (Muhammet Çelik)
+
+All systems below are scored on the same frozen v1 test clips (1,884 utterances, 3.0 h) against the same
+references (`output/evaluation_references.tsv`), with the same text normalization (`prepare.normalize_text`:
+lowercase, Unicode NFC, punctuation and symbols removed). Settings were chosen on the dev split; test was decoded once.
+Per-clip predictions and run records (checkpoint, revision, decoding settings, GPU, package versions) are in
+[`results/pretrained/`](results/pretrained/) and [`results/hubert_ctc/`](results/hubert_ctc/).
+Hardware: Kaggle, one NVIDIA Tesla T4 (16 GB), fp16.
+
+### Baselines: published checkpoints, no training by our group
+
+Code: [`baselines/run_pretrained.py`](baselines/run_pretrained.py), notebook:
+[`notebooks/person2_pretrained_baselines.ipynb`](notebooks/person2_pretrained_baselines.ipynb).
+
+| System | Checkpoint | Revision | Decoding | Dev WER | Test WER | Test CER |
+|---|---|---|---|---:|---:|---:|
+| Whisper small, multilingual, zero-shot | [`openai/whisper-small`](https://huggingface.co/openai/whisper-small) | `973afd24965f72e36ca33b3055d56a652f456b4d` | beam 5, `language="is"` | 85.77 % | 86.82 % | 36.35 % |
+| wav2vec 2.0 XLSR-53 + CTC, fine-tuned for Icelandic by LVL | [`language-and-voice-lab/wav2vec2-large-xlsr-53-icelandic-ep30-967h`](https://huggingface.co/language-and-voice-lab/wav2vec2-large-xlsr-53-icelandic-ep30-967h) | `f8de0cdc7a09ef45362f32c3514afb2edefca68d` | greedy CTC, no LM | 7.11 % | **7.76 %** | 1.86 % |
+| Whisper small, fine-tuned for Icelandic by a third party | [`Valdimarb13/whisper-small-icelandic`](https://huggingface.co/Valdimarb13/whisper-small-icelandic) | `e078378ec8dfc6ebd1860d549f70bf132f030f64` | beam 5, `language="is"` | 16.42 % | 21.75 % | 5.60 % |
+
+Beam size for both Whisper models was chosen on dev from {1, 5}; beam 5 had the lower dev WER for both
+(whisper-small 89.36 → 85.77 %, whisper-small-icelandic 17.95 → 16.42 %).
+`Valdimarb13/whisper-small-icelandic` ships an old generation config without language tables, so its decoding
+uses the generation config of `openai/whisper-small` (recorded as `generation_config_from` in its run record).
+
+**Possible test overlap.** The two Icelandic checkpoints were trained by others on Samrómur data:
+the LVL wav2vec 2.0 model on 967 h of Samrómur Milljón, and `Valdimarb13/whisper-small-icelandic` on
+`language-and-voice-lab/samromur_asr` (its card does not name the training split). Our test clips come from
+Samrómur 21.05, so these models may have heard some of them during training. Their scores are an optimistic
+upper bound and should not be compared one-to-one with models trained only on our 15 h train split.
+
+### Course baselines that do not support Icelandic (not run)
+
+As the course instructions require, these were not run with a wrong language setting:
+
+| Model | Model card | Icelandic |
+|---|---|---|
+| `nvidia/canary-1b-v2` | https://huggingface.co/nvidia/canary-1b-v2 | not in the supported languages (25 European languages) |
+| `nvidia/parakeet-tdt-0.6b-v3` | https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3 | not in the supported languages (25 European languages) |
+| `Qwen/Qwen3-ASR-1.7B`, `Qwen/Qwen3-ASR-0.6B` | https://huggingface.co/Qwen/Qwen3-ASR-1.7B | not in the supported languages |
+
+### HuBERT + CTC, fine-tuned for Icelandic by our group
+
+No published Icelandic HuBERT ASR checkpoint was found, and a bare HuBERT encoder cannot transcribe, so we
+fine-tuned one. This is a course baseline family that we trained ourselves.
+
+- Base encoder: [`utter-project/mHuBERT-147`](https://huggingface.co/utter-project/mHuBERT-147) (HuBERT base, 95M parameters, 147 languages), revision `7ad3fc0bc5106c58c9c13526abccad527150d135`.
+- A new CTC head over the train-only character vocabulary ([`output/ctc_vocab.json`](output/ctc_vocab.json), 38 symbols).
+- Two-stage fine-tuning on the 15 h train split: encoder frozen and head trained alone for 1,000 updates (head LR 1e-3), then the transformer encoder unfrozen (LR 5e-5). 30 epochs, best epoch chosen by dev WER (epoch 29), seed 2105, 2 × T4, about 5.8 h.
+- Code: [`training/train_hubert_ctc.py`](training/train_hubert_ctc.py), notebook: [`notebooks/hubert_ctc_training.ipynb`](notebooks/hubert_ctc_training.ipynb), tests: [`tests/test_hubert_ctc.py`](tests/test_hubert_ctc.py).
+- Fine-tuned weights (378 MB, too large for the repository's LFS quota): [`GokseninMuhammet/mhubert-147-icelandic-ctc-samromur`](https://huggingface.co/GokseninMuhammet/mhubert-147-icelandic-ctc-samromur), revision `6cf95c5810843ceeac3044038760f40eeb992879`, `model.safetensors` SHA-256 `a9fffe14358a03465dca6243a4598047c01ff1c4180c789c4e8ebeedaa424075`.
+
+| System | Decoding | Dev WER | Dev CER | Test WER | Test CER |
+|---|---|---:|---:|---:|---:|
+| mHuBERT-147 + CTC (ours, 15 h) | greedy CTC, no LM | 66.30 % | 22.55 % | **68.46 %** | **23.31 %** |
+
+How we got here: full fine-tuning from a random CTC head collapsed to all-blank output (dev WER 100 % for 6 epochs, in two runs).
+[`training/diagnose_hubert_ctc.py`](training/diagnose_hubert_ctc.py) showed the same model could not even memorize 32 clips
+that way, while the two-stage schedule memorized them within 800 updates. Both failed runs were stopped automatically by a
+plateau guard (dev WER still ≥ 98 % at epoch 6), which saved GPU quota.
+
+Notes: dev WER measured inside the Trainer at the selected epoch was 61.3 %; the table reports the repository's decoding
+script (66.3 %), which batches clips differently. This encoder takes no attention mask, so padding changes results slightly.
+Dev WER was still falling slowly at epoch 30, so longer training would probably help. CER is far below WER: most errors are
+merged or split words and single-letter spelling mistakes that a language model would fix.
+
+### Why WER and CER
+
+We report word error rate as the main metric because it is the standard ASR metric: it counts substitutions,
+deletions and insertions at the word level and divides by the number of reference words, so lower is better and
+a misspelled word counts as a full error. Icelandic is highly inflected, so one wrong ending turns a word into an
+error even when the sound was recognized almost correctly; we therefore also report character error rate, which
+uses the same edit operations at the character level and gives partial credit for partly correct words.
+Both are computed on normalized text (lowercase, no punctuation), as the Hugging Face audio course recommends,
+so that systems are not penalized for casing or punctuation conventions (Whisper outputs them, CTC models do not).
+Reference: [Hugging Face audio course, chapter 5, "Evaluation"](https://huggingface.co/learn/audio-course/en/chapter5/evaluation).
+
+Known caveat: references spell numbers as words, while Whisper can output digits; this inflates Whisper's WER.
+The raw outputs are kept in the `hypothesis_raw` column for the error analysis.
+
+### License of model weights
+
+The project's code is under the repository's MIT license. The fine-tuned HuBERT weights are a derivative of
+`utter-project/mHuBERT-147` and are released under its license, CC BY-NC-SA 4.0.
+
 ## Remaining work
 
 Team listening and Icelandic transcript-agreement review remain pending. The [confirmed baseline checklist](BASELINES.md) records the open applicability decisions for named checkpoints. The professor's minimum training duration remains unconfirmed. Each teammate documents and commits their own contribution from their own GitHub account.
