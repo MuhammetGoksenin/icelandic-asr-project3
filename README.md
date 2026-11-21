@@ -88,7 +88,7 @@ Use a separate [Python 3.13 modeling environment](#modeling-environment-and-test
 
 The classical Icelandic character recognizer uses 13 MFCCs with delta and delta-delta features, diagonal Gaussian mixtures, a left-to-right character HMM, and a train-only character bigram language model. Its initialization uses uniform transcript-to-frame alignment; it does not use a curated phonetic lexicon. The completed CPU run trained on 10,488 utterances, selected its language-model weight on 1,314 dev utterances, then evaluated test once on 1,884 utterances. Test WER was **101.47%** and CER **87.74%**, so the current recipe is a weak reference point. See [`mfcc_gmm_hmm/README.md`](mfcc_gmm_hmm/README.md) for setup, model access, full metrics, and predictions in [`results/mfcc_gmm_hmm/`](results/mfcc_gmm_hmm/).
 
-**Contribution:** Azza Almousli · [work record](contributions/mfcc_gmm_hmm.md)
+**Contribution:** Azaa Almousli · Student ID 2309115421 · [work record](contributions/Azaa_Almousli_2309115421.md)
 
 ## Load and preprocess a clip
 
