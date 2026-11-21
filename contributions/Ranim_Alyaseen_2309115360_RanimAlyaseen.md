@@ -11,6 +11,8 @@ I defined the bounded raw input, verified each frozen recording against the offi
 
 I listened to all 60 recordings in the [focused audio-quality review](../review/focused_manual_review.tsv). I marked 16 usable, 43 with audibility issues, and one uncertain. All 60 recordings were available. I recorded audio-quality recommendations for each clip and kept the frozen dataset unchanged. Icelandic transcript agreement was not assessed.
 
+I served as the project coordinator and integration reviewer. I coordinated teammates' tasks, reviewed pull requests against the professor's requirements, checked reported results against committed predictions and frozen references, maintained the shared README, and coordinated merge follow-ups while preserving each teammate's commits and contribution record.
+
 Model training and benchmark results are outside this contribution. Each teammate documents and commits their own work.
 
 I published the raw and cleaned audio and verified an [anonymous Git LFS round trip](../output/lfs_verification.json) from a fresh checkout.
