@@ -116,9 +116,19 @@ wav2vec = wav2vec2_example(example, ctc_extractor, ctc_tokenizer(output / "ctc_v
 
 Use the shared [evaluation references (TSV)](output/evaluation_references.tsv) or [evaluation references (JSONL)](output/evaluation_references.jsonl) for both models. Join predictions by `split` and `id`, preserving leading zeros. Each manifest preserves the raw and release-normalized prompts. The scoring text lowercases Unicode, applies NFC, treats punctuation and symbols as spaces, and collapses whitespace. Apply `normalize_text` from [prepare.py](prepare.py) to model hypotheses for comparable WER or CER. Icelandic characters and diacritics are preserved.
 
-## Human listening remains pending
+## Focused audio-quality review
 
-Record decisions for the **53 near-silence exclusions and seven retained possible-clipping cases** in the [60-recording manual review log](review/focused_manual_review.tsv). The [generated measurements](output/focused_review.tsv) remain available as evidence. Preprocessing writes the generated outputs separately. Keep leading zeros when importing IDs.
+Ranim Alyaseen completed audio-quality listening for all 60 recordings in the focused queue on 21 November 2026. All recordings were available. [Manual review log](review/focused_manual_review.tsv)
+
+| Automatic flag | Usable | Hard to hear | Uncertain |
+|---|---:|---:|---:|
+| Near-silence exclusions | 10 | 43 | 0 |
+| Retained possible-clipping cases | 6 | 0 | 1 |
+| **Total** | **16** | **43** | **1** |
+
+Clip `0049034` needs a second audio-quality opinion. Icelandic transcript agreement was unassessed for all 60 clips and is recorded as `uncertain`. The recommendations leave frozen v1 unchanged.
+
+For follow-up reviews, preserve leading zeros when importing clip IDs. Preprocessing stores the [automatic measurements](output/focused_review.tsv) separately from the manual decisions.
 
 1. **Find and play the FLAC.** Append the row's **audio_path** to the hydrated raw subset or to the root of your full local release. The raw subset includes all seven retained clipping cases and two of the near-silence cases, **0008401** and **0076273**. Use the full release for the other 51 near-silence recordings.
 2. **Record audio quality.** Any teammate can listen for audible speech, gaps, competing voices, clipping, noise, and abrupt cutoffs. Enter your name or initials as reviewer and record **usable**, **issue**, or **uncertain**. Add a timestamp and what you heard where useful. A low RMS score can occur in intelligible speech.
@@ -136,9 +146,9 @@ if (-not $row) { throw "Review ID not found: $id" }
 Invoke-Item -LiteralPath (Join-Path $release $row.audio_path)
 ~~~
 
-The [541-clip evaluation checklist](output/flagged_dev_test_review.tsv) covers 315 test and 226 dev recordings. Its paths start with **audio/** so they resolve from the handoff root. For the original release root, drop that prefix. The [full listening queue](output/listening_queue.tsv) also covers flagged train clips and unflagged controls.
+The broader listening review remains unassessed outside these 60 clips. The 541-clip evaluation checklist covers 315 test and 226 dev recordings. Two were covered by the focused review, leaving 539 unassessed. Its paths start with **audio/** so they resolve from the handoff root. For the original release root, drop that prefix. [Evaluation checklist](output/flagged_dev_test_review.tsv) · [Full listening queue, including flagged train clips and unflagged controls](output/listening_queue.tsv)
 
-The [focused review queue](output/focused_review.tsv) documents **53 near-silence exclusions and seven selected possible-clipping flags**. All 53 met the RMS threshold, and 15 also met the quiet-fraction threshold. The seven selected clips have 0.1095% to 0.3238% full-scale samples. Quiet speech may still be intelligible and full-scale samples may be inaudible. Use the release paths to listen and record proposed changes by ID.
+The [focused review queue](output/focused_review.tsv) documents **53 near-silence exclusions and seven selected possible-clipping flags**. All 53 met the RMS threshold, and 15 also met the quiet-fraction threshold. The seven selected clips have 0.1095% to 0.3238% full-scale samples. Quiet speech may still be intelligible and full-scale samples may be inaudible.
 
 The exclusion log contains **150 unique utterances**, with 127 train, 18 dev, and five test. Of those, 94 were withheld only for the release validation flag, one for both validation and digital silence, two for the metadata empty status, and 53 for near-silence.
 
@@ -356,7 +366,7 @@ The project's code is under the repository's MIT license. The fine-tuned HuBERT 
 
 ## Remaining work
 
-- Team listening and Icelandic transcript-agreement review remain pending. Record decisions in the [manual review log](review/focused_manual_review.tsv).
+- Icelandic transcript verification and listening beyond the 60 focused clips remain pending. Clip `0049034` is the one uncertain audio-quality decision in the [completed focused review](#focused-audio-quality-review).
 - GMM-HMM, a standalone CTC encoder, attention encoder-decoder and hybrid CTC/attention, and RNN-T still lack committed results on `main` or in the open PRs checked on 21 November 2026. The [baseline checklist](BASELINES.md) records the course requirements and open applicability decisions. The professor's minimum training duration remains unconfirmed.
 - Full standardized dev results for the recovered Whisper checkpoint are still pending. Its completed test run is recorded in [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3).
 
