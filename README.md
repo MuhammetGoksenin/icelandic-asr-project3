@@ -211,7 +211,7 @@ Run the handoff verifier against the inner folder extracted from the LF ZIP. It 
 
 Earlier Windows verification re-decoded all 100,000 official paths and matched the committed decompressed audit. It checked all selected clips and labels and ran both feature extractors on 30 clips. The earlier handoff check used a fresh extraction and local Whisper assets. The fresh-checkout replay above is a separate check of regeneration from stored audit results.
 
-## Pretrained baselines and HuBERT + CTC (Muhammet Çelik)
+## Pretrained baselines and HuBERT + CTC 
 
 All systems below are scored on the same frozen v1 test clips (1,884 utterances, 3.0 h) against the same
 references (`output/evaluation_references.tsv`), with the same text normalization (`prepare.normalize_text`:
@@ -350,7 +350,7 @@ Samrómur Icelandic Speech 21.05 by David Erik Mollberg et al. is distributed un
 
 ---
 
-## Person 3:Tasnim Alibraheem 2309015259 — Whisper Small Fine-Tuning
+## Whisper Small Fine-Tuning
 
 ### Overview
 Fine-tuned OpenAI's multilingual Whisper Small model (~242M parameters)
