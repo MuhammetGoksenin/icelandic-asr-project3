@@ -20,6 +20,14 @@ The first two full runs collapsed to all-blank output. I wrote [training/diagnos
 
 The fine-tuned weights are published at [GokseninMuhammet/mhubert-147-icelandic-ctc-samromur](https://huggingface.co/GokseninMuhammet/mhubert-147-icelandic-ctc-samromur) (revision `6cf95c5810843ceeac3044038760f40eeb992879`), with a model card that lists the data, the training recipe, the results and the limitations.
 
+## RNN-T (our training, from scratch)
+
+The only transducer checkpoint on the course list does not support Icelandic, so I implemented an RNN-Transducer and trained it from random initialization on our 15 h train split ([training/train_rnnt.py](../training/train_rnnt.py), [notebook](../notebooks/rnnt_training.ipynb)): log-mel features, a convolutional subsampler and Transformer encoder, an LSTM prediction network, a joiner, `torchaudio`'s RNN-T loss and batched greedy decoding. Dev WER chose epoch 56 of 60 and the test split was decoded once: **test WER 68.95 %, CER 30.54 %**.
+
+Learning from the HuBERT runs, the notebook first checks that the model memorizes 32 clips and stops if it cannot, and the plateau guard stops a run that does not learn; the full run then took about one hour on one T4 in Google Colab. [tests/test_rnnt.py](../tests/test_rnnt.py) checks the vocabulary, the features, the batching, the model shapes, greedy decoding against a scripted joiner, and `torchaudio`'s loss against a plain forward-algorithm implementation.
+
+The weights are published at [GokseninMuhammet/rnnt-icelandic-samromur-scratch](https://huggingface.co/GokseninMuhammet/rnnt-icelandic-samromur-scratch) (revision `35089afe2355e035c184d0f12afe034cc2a20b4b`) with a model card.
+
 ## Documentation
 
-I wrote the README section "Pretrained baselines and HuBERT + CTC", including the justification of WER and CER and the license note for the model weights, and added the new folders to the repository contents table.
+I wrote the README section "Pretrained baselines, HuBERT + CTC and RNN-T", including the justification of WER and CER and the license note for the model weights, and added the new folders to the repository contents table.
