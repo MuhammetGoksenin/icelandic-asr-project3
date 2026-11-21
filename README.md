@@ -72,23 +72,23 @@ Use a separate [Python 3.13 modeling environment](#modeling-environment-and-test
 | [requirements-modeling.txt](requirements-modeling.txt) | Person 2's pinned environment for pretrained baselines, HuBERT, and their tests. Person 3's Whisper dependencies are in [training/requirements-person3.txt](training/requirements-person3.txt). |
 | [NLP_Project3_Person3_Whisper_Clean.ipynb](NLP_Project3_Person3_Whisper_Clean.ipynb) | Person 3's Whisper Small fine-tuning notebook and saved training outputs |
 | [training_metrics.json](training_metrics.json) | Historical Whisper training and validation summary transcribed from the notebook output. Its evaluation status describes that snapshot. |
-| [tests/](tests/) | Separate data-pipeline and pretrained/HuBERT unit tests |
+| [tests/](tests/) | Separate data-pipeline and pretrained/HuBERT/RNN-T unit tests |
 | [output/](output/) | Frozen manifests and references, vocabulary, audit, review queues, and verification records |
 | [data/](data/) | Raw subset and original documents under **raw/samromur_21.05/** and cleaned v1 FLACs under **cleaned/samromur-21.05-20h-v1/** |
 | [review/](review/) | Manual listening decisions kept outside the generated outputs |
 | [contributions/](contributions/) | Individual work records authored and committed by team members |
 | [baselines/](baselines/) | Inference code for published pretrained checkpoints (baselines, no training by the group) |
-| [training/](training/) | HuBERT training and diagnostics, recovered Whisper evaluation, and Person 3's Whisper dependencies |
+| [training/](training/) | HuBERT training and diagnostics, RNN-T training from scratch, recovered Whisper evaluation, and Person 3's Whisper dependencies |
 | [mfcc_gmm_hmm/](mfcc_gmm_hmm/) | MFCC features, GMM-HMM training and inference, configuration, dependencies, and model card |
 | [models/mfcc_gmm_hmm/](models/mfcc_gmm_hmm/) | Reproducible trained GMM-HMM weights tracked with Git LFS |
-| [notebooks/](notebooks/) | Person 2's pretrained-baseline and HuBERT Kaggle/Colab notebooks |
+| [notebooks/](notebooks/) | Person 2's pretrained-baseline, HuBERT and RNN-T Kaggle/Colab notebooks |
 | [results/](results/) | Per-clip predictions, run records, and training logs |
 
 ### MFCC + GMM-HMM baseline
 
 The classical Icelandic character recognizer uses 13 MFCCs with delta and delta-delta features, diagonal Gaussian mixtures, a left-to-right character HMM, and a train-only character bigram language model. Its initialization uses uniform transcript-to-frame alignment; it does not use a curated phonetic lexicon. The completed CPU run trained on 10,488 utterances, selected its language-model weight on 1,314 dev utterances, then evaluated test once on 1,884 utterances. Test WER was **101.47%** and CER **87.74%**, so the current recipe is a weak reference point. See [`mfcc_gmm_hmm/README.md`](mfcc_gmm_hmm/README.md) for setup, model access, full metrics, and predictions in [`results/mfcc_gmm_hmm/`](results/mfcc_gmm_hmm/).
 
-**Contribution:** Azaa Almousli · Student ID 2309115421 · [work record](contributions/Azaa_Almousli_2309115421.md)
+**Contribution:** Azaa Almousli · Student ID 2309115421 · [work record](contributions/Azaa_Almousli_2309115421_AzaaAlmousli.md)
 
 ## Load and preprocess a clip
 
@@ -242,11 +242,11 @@ Run the handoff verifier against the inner folder extracted from the LF ZIP. It 
 
 Earlier Windows verification re-decoded all 100,000 official paths and matched the committed decompressed audit. It checked all selected clips and labels and ran both feature extractors on 30 clips. The earlier handoff check used a fresh extraction and local Whisper assets. The fresh-checkout replay above is a separate check of regeneration from stored audit results.
 
-## Pretrained baselines and HuBERT + CTC
+## Pretrained baselines, HuBERT + CTC and RNN-T
 
-The four systems below have committed full test predictions on `main` for all 1,884 frozen v1 utterances. They use the shared [evaluation references](output/evaluation_references.tsv) and [text normalization](prepare.py). The dev columns report full development decoding with the chosen settings. See also the [recovered Whisper Small checkpoint evaluations](#recovered-checkpoint-evaluation).
+The five systems below have committed full test predictions on `main` for all 1,884 frozen v1 utterances. They use the shared [evaluation references](output/evaluation_references.tsv) and [text normalization](prepare.py). The dev columns report full development decoding with the chosen settings. See also the [recovered Whisper Small checkpoint evaluations](#recovered-checkpoint-evaluation).
 
-Per-clip predictions and run records are in [results/pretrained/](results/pretrained/) and [results/hubert_ctc/](results/hubert_ctc/). The pretrained inference records and final HuBERT decoding record a Tesla T4. HuBERT training used two T4s.
+Per-clip predictions and run records are in [results/pretrained/](results/pretrained/), [results/hubert_ctc/](results/hubert_ctc/) and [results/rnnt/](results/rnnt/). The pretrained inference records and final HuBERT decoding record a Tesla T4. HuBERT training used two T4s. RNN-T training and decoding used one T4 on Google Colab.
 
 Every Hugging Face checkpoint is pinned to a full commit hash in the code (`REVISIONS` in
 [`baselines/run_pretrained.py`](baselines/run_pretrained.py), `Config.base_revision` in
@@ -354,6 +354,37 @@ the final-decoding numbers (66.30 % dev, 68.46 % test) from the same HuBERT deco
 Dev WER was still falling slowly at epoch 30, so longer training would probably help. CER is far below WER: most errors are
 merged or split words and single-letter spelling mistakes that a language model would fix.
 
+### RNN-T (transducer), trained from scratch by our group
+
+The course's only transducer checkpoint, `nvidia/parakeet-tdt-0.6b-v3`, does not support Icelandic, so we implemented and
+trained one from random initialization. It uses no pretrained weights and no language model.
+
+- Model: 80-dim log-mel features → two stride-2 convolutions (4× subsampling) → 8-layer pre-norm Transformer encoder (d=256);
+  LSTM prediction network (320); additive joiner over the same 38-symbol train-only vocabulary as HuBERT. 9.19M parameters.
+- Loss: `torchaudio.functional.rnnt_loss` (torchaudio 2.11.0). Decoding: batched greedy search, at most 5 symbols per frame.
+- Training: 10,486 train utterances (14.99 h; 2 clips over 16 s left out), SpecAugment, AdamW, peak LR 1e-3 with 2,000 warmup
+  steps and cosine decay, fp16, seed 2105. 60 epochs (13,740 updates); dev WER every 2 epochs chose epoch 56.
+  One Tesla T4 on Google Colab, 1 h 1 min of training, peak GPU memory 2.6 GB.
+- Before full training, the notebook checks that the model memorizes 32 train clips (loss 431 → 0.018, exact transcripts) and
+  stops if it cannot; a plateau guard would also stop a run whose dev WER stays ≥ 98 % at epoch 16.
+- Code: [`training/train_rnnt.py`](training/train_rnnt.py) (code commit `6f702ce9160c443ef18f6b378453fafd743bb50a`), notebook:
+  [`notebooks/rnnt_training.ipynb`](notebooks/rnnt_training.ipynb), tests: [`tests/test_rnnt.py`](tests/test_rnnt.py), including a check of
+  torchaudio's loss against a plain forward-algorithm implementation.
+- Weights (37 MB): [`GokseninMuhammet/rnnt-icelandic-samromur-scratch`](https://huggingface.co/GokseninMuhammet/rnnt-icelandic-samromur-scratch),
+  revision `35089afe2355e035c184d0f12afe034cc2a20b4b`, `best.pt` SHA-256 `ad9392a444809e2f47875b354f44fb6eeac7c7af7b23fcb99eb21293ce312b53`.
+  Released under CC BY 4.0, following the Samrómur training data; it is not derived from another model.
+
+| System | Decoding | Dev WER | Dev CER | Test WER | Test CER |
+|---|---|---:|---:|---:|---:|
+| RNN-T from scratch (ours, 15 h) | greedy, no LM | 65.50 % | 28.61 % | **68.95 %** | **30.54 %** |
+
+[Full dev run](results/rnnt/model_info/rnnt_dev.json) · [Full test run](results/rnnt/model_info/rnnt_test.json) · [Training curves](results/rnnt/training_curves.png)
+
+Checkpoint selection and the final dev decoding use the same decoding function and batching, so the dev WER during training
+equals the reported dev WER. Trained only on 15 h without any pretraining, the RNN-T reaches about the same WER as the
+pretrained HuBERT + CTC (68.95 % vs 68.46 %) but a higher CER (30.54 % vs 23.31 %). Dev WER was still falling slowly at
+epoch 60, so longer training would probably help.
+
 ### Why WER and CER
 
 We report word error rate as the main metric because it is the standard ASR metric: it counts substitutions,
@@ -370,12 +401,13 @@ The scoring references contain no digits. A numeric hypothesis can disagree with
 ### License of model weights
 
 The project's code is under the repository's MIT license. The fine-tuned HuBERT weights are a derivative of
-`utter-project/mHuBERT-147` and are released under its license, CC BY-NC-SA 4.0.
+`utter-project/mHuBERT-147` and are released under its license, CC BY-NC-SA 4.0. The RNN-T weights were trained from
+scratch on Samrómur 21.05 and are released under CC BY 4.0.
 
 ## Remaining work
 
 - Icelandic transcript verification and listening beyond the 60 focused clips remain pending. Clip `0049034` is the one uncertain audio-quality decision in the [completed focused review](#focused-audio-quality-review).
-- GMM-HMM, a standalone CTC encoder, attention encoder-decoder and hybrid CTC/attention, and RNN-T still lack committed results on `main` or in the open PRs checked on 21 November 2026. The [baseline checklist](BASELINES.md) records the course requirements and open applicability decisions. The professor's minimum training duration remains unconfirmed.
+- A standalone CTC encoder, attention encoder-decoder and hybrid CTC/attention still lack committed results on `main` or in the open PRs checked on 21 November 2026. GMM-HMM and RNN-T results are committed. The [baseline checklist](BASELINES.md) records the course requirements and open applicability decisions. The professor's minimum training duration remains unconfirmed.
 - Full standardized dev results for the recovered Whisper checkpoint are still pending. Its completed test run is recorded in [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3).
 
 Each teammate documents and commits their own contribution from their own GitHub account.
