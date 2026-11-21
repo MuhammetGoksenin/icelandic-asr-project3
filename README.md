@@ -79,8 +79,16 @@ Use a separate [Python 3.13 modeling environment](#modeling-environment-and-test
 | [contributions/](contributions/) | Individual work records authored and committed by team members |
 | [baselines/](baselines/) | Inference code for published pretrained checkpoints (baselines, no training by the group) |
 | [training/](training/) | HuBERT training and diagnostics, recovered Whisper evaluation, and Person 3's Whisper dependencies |
+| [mfcc_gmm_hmm/](mfcc_gmm_hmm/) | MFCC features, GMM-HMM training and inference, configuration, dependencies, and model card |
+| [models/mfcc_gmm_hmm/](models/mfcc_gmm_hmm/) | Reproducible trained GMM-HMM weights tracked with Git LFS |
 | [notebooks/](notebooks/) | Person 2's pretrained-baseline and HuBERT Kaggle/Colab notebooks |
-| [results/](results/) | Per-clip predictions, run records with checkpoint and decoding details, and training logs |
+| [results/](results/) | Per-clip predictions, run records, and training logs |
+
+### MFCC + GMM-HMM baseline
+
+The classical Icelandic character recognizer uses 13 MFCCs with delta and delta-delta features, diagonal Gaussian mixtures, a left-to-right character HMM, and a train-only character bigram language model. Its initialization uses uniform transcript-to-frame alignment; it does not use a curated phonetic lexicon. The completed CPU run trained on 10,488 utterances, selected its language-model weight on 1,314 dev utterances, then evaluated test once on 1,884 utterances. Test WER was **101.47%** and CER **87.74%**, so the current recipe is a weak reference point. See [`mfcc_gmm_hmm/README.md`](mfcc_gmm_hmm/README.md) for setup, model access, full metrics, and predictions in [`results/mfcc_gmm_hmm/`](results/mfcc_gmm_hmm/).
+
+**Contribution:** Azza Almousli · [work record](contributions/mfcc_gmm_hmm.md)
 
 ## Load and preprocess a clip
 
