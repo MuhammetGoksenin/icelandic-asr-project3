@@ -424,11 +424,14 @@ Run records: [CTC](results/ctc_scratch/model_info/ctc_scratch_test.json) ·
 [attention](results/attention_scratch/model_info/attention_scratch_test.json) ·
 [hybrid](results/hybrid_ctc_attention/model_info/hybrid_ctc_attention_test.json); training curves are next to each record.
 
-**What this shows.** The attention-only model never learned a stable audio-text alignment from 15 h: it repeated and
-inserted words (WER above 100 %), and the plateau guard stopped it at epoch 16 (dev WER still ≥ 98 %). Adding the CTC branch
-fixed that: the hybrid model passed the guard at epoch 16 (dev WER 92 %), kept improving to epoch 60, and is the best of all
-models trained by our group, ahead of the pretrained HuBERT + CTC. This matches the motivation for hybrid CTC/attention
-(Watanabe et al., IEEE JSTSP 2017): CTC's monotonic alignment regularizes the attention decoder. Beam search with CTC
+**What this shows.** In this experiment, the attention-only configuration did not learn a stable audio-text alignment
+from 15 h: it repeated and inserted words (WER above 100 %), and the plateau guard stopped it at epoch 16 (dev WER still
+≥ 98 %). This is a limitation of this experiment and does not imply that attention models generally cannot learn
+alignment. Adding the CTC branch improved this setup: the hybrid model passed the guard at epoch 16 (dev WER 92 %) and
+kept improving to epoch 60. Hybrid CTC/attention achieved the lowest test WER among our models trained from scratch
+(55.57%). Our recovered fine-tuned Whisper checkpoint achieved a lower test WER overall (36.06%). This result is
+consistent with the motivation for hybrid CTC/attention (Watanabe et al., IEEE JSTSP 2017): CTC's monotonic alignment
+regularizes the attention decoder. Beam search with CTC
 rescoring improved the hybrid's dev WER from 53.67 % (greedy) to 52.51 %. The CTC encoder has a lower CER than the RNN-T
 but a higher WER: it spells characters well but splits and merges words more.
 
