@@ -72,16 +72,16 @@ Use a separate [Python 3.13 modeling environment](#modeling-environment-and-test
 | [requirements-modeling.txt](requirements-modeling.txt) | Person 2's pinned environment for pretrained baselines, HuBERT, and their tests. Person 3's Whisper dependencies are in [training/requirements-person3.txt](training/requirements-person3.txt). |
 | [NLP_Project3_Person3_Whisper_Clean.ipynb](NLP_Project3_Person3_Whisper_Clean.ipynb) | Person 3's Whisper Small fine-tuning notebook and saved training outputs |
 | [training_metrics.json](training_metrics.json) | Historical Whisper training and validation summary transcribed from the notebook output. Its evaluation status describes that snapshot. |
-| [tests/](tests/) | Separate data-pipeline and pretrained/HuBERT/RNN-T unit tests |
+| [tests/](tests/) | Separate data-pipeline and pretrained/HuBERT/RNN-T/CTC-attention unit tests |
 | [output/](output/) | Frozen manifests and references, vocabulary, audit, review queues, and verification records |
 | [data/](data/) | Raw subset and original documents under **raw/samromur_21.05/** and cleaned v1 FLACs under **cleaned/samromur-21.05-20h-v1/** |
 | [review/](review/) | Manual listening decisions kept outside the generated outputs |
 | [contributions/](contributions/) | Individual work records authored and committed by team members |
 | [baselines/](baselines/) | Inference code for published pretrained checkpoints (baselines, no training by the group) |
-| [training/](training/) | HuBERT training and diagnostics, RNN-T training from scratch, recovered Whisper evaluation, and Person 3's Whisper dependencies |
+| [training/](training/) | HuBERT training and diagnostics, RNN-T, CTC, attention and hybrid CTC/attention training from scratch, recovered Whisper evaluation, and Person 3's Whisper dependencies |
 | [mfcc_gmm_hmm/](mfcc_gmm_hmm/) | MFCC features, GMM-HMM training and inference, configuration, dependencies, and model card |
 | [models/mfcc_gmm_hmm/](models/mfcc_gmm_hmm/) | Reproducible trained GMM-HMM weights tracked with Git LFS |
-| [notebooks/](notebooks/) | Person 2's pretrained-baseline, HuBERT and RNN-T Kaggle/Colab notebooks |
+| [notebooks/](notebooks/) | Person 2's pretrained-baseline, HuBERT, RNN-T and CTC/attention/hybrid Kaggle/Colab notebooks |
 | [results/](results/) | Per-clip predictions, run records, and training logs |
 
 ### MFCC + GMM-HMM baseline
@@ -242,11 +242,11 @@ Run the handoff verifier against the inner folder extracted from the LF ZIP. It 
 
 Earlier Windows verification re-decoded all 100,000 official paths and matched the committed decompressed audit. It checked all selected clips and labels and ran both feature extractors on 30 clips. The earlier handoff check used a fresh extraction and local Whisper assets. The fresh-checkout replay above is a separate check of regeneration from stored audit results.
 
-## Pretrained baselines, HuBERT + CTC and RNN-T
+## Pretrained baselines, HuBERT + CTC, and neural models trained from scratch
 
-The five systems below have committed full test predictions on `main` for all 1,884 frozen v1 utterances. They use the shared [evaluation references](output/evaluation_references.tsv) and [text normalization](prepare.py). The dev columns report full development decoding with the chosen settings. See also the [recovered Whisper Small checkpoint evaluations](#recovered-checkpoint-evaluation).
+The eight systems below have committed full test predictions on `main` for all 1,884 frozen v1 utterances. They use the shared [evaluation references](output/evaluation_references.tsv) and [text normalization](prepare.py). The dev columns report full development decoding with the chosen settings. See also the [recovered Whisper Small checkpoint evaluations](#recovered-checkpoint-evaluation).
 
-Per-clip predictions and run records are in [results/pretrained/](results/pretrained/), [results/hubert_ctc/](results/hubert_ctc/) and [results/rnnt/](results/rnnt/). The pretrained inference records and final HuBERT decoding record a Tesla T4. HuBERT training used two T4s. RNN-T training and decoding used one T4 on Google Colab.
+Per-clip predictions and run records are in [results/pretrained/](results/pretrained/), [results/hubert_ctc/](results/hubert_ctc/), [results/rnnt/](results/rnnt/), [results/ctc_scratch/](results/ctc_scratch/), [results/attention_scratch/](results/attention_scratch/) and [results/hybrid_ctc_attention/](results/hybrid_ctc_attention/). The pretrained inference records and final HuBERT decoding record a Tesla T4. HuBERT training used two T4s. RNN-T, CTC, attention and hybrid training and decoding used one T4 on Google Colab.
 
 Every Hugging Face checkpoint is pinned to a full commit hash in the code (`REVISIONS` in
 [`baselines/run_pretrained.py`](baselines/run_pretrained.py), `Config.base_revision` in
@@ -385,6 +385,58 @@ equals the reported dev WER. Trained only on 15 h without any pretraining, the R
 pretrained HuBERT + CTC (68.95 % vs 68.46 %) but a higher CER (30.54 % vs 23.31 %). Dev WER was still falling slowly at
 epoch 60, so longer training would probably help.
 
+### CTC encoder, attention encoder-decoder and hybrid CTC/attention, trained from scratch by our group
+
+The remaining neural course families are trained from random initialization with the RNN-T pipeline: the same log-mel
+features, encoder (two stride-2 convolutions and an 8-layer Transformer, d=256), train-only vocabulary, data, batching,
+optimizer schedule (AdamW, peak LR 1e-3, 2,000 warmup steps, cosine decay), SpecAugment, seed 2105 and up to 60 epochs.
+Only the output side differs, so the four neural families compare directly.
+
+| Mode | Output side | Training loss | Final decoding |
+|---|---|---|---|
+| CTC encoder | linear CTC head | CTC | greedy CTC |
+| Attention encoder-decoder | 4-layer Transformer decoder with cross-attention | cross-entropy, label smoothing 0.1 | beam 5, length-normalized |
+| Hybrid CTC/attention | both | 0.3 × CTC + 0.7 × cross-entropy | beam 5, n-best rescored with 0.3 × CTC + 0.7 × attention |
+
+Greedy dev WER every 2 epochs selects each checkpoint; test was decoded once per model.
+Code: [`training/train_ctc_attention.py`](training/train_ctc_attention.py) (code commit `4912e53b396d82f17d9f71243d57a28fec353014`),
+notebook: [`notebooks/ctc_attention_training.ipynb`](notebooks/ctc_attention_training.ipynb), tests:
+[`tests/test_ctc_attention.py`](tests/test_ctc_attention.py) (teacher forcing, CTC greedy collapse, beam search on a scripted
+decoder, CTC n-best rescoring, and a one-clip learning check per mode).
+Weights: [`GokseninMuhammet/ctc-attention-icelandic-samromur-scratch`](https://huggingface.co/GokseninMuhammet/ctc-attention-icelandic-samromur-scratch),
+revision `61ec3fd06db751fae48a56a94aef370bd63744b8` (CC BY 4.0). SHA-256: `ctc_scratch.pt`
+`e863b46fc83ebde66b11abb56c1b7f4ba8e67bb80a175bbc558fe31dd8d7c8a8`, `attention_scratch.pt`
+`6593506d55d67f99714ac9d27f1c0d33487e23b42f6a0bfe8f5b213a0ce14b47`, `hybrid_ctc_attention.pt`
+`987794ae2efc6748c229d488e3fd715fc7d70d600a0e62473d2aab66c4cbbcb5`.
+
+#### All neural models trained by our group on the 15 h train split
+
+| System | Pretraining | Params | Best epoch | Training | Dev WER | Dev CER | Test WER | Test CER |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| **Hybrid CTC/attention** | none | 12.40 M | 60 / 60 | 79 min | **52.51 %** | **16.37 %** | **55.57 %** | **17.77 %** |
+| mHuBERT-147 + CTC | 90k h, 147 languages | 94.4 M | 29 / 30 | 5.8 h (2 T4) | 66.30 % | 22.55 % | 68.46 % | 23.31 % |
+| RNN-T | none | 9.19 M | 56 / 60 | 61 min | 65.50 % | 28.61 % | 68.95 % | 30.54 % |
+| CTC encoder | none | 8.17 M | 54 / 60 | 54 min | 70.81 % | 21.26 % | 74.50 % | 22.88 % |
+| Attention encoder-decoder | none | 12.39 M | 16 (stopped) | 23 min | 173.36 %* | n/a | 153.82 % | 92.79 % |
+
+\* Greedy dev WER during training; the plateau guard stopped the run before a final dev decoding.
+Run records: [CTC](results/ctc_scratch/model_info/ctc_scratch_test.json) ·
+[attention](results/attention_scratch/model_info/attention_scratch_test.json) ·
+[hybrid](results/hybrid_ctc_attention/model_info/hybrid_ctc_attention_test.json); training curves are next to each record.
+
+**What this shows.** The attention-only model never learned a stable audio-text alignment from 15 h: it repeated and
+inserted words (WER above 100 %), and the plateau guard stopped it at epoch 16 (dev WER still ≥ 98 %). Adding the CTC branch
+fixed that: the hybrid model passed the guard at epoch 16 (dev WER 92 %), kept improving to epoch 60, and is the best of all
+models trained by our group, ahead of the pretrained HuBERT + CTC. This matches the motivation for hybrid CTC/attention
+(Watanabe et al., IEEE JSTSP 2017): CTC's monotonic alignment regularizes the attention decoder. Beam search with CTC
+rescoring improved the hybrid's dev WER from 53.67 % (greedy) to 52.51 %. The CTC encoder has a lower CER than the RNN-T
+but a higher WER: it spells characters well but splits and merges words more.
+
+**Memorization checks.** CTC copied its 32 clips exactly. For attention and hybrid the check was first written as "loss
+below 10 % of its start", which label smoothing prevents; it now reports the transcript and requires a 70 % loss drop.
+Hybrid cut its loss from 5.45 to 0.52 but did not copy the transcript exactly at step 600; we continued because the
+loss fell and the plateau guard protects the run. The notebook's section 3 records these steps.
+
 ### Why WER and CER
 
 We report word error rate as the main metric because it is the standard ASR metric: it counts substitutions,
@@ -401,13 +453,13 @@ The scoring references contain no digits. A numeric hypothesis can disagree with
 ### License of model weights
 
 The project's code is under the repository's MIT license. The fine-tuned HuBERT weights are a derivative of
-`utter-project/mHuBERT-147` and are released under its license, CC BY-NC-SA 4.0. The RNN-T weights were trained from
-scratch on Samrómur 21.05 and are released under CC BY 4.0.
+`utter-project/mHuBERT-147` and are released under its license, CC BY-NC-SA 4.0. The RNN-T, CTC, attention and hybrid weights were
+trained from scratch on Samrómur 21.05 and are released under CC BY 4.0.
 
 ## Remaining work
 
 - Icelandic transcript verification and listening beyond the 60 focused clips remain pending. Clip `0049034` is the one uncertain audio-quality decision in the [completed focused review](#focused-audio-quality-review).
-- A standalone CTC encoder, attention encoder-decoder and hybrid CTC/attention still lack committed results on `main` or in the open PRs checked on 21 November 2026. GMM-HMM and RNN-T results are committed. The [baseline checklist](BASELINES.md) records the course requirements and open applicability decisions. The professor's minimum training duration remains unconfirmed.
+- Every course baseline family that supports Icelandic now has committed results: GMM-HMM, CTC encoder, attention encoder-decoder, hybrid CTC/attention, RNN-T, wav2vec 2.0 + CTC, HuBERT + CTC and multilingual Whisper (checked 22 November 2026). The [baseline checklist](BASELINES.md) records the course requirements and open applicability decisions. The professor's minimum training duration remains unconfirmed.
 - Full standardized dev results for the recovered Whisper checkpoint are still pending. Its completed test run is recorded in [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3).
 
 Each teammate documents and commits their own contribution from their own GitHub account.
