@@ -445,3 +445,158 @@ in Google Drive.
 
 The exported checkpoint was previously loaded successfully.
 Full inference and standardized development-set evaluation remain pending.
+
+---
+
+## Person 3 — Whisper Small Fine-Tuning Reproducibility
+
+**Contributor:** Tasnim Alibraheem  
+**Student ID:** 2309015259  
+**GitHub:** @tasneemzouhair-coder
+
+### Overview
+
+Person 3 fine-tuned multilingual Whisper Small for Icelandic automatic speech recognition (ASR) using the Samrómur 21.05 dataset.
+
+The original training run is complete. The recovered checkpoint 1000 is publicly downloadable and can be evaluated without retraining or accessing the contributor's personal Google Drive.
+
+### Training Configuration
+
+| Parameter | Value |
+|---|---|
+| Base model | `openai/whisper-small` |
+| Dataset | Samrómur 21.05 |
+| Dataset selection | `samromur-21.05-20h-v1` |
+| Training data | Approximately 15 hours |
+| Validation data | Approximately 2 hours |
+| Test data | Approximately 3 hours |
+| Epochs | 3 |
+| Learning rate | 1e-5 |
+| Batch size | 2 |
+| Gradient accumulation | 8 |
+| Effective batch size | 16 |
+| Mixed precision | FP16 |
+| Training GPU | NVIDIA Tesla T4 |
+| Recovered checkpoint | Step 1000 |
+
+The original training run did not record the exact base-model revision or dataset checkout commit. The dataset preparation reference is `55f5a68`, but this is not verified as the exact checkout used during training.
+
+The notebook includes dependency installation and revision-tracking cells for future runs.
+
+### Reproduce the Five-Sample Evaluation
+
+The following workflow was successfully tested in Google Colab using a fresh GitHub checkout.
+
+**1. Install Git LFS and clone the repository**
+
+```bash
+apt-get update -qq
+apt-get install -y git-lfs
+git lfs install
+
+git clone --branch person3-whisper-reproducibility \
+  https://github.com/RanimAlyaseen/icelandic-asr-project3.git
+
+cd icelandic-asr-project3
+```
+
+**2. Download the dataset audio**
+
+```bash
+git lfs pull \
+  --include="data/cleaned/samromur-21.05-20h-v1/**" \
+  --exclude=""
+```
+
+**3. Install Python dependencies**
+
+```bash
+python -m pip install -r training/requirements-person3.txt gdown
+```
+
+**4. Download and verify the recovered checkpoint**
+
+```bash
+python training/download_whisper_checkpoint.py
+```
+
+The downloader retrieves the checkpoint from a shared Google Drive folder and verifies SHA-256 checksums for all seven required model files.
+
+The checkpoint is saved to:
+
+`models/recovered_model_step1000/`
+
+The expected final message is:
+
+`ALL CHECKSUMS VERIFIED`
+
+**5. Run the five-sample development-set smoke test**
+
+```bash
+python training/evaluate_whisper_step1000.py \
+  --model models/recovered_model_step1000 \
+  --audio-root data/cleaned/samromur-21.05-20h-v1 \
+  --split dev \
+  --max-samples 5 \
+  --output-dir results/person3_whisper_repro_test
+```
+
+This evaluation runs on CPU and does not require retraining.
+
+### Verified Reproducibility Results
+
+The fresh-checkout evaluation reproduced the original five-sample results exactly.
+
+| Metric | Original | Fresh checkout |
+|---|---:|---:|
+| Samples | 5 | 5 |
+| Word Error Rate (WER) | 40.54% | 40.54% |
+| Character Error Rate (CER) | 12.36% | 12.36% |
+| Checkpoint | Step 1000 | Step 1000 |
+| Device | CPU | CPU |
+
+**Model weights SHA-256:**
+
+`d056c430a0b4c1d9006a9ddf68a0b8d92f1cf4828ccb4f5bd96f77d5f911f80b`
+
+**Dataset manifest SHA-256:**
+
+`f0e7675cd31497788250728bba966d1d884ad5f929b3488724b2fef2110f9bf4`
+
+The evaluation uses `prepare.normalize_text` for reference and prediction normalization.
+
+Decoding configuration:
+
+- Language: Icelandic (`is`)
+- Task: Transcription
+- Maximum new tokens: 225
+- Beam count: 1
+- Sampling: Disabled
+
+**Important:** These results are from a five-sample smoke test, not the complete development or test split.
+
+### Training Results and Checkpoint Limitations
+
+The original training logs recorded:
+
+| Checkpoint | Validation WER | Validation CER |
+|---|---:|---:|
+| Step 1000 | 34.51% | 9.70% |
+| Step 1600 | 30.62% | 8.41% |
+| Step 1968 | 30.70% | 8.40% |
+
+Checkpoint 1600 achieved the lowest recorded validation WER, while checkpoint 1968 achieved the lowest recorded validation CER.
+
+However, only checkpoint 1000 was recovered and exported. The later checkpoint weights are unavailable.
+
+The original training validation metrics and the five-sample reproducibility results are different evaluations and must not be compared as equivalent measurements.
+
+### Relevant Files
+
+- `NLP_Project3_Person3_Whisper_Clean.ipynb` — training notebook
+- `training/requirements-person3.txt` — pinned dependencies
+- `training/download_whisper_checkpoint.py` — checkpoint downloader and SHA-256 verification
+- `training/evaluate_whisper_step1000.py` — inference-only evaluation
+- `results/person3_whisper_smoke/` — original five-sample results
+
+No retraining is required to reproduce the five-sample evaluation.
