@@ -1,4 +1,4 @@
-# MFCC + GMM-HMM contribution
+# Azza Almousli — MFCC + GMM-HMM contribution
 
 I implemented the project's classical Icelandic ASR baseline. The recognizer extracts 39-dimensional MFCC, delta, and delta-delta vectors from the cleaned 16 kHz audio, fits diagonal Gaussian mixtures for Icelandic characters, and decodes with a character HMM and train-only smoothed bigram transitions. An explicit boundary state handles repeated letters.
 

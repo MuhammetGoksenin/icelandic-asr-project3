@@ -84,6 +84,8 @@ On macOS or Linux with Python 3.14, use `python3.14 -m venv .venv`, `.venv/bin/p
 
 The classical Icelandic character recognizer uses 13 MFCCs with delta and delta-delta features, diagonal Gaussian mixtures, a left-to-right character HMM, and a train-only character bigram language model. Its initialization uses uniform transcript-to-frame alignment; it does not use a curated phonetic lexicon. The completed CPU run trained on 10,488 utterances, selected its language-model weight on 1,314 dev utterances, then evaluated test once on 1,884 utterances. Test WER was **101.47%** and CER **87.74%**, so the current recipe is a weak reference point. See [`mfcc_gmm_hmm/README.md`](mfcc_gmm_hmm/README.md) for setup, model access, full metrics, and predictions in [`results/mfcc_gmm_hmm/`](results/mfcc_gmm_hmm/).
 
+**Contribution:** Azza Almousli · [work record](contributions/mfcc_gmm_hmm.md)
+
 ## Load and preprocess a clip
 
 The multilingual Whisper preprocessing checkpoint is **openai/whisper-tiny** at revision **169d4a4341b33bc18d8881c4b69c2e104e1cc0af**.
