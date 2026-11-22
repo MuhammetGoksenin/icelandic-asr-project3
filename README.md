@@ -408,7 +408,7 @@ scratch on Samrómur 21.05 and are released under CC BY 4.0.
 
 - Icelandic transcript verification and listening beyond the 60 focused clips remain pending. Clip `0049034` is the one uncertain audio-quality decision in the [completed focused review](#focused-audio-quality-review).
 - A standalone CTC encoder, attention encoder-decoder and hybrid CTC/attention still lack committed results on `main` or in the open PRs checked on 21 November 2026. GMM-HMM and RNN-T results are committed. The [baseline checklist](BASELINES.md) records the course requirements and open applicability decisions. The professor's minimum training duration remains unconfirmed.
-- Full standardized dev results for the recovered Whisper checkpoint are still pending. Its completed test run is recorded in [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3).
+- Saleh completed full standardized dev and test evaluations of the recovered Whisper checkpoint in [PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3), which is still open and has not been merged into `main`.
 
 Each teammate documents and commits their own contribution from their own GitHub account.
 
@@ -454,14 +454,15 @@ Steps 1600 and 1968 had the lowest historical dev WER and CER respectively. Only
 
 ### Recovered checkpoint evaluation
 
-Both runs below use the recovered step-1000 checkpoint, frozen v1 references and the shared `prepare.normalize_text` scoring policy.
+The runs below use the recovered step-1000 checkpoint, frozen v1 references and the shared `prepare.normalize_text` scoring policy.
 
 | Status | Evaluation | Clips | WER | CER | Evidence |
 |---|---|---:|---:|---:|---|
 | On `main` | Dev smoke test (CPU) | 5 | 40.54% | 12.36% | [Run record](results/person3_whisper_smoke/dev_run.json) · [Predictions](results/person3_whisper_smoke/dev_predictions.csv) |
+| In [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3) | Full dev (T4, beam 1) | 1,314 | 34.51% | 9.69% | [Run record](https://github.com/RanimAlyaseen/icelandic-asr-project3/blob/70f3410cca1b6cab120a7c2f41de5ebafc5c744c/results/person4_evaluation/person3_whisper/dev_run.json) |
 | In [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3) | Full held-out test (T4, beam 1) | 1,884 | 36.06% | 10.16% | [Run record](https://github.com/RanimAlyaseen/icelandic-asr-project3/blob/fd654551b27d9ae8d3ca82788ef045051b987358/results/person4_evaluation/person3_whisper/test_run.json) · [Evaluation artifacts](https://github.com/RanimAlyaseen/icelandic-asr-project3/tree/fd654551b27d9ae8d3ca82788ef045051b987358/results/person4_evaluation) |
 
-PR #3 includes per-utterance predictions, confidence intervals, and paired comparisons. A full standardized dev run is still pending on `main` and in the PR artifacts checked on 21 November 2026. [Open PR #4](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/4) proposes automatic checkpoint download and hash verification and reports reproducing the five-clip dev smoke test.
+PR #3 contains the completed full dev and test run records, per-utterance predictions, confidence intervals, and paired comparisons. It has not been merged into `main`. Tasneem's reproducibility work adds automatic checkpoint download and hash verification and reports reproducing the five-clip dev smoke test.
 
 ### Recovered model download and verification
 
