@@ -72,7 +72,7 @@ Use a separate [Python 3.13 modeling environment](#modeling-environment-and-test
 | [requirements-modeling.txt](requirements-modeling.txt) | Person 2's pinned environment for pretrained baselines, HuBERT, and their tests. Person 3's Whisper dependencies are in [training/requirements-person3.txt](training/requirements-person3.txt). |
 | [NLP_Project3_Person3_Whisper_Clean.ipynb](NLP_Project3_Person3_Whisper_Clean.ipynb) | Person 3's Whisper Small fine-tuning notebook and saved training outputs |
 | [training_metrics.json](training_metrics.json) | Historical Whisper training and validation summary transcribed from the notebook output. Its evaluation status describes that snapshot. |
-| [tests/](tests/) | Separate data-pipeline and pretrained/HuBERT/RNN-T/CTC-attention unit tests |
+| [tests/](tests/) | Separate data-pipeline, pretrained/HuBERT/RNN-T/CTC-attention, and classical-alignment unit tests |
 | [output/](output/) | Frozen manifests and references, vocabulary, audit, review queues, and verification records |
 | [data/](data/) | Raw subset and original documents under **raw/samromur_21.05/** and cleaned v1 FLACs under **cleaned/samromur-21.05-20h-v1/** |
 | [review/](review/) | Manual listening decisions kept outside the generated outputs |
@@ -81,6 +81,7 @@ Use a separate [Python 3.13 modeling environment](#modeling-environment-and-test
 | [training/](training/) | HuBERT training and diagnostics, RNN-T, CTC, attention and hybrid CTC/attention training from scratch, recovered Whisper evaluation, and Person 3's Whisper dependencies |
 | [mfcc_gmm_hmm/](mfcc_gmm_hmm/) | MFCC features, GMM-HMM training and inference, configuration, dependencies, and model card |
 | [models/mfcc_gmm_hmm/](models/mfcc_gmm_hmm/) | Reproducible trained GMM-HMM weights tracked with Git LFS |
+| [models/mfcc_gmm_hmm_aligned/](models/mfcc_gmm_hmm_aligned/) | Separately trained transcript-constrained alignment experiment weights, tracked with Git LFS |
 | [notebooks/](notebooks/) | Person 2's pretrained-baseline, HuBERT, RNN-T and CTC/attention/hybrid Kaggle/Colab notebooks |
 | [results/](results/) | Per-clip predictions, run records, and training logs |
 
@@ -89,6 +90,8 @@ Use a separate [Python 3.13 modeling environment](#modeling-environment-and-test
 The classical Icelandic character recognizer uses 13 MFCCs with delta and delta-delta features, diagonal Gaussian mixtures, a left-to-right character HMM, and a train-only character bigram language model. Its initialization uses uniform transcript-to-frame alignment; it does not use a curated phonetic lexicon. The completed CPU run trained on 10,488 utterances, selected its language-model weight on 1,314 dev utterances, then evaluated test once on 1,884 utterances. Test WER was **101.47%** and CER **87.74%**, so the current recipe is a weak reference point. See [`mfcc_gmm_hmm/README.md`](mfcc_gmm_hmm/README.md) for setup, model access, full metrics, and predictions in [`results/mfcc_gmm_hmm/`](results/mfcc_gmm_hmm/).
 
 A follow-up diagnostic checked memorization on 16 train utterances and tried one transcript-constrained realignment/re-estimation pass, without reading test data or replacing the initial model. The model did not memorize the train sample (WER 107.32%, CER 80.30%), and the realignment pass worsened the 8-utterance dev sample (WER 108.06% to 116.13%, CER 91.03% to 98.21%). See the [diagnostic script](mfcc_gmm_hmm/diagnose_realign.py) and [separate diagnostic outputs](results/mfcc_gmm_hmm/diagnostics/).
+
+A separate two-pass, transcript-constrained alignment experiment trained on the same 10,488 train clips and selected settings on the same 1,314 dev clips. At the original decoder weight grid (0.5, 1.0, 1.5), its best dev WER was **106.59%**, worse than the original baseline's **101.46%**. A wider *matched* dev decoder grid selected **99.94% WER / 93.28% CER** for the original model and **99.47% WER / 84.42% CER** for the aligned model. The WER difference is just 0.48 percentage points, both models remain very weak, and the exploratory paired dev interval is optimistic because settings were selected on dev. The aligned model has **not** been run on test; the frozen baseline test score above is unchanged. Full code, the candidate grid, model hashes, dev predictions, and caveats are in [`mfcc_gmm_hmm/README.md`](mfcc_gmm_hmm/README.md) and [`results/mfcc_gmm_hmm_aligned/`](results/mfcc_gmm_hmm_aligned/).
 
 
 
