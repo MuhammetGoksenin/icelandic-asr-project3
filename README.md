@@ -90,7 +90,7 @@ The classical Icelandic character recognizer uses 13 MFCCs with delta and delta-
 
 A follow-up diagnostic checked memorization on 16 train utterances and tried one transcript-constrained realignment/re-estimation pass, without reading test data or replacing the initial model. The model did not memorize the train sample (WER 107.32%, CER 80.30%), and the realignment pass worsened the 8-utterance dev sample (WER 108.06% to 116.13%, CER 91.03% to 98.21%). See the [diagnostic script](mfcc_gmm_hmm/diagnose_realign.py) and [separate diagnostic outputs](results/mfcc_gmm_hmm/diagnostics/).
 
-**Contribution:** Azaa Almousli · Student ID 2309115421 · [work record](contributions/Azaa_Almousli_2309115421_AzaaAlmousli.md)
+
 
 ## Load and preprocess a clip
 
