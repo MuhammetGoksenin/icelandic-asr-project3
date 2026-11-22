@@ -468,7 +468,7 @@ trained from scratch on Samrómur 21.05 and are released under CC BY 4.0.
 
 - Icelandic transcript verification and listening beyond the 60 focused clips remain pending. Clip `0049034` is the one uncertain audio-quality decision in the [completed focused review](#focused-audio-quality-review).
 - Every course baseline family that supports Icelandic now has committed results: GMM-HMM, CTC encoder, attention encoder-decoder, hybrid CTC/attention, RNN-T, wav2vec 2.0 + CTC, HuBERT + CTC and multilingual Whisper (checked 22 November 2026). The [baseline checklist](BASELINES.md) records the course requirements and open applicability decisions. The professor's minimum training duration remains unconfirmed.
-- Full standardized dev results for the recovered Whisper checkpoint are still pending. Its completed test run is recorded in [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3).
+- Saleh completed full standardized dev and test evaluations of the recovered Whisper checkpoint in [PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3), which is still open and has not been merged into `main`.
 
 Each teammate documents and commits their own contribution from their own GitHub account.
 
@@ -514,14 +514,15 @@ Steps 1600 and 1968 had the lowest historical dev WER and CER respectively. Only
 
 ### Recovered checkpoint evaluation
 
-Both runs below use the recovered step-1000 checkpoint, frozen v1 references and the shared `prepare.normalize_text` scoring policy.
+The runs below use the recovered step-1000 checkpoint, frozen v1 references and the shared `prepare.normalize_text` scoring policy.
 
 | Status | Evaluation | Clips | WER | CER | Evidence |
 |---|---|---:|---:|---:|---|
 | On `main` | Dev smoke test (CPU) | 5 | 40.54% | 12.36% | [Run record](results/person3_whisper_smoke/dev_run.json) · [Predictions](results/person3_whisper_smoke/dev_predictions.csv) |
+| In [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3) | Full dev (T4, beam 1) | 1,314 | 34.51% | 9.69% | [Run record](https://github.com/RanimAlyaseen/icelandic-asr-project3/blob/70f3410cca1b6cab120a7c2f41de5ebafc5c744c/results/person4_evaluation/person3_whisper/dev_run.json) |
 | In [open PR #3](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/3) | Full held-out test (T4, beam 1) | 1,884 | 36.06% | 10.16% | [Run record](https://github.com/RanimAlyaseen/icelandic-asr-project3/blob/fd654551b27d9ae8d3ca82788ef045051b987358/results/person4_evaluation/person3_whisper/test_run.json) · [Evaluation artifacts](https://github.com/RanimAlyaseen/icelandic-asr-project3/tree/fd654551b27d9ae8d3ca82788ef045051b987358/results/person4_evaluation) |
 
-PR #3 includes per-utterance predictions, confidence intervals, and paired comparisons. A full standardized dev run is still pending on `main` and in the PR artifacts checked on 21 November 2026. [Open PR #4](https://github.com/RanimAlyaseen/icelandic-asr-project3/pull/4) proposes automatic checkpoint download and hash verification and reports reproducing the five-clip dev smoke test.
+PR #3 contains the completed full dev and test run records, per-utterance predictions, confidence intervals, and paired comparisons. It has not been merged into `main`. Tasneem's reproducibility work adds automatic checkpoint download and hash verification and reports reproducing the five-clip dev smoke test.
 
 ### Recovered model download and verification
 
@@ -553,3 +554,138 @@ These checksums were calculated from the exported files stored
 in Google Drive.
 
 Use the downloaded checkpoint with the [recovered Whisper evaluation script](training/evaluate_whisper_step1000.py) and [Whisper dependencies](training/requirements-person3.txt). The run records above document the evaluated checkpoint and decoding settings.
+
+### Reproduce Person 3's Whisper Small Training
+
+Person 3's standalone training entry point is
+[`training/train_whisper.py`](training/train_whisper.py).
+It fine-tunes multilingual Whisper Small using the frozen
+Samrómur v1 training and validation manifests.
+
+**Reproducibility limitation:** The exact base-model revision
+and dataset checkout used for the original training were not
+recorded. The revisions below are fixed for future runs;
+they are not verified historical revisions.
+
+| Component | Fixed revision or selection |
+|---|---|
+| Base model | `openai/whisper-small` |
+| Base-model revision | `973afd24965f72e36ca33b3055d56a652f456b4d` |
+| Dataset selection | `samromur-21.05-20h-v1` |
+| Preparation commit | `55f5a6856e92cdf89608c492cc470aea0d019e1b` |
+| Audio-enabled commit | `96e5839b27d9871d6b2408b3c3719dc809a730b7` |
+
+The preparation commit predates the Git LFS audio pointers.
+The audio-enabled commit contains those pointers, while its
+three prepared manifests are byte-identical to the frozen
+preparation revision.
+
+**1. Prepare a separate dataset checkout**
+
+Run these commands in a terminal, outside the development
+repository. Git LFS must be installed.
+
+~~~bash
+git lfs install
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/RanimAlyaseen/icelandic-asr-project3.git icelandic-asr-dataset
+cd icelandic-asr-dataset
+GIT_LFS_SKIP_SMUDGE=1 git checkout --detach 96e5839b27d9871d6b2408b3c3719dc809a730b7
+git lfs pull --include="data/cleaned/samromur-21.05-20h-v1/**" --exclude=""
+cd ..
+~~~
+
+The Git LFS command retrieves the prepared cleaned audio,
+not the complete raw subset.
+
+**2. Install dependencies**
+
+Run this command from the development repository:
+
+~~~bash
+python -m pip install -r training/requirements-person3.txt
+~~~
+
+GPU training requires a compatible CUDA-enabled PyTorch
+installation and sufficient GPU memory.
+
+**3. Validate the dataset without training**
+
+~~~bash
+python training/train_whisper.py --repo-dir ../icelandic-asr-dataset --check-only
+~~~
+
+The preflight checks the frozen manifest SHA-256 hashes
+and verifies that manifest-referenced audio files exist
+and contain FLAC data rather than unresolved LFS pointers.
+
+| Manifest | Expected SHA-256 |
+|---|---|
+| `output/train.jsonl` | `d36a1adccdb10682b30a6fd8b2f7e20f8c86babb4b1d20a007af79179c4436ed` |
+| `output/dev.jsonl` | `f0e7675cd31497788250728bba966d1d884ad5f929b3488724b2fef2110f9bf4` |
+| `output/test.jsonl` | `f5e346f545a5d7f4298f1838bc63b978a4d7ab9d063ddc97897fa065223d0481` |
+
+**4. Run training when GPU resources are available**
+
+~~~bash
+python training/train_whisper.py --repo-dir ../icelandic-asr-dataset --output-dir ./whisper_training_output
+~~~
+
+The configuration uses three epochs, learning rate `1e-5`,
+FP16, gradient checkpointing, and validation WER for
+checkpoint selection.
+
+**Validation status:** The standalone script passed Python
+syntax and CLI checks. Its missing-audio failure path was
+also tested. A complete training run using this script
+has not been performed or independently verified.
+
+For evaluation without retraining, use the recovered
+step-1000 checkpoint procedure below.
+
+---
+
+### Reproduce Person 3's Five-Sample Evaluation
+
+The recovered Whisper Small checkpoint can be downloaded and
+evaluated without retraining or accessing a personal Google Drive.
+
+The original training did not record the exact base-model revision
+or dataset checkout commit.
+
+**1. Install dependencies**
+
+```bash
+python -m pip install -r training/requirements-person3.txt gdown
+```
+
+**2. Download and verify the checkpoint**
+
+```bash
+python training/download_whisper_checkpoint.py
+```
+
+The downloader verifies SHA-256 checksums for seven checkpoint files.
+The model is saved to `models/recovered_model_step1000/`.
+
+**3. Download development audio**
+
+```bash
+git lfs install
+git lfs pull --include="data/cleaned/samromur-21.05-20h-v1/dev/**" --exclude=""
+```
+
+**4. Run the five-sample evaluation**
+
+```bash
+python training/evaluate_whisper_step1000.py \
+  --model models/recovered_model_step1000 \
+  --audio-root data/cleaned/samromur-21.05-20h-v1 \
+  --split dev \
+  --max-samples 5 \
+  --output-dir results/person3_whisper_repro_test
+```
+
+The verified five-sample CPU results were **40.54% WER** and
+**12.36% CER**. These are smoke-test results, not full-split metrics.
+
+No retraining is required.
