@@ -494,6 +494,95 @@ in Google Drive.
 
 Use the downloaded checkpoint with the [recovered Whisper evaluation script](training/evaluate_whisper_step1000.py) and [Whisper dependencies](training/requirements-person3.txt). The run records above document the evaluated checkpoint and decoding settings.
 
+### Reproduce Person 3's Whisper Small Training
+
+Person 3's standalone training entry point is
+[`training/train_whisper.py`](training/train_whisper.py).
+It fine-tunes multilingual Whisper Small using the frozen
+Samrómur v1 training and validation manifests.
+
+**Reproducibility limitation:** The exact base-model revision
+and dataset checkout used for the original training were not
+recorded. The revisions below are fixed for future runs;
+they are not verified historical revisions.
+
+| Component | Fixed revision or selection |
+|---|---|
+| Base model | `openai/whisper-small` |
+| Base-model revision | `973afd24965f72e36ca33b3055d56a652f456b4d` |
+| Dataset selection | `samromur-21.05-20h-v1` |
+| Preparation commit | `55f5a6856e92cdf89608c492cc470aea0d019e1b` |
+| Audio-enabled commit | `96e5839b27d9871d6b2408b3c3719dc809a730b7` |
+
+The preparation commit predates the Git LFS audio pointers.
+The audio-enabled commit contains those pointers, while its
+three prepared manifests are byte-identical to the frozen
+preparation revision.
+
+**1. Prepare a separate dataset checkout**
+
+Run these commands in a terminal, outside the development
+repository. Git LFS must be installed.
+
+~~~bash
+git lfs install
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/RanimAlyaseen/icelandic-asr-project3.git icelandic-asr-dataset
+cd icelandic-asr-dataset
+GIT_LFS_SKIP_SMUDGE=1 git checkout --detach 96e5839b27d9871d6b2408b3c3719dc809a730b7
+git lfs pull --include="data/cleaned/samromur-21.05-20h-v1/**" --exclude=""
+cd ..
+~~~
+
+The Git LFS command retrieves the prepared cleaned audio,
+not the complete raw subset.
+
+**2. Install dependencies**
+
+Run this command from the development repository:
+
+~~~bash
+python -m pip install -r training/requirements-person3.txt
+~~~
+
+GPU training requires a compatible CUDA-enabled PyTorch
+installation and sufficient GPU memory.
+
+**3. Validate the dataset without training**
+
+~~~bash
+python training/train_whisper.py --repo-dir ../icelandic-asr-dataset --check-only
+~~~
+
+The preflight checks the frozen manifest SHA-256 hashes
+and verifies that manifest-referenced audio files exist
+and contain FLAC data rather than unresolved LFS pointers.
+
+| Manifest | Expected SHA-256 |
+|---|---|
+| `output/train.jsonl` | `d36a1adccdb10682b30a6fd8b2f7e20f8c86babb4b1d20a007af79179c4436ed` |
+| `output/dev.jsonl` | `f0e7675cd31497788250728bba966d1d884ad5f929b3488724b2fef2110f9bf4` |
+| `output/test.jsonl` | `f5e346f545a5d7f4298f1838bc63b978a4d7ab9d063ddc97897fa065223d0481` |
+
+**4. Run training when GPU resources are available**
+
+~~~bash
+python training/train_whisper.py --repo-dir ../icelandic-asr-dataset --output-dir ./whisper_training_output
+~~~
+
+The configuration uses three epochs, learning rate `1e-5`,
+FP16, gradient checkpointing, and validation WER for
+checkpoint selection.
+
+**Validation status:** The standalone script passed Python
+syntax and CLI checks. Its missing-audio failure path was
+also tested. A complete training run using this script
+has not been performed or independently verified.
+
+For evaluation without retraining, use the recovered
+step-1000 checkpoint procedure below.
+
+---
+
 ### Reproduce Person 3's Five-Sample Evaluation
 
 The recovered Whisper Small checkpoint can be downloaded and
